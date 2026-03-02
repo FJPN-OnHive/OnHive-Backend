@@ -5,7 +5,6 @@
   <Folder Name="/Libraries/">
     <Project Path="Libraries/OnHive.Authorization.Library/EHive.Authorization.Library.csproj" />
     <Project Path="Libraries/OnHive.Configuration.Library/EHive.Configuration.Library.csproj" />
-    <Project Path="Libraries/OnHive.Core.Library/EHive.Core.Library.csproj" />
     <Project Path="Libraries/OnHive.DataBase.Library/EHive.Database.Library.csproj" />
     <Project Path="Libraries/OnHive.Enrich.Library/EHive.Enrich.Library.csproj" />
     <Project Path="Libraries/OnHive.HealthCheck.Library/EHive.HealthCheck.Library.csproj" />
@@ -147,7 +146,6 @@
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="docs/DevGuideLines.md" />
-    <File Path="docs/docs.md" />
     <File Path="docs/GeneralContracts.md" />
     <File Path="LICENSE" />
     <File Path="README.md" />

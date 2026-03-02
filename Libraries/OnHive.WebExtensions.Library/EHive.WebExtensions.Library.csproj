@@ -19,6 +19,6 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\OnHive.Core.Library\EHive.Core.Library.csproj" />
+	  <ProjectReference Include="..\..\Services\OnHive.Domain\OnHive.Domains.csproj" />
 	</ItemGroup>
 </Project>

@@ -68,8 +68,6 @@ namespace EHive.Admin.Services
 
         public ICertificatesService CertificatesService { get; private set; }
 
-        public IJobsService JobsService { get; private set; }
-
         public IMauticIntegrationService MauticIntegrationService { get; set; }
 
         public IStudentReportsService StudentReportsService { get; set; }
@@ -103,7 +101,6 @@ namespace EHive.Admin.Services
                             IWebhookService webhookService,
                             IUserProfileService userProfileService,
                             ICertificatesService certificatesService,
-                            IJobsService jobsService,
                             IMauticIntegrationService mauticIntegrationService,
                             IStudentReportsService studentReportsService,
                             NavigationManager navigationManager)
@@ -135,7 +132,6 @@ namespace EHive.Admin.Services
             WebhookService = webhookService;
             UserProfileService = userProfileService;
             CertificatesService = certificatesService;
-            JobsService = jobsService;
             MauticIntegrationService = mauticIntegrationService;
             StudentReportsService = studentReportsService;
         }

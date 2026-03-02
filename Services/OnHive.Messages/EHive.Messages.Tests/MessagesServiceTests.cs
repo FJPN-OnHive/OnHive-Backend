@@ -13,6 +13,7 @@ using EHive.Messages.Services;
 using EHive.Users.Domain.Abstractions.Services;
 using FluentAssertions;
 using Moq;
+using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 
 namespace EHive.Messages.Tests
@@ -26,10 +27,9 @@ namespace EHive.Messages.Tests
         private readonly Mock<IEmailsService> mockEmailsService;
         private readonly Mock<IUsersService> mockUsersService;
         private readonly Mock<IUserGroupsService> mockUserGroupsService;
+        private readonly Mock<IServicesHub> mockServicesHub;
         private readonly MessagesApiSettings messagesApiSettings;
         private readonly IMapper mapper;
-        private readonly MockHttpMessageHandler mockHttpMessageHandler;
-        private readonly HttpClient httpClient;
 
         public MessagesServiceTests()
         {
@@ -41,10 +41,12 @@ namespace EHive.Messages.Tests
             mockEmailsService = mockRepository.Create<IEmailsService>();
             mockUsersService = mockRepository.Create<IUsersService>();
             mockUserGroupsService = mockRepository.Create<IUserGroupsService>();
+            mockServicesHub = mockRepository.Create<IServicesHub>();
+            mockServicesHub.SetupGet(s => s.UsersService).Returns(mockUsersService.Object);
+            mockServicesHub.SetupGet(s => s.UserGroupsService).Returns(mockUserGroupsService.Object);
+            mockServicesHub.SetupGet(s => s.EmailsService).Returns(mockEmailsService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             messagesApiSettings = new MessagesApiSettings();
-            mockHttpMessageHandler = new MockHttpMessageHandler();
-            httpClient = new HttpClient(mockHttpMessageHandler);
             messagesApiSettings.MessagesAdminPermission = "messages_admin";
         }
 
@@ -347,9 +349,7 @@ namespace EHive.Messages.Tests
                 mockMessageUsersRepository.Object,
                 messagesApiSettings,
                 mapper,
-                mockEmailsService.Object,
-                mockUsersService.Object,
-                mockUserGroupsService.Object);
+                mockServicesHub.Object);
         }
 
         private LoggedUserDto GetTestUser()

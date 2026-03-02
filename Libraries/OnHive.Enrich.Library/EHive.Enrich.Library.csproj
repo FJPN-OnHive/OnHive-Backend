@@ -22,7 +22,6 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\OnHive.Core.Library\EHive.Core.Library.csproj" />
     <ProjectReference Include="..\OnHive.DataBase.Library\EHive.Database.Library.csproj" />
   </ItemGroup>
 

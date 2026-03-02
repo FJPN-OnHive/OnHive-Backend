@@ -23,6 +23,7 @@ using EHive.Users.Domain.Abstractions.Services;
 using EHive.Videos.Domain.Abstractions.Services;
 using FluentAssertions;
 using Moq;
+using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 using System.Text.Json;
 
@@ -42,6 +43,7 @@ namespace EHive.Students.Tests
         private readonly Mock<IExamsService> mockExamsService;
         private readonly Mock<IVideosService> mockVideosService;
         private readonly Mock<IStorageFilesService> mockStorageFilesService;
+        private readonly Mock<IServicesHub> mockServicesHub;
         private readonly StudentsApiSettings studentsApiSettings;
         private readonly IMapper mapper;
 
@@ -52,6 +54,7 @@ namespace EHive.Students.Tests
             mockStudentsRepository = mockRepository.Create<IStudentsRepository>();
             mockStudentReportsRepository = mockRepository.Create<IStudentReportsRepository>();
             mockEventRegister = mockRepository.Create<IEventRegister>();
+
             mockStudentActivitiesService = mockRepository.Create<IStudentActivitiesService>();
             mockCertificatesService = mockRepository.Create<ICertificatesService>();
             mockCoursesService = mockRepository.Create<ICoursesService>();
@@ -60,6 +63,15 @@ namespace EHive.Students.Tests
             mockExamsService = mockRepository.Create<IExamsService>();
             mockVideosService = mockRepository.Create<IVideosService>();
             mockStorageFilesService = mockRepository.Create<IStorageFilesService>();
+            mockServicesHub = mockRepository.Create<IServicesHub>();
+            mockServicesHub.SetupGet(s => s.StudentActivitiesService).Returns(mockStudentActivitiesService.Object);
+            mockServicesHub.SetupGet(s => s.CertificatesService).Returns(mockCertificatesService.Object);
+            mockServicesHub.SetupGet(s => s.CoursesService).Returns(mockCoursesService.Object);
+            mockServicesHub.SetupGet(s => s.UsersService).Returns(mockUsersService.Object);
+            mockServicesHub.SetupGet(s => s.ProductsService).Returns(mockProductsService.Object);
+            mockServicesHub.SetupGet(s => s.ExamsService).Returns(mockExamsService.Object);
+            mockServicesHub.SetupGet(s => s.VideosService).Returns(mockVideosService.Object);
+            mockServicesHub.SetupGet(s => s.StorageFilesService).Returns(mockStorageFilesService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             studentsApiSettings = new StudentsApiSettings();
             studentsApiSettings.StudentsAdminPermission = "students_admin";
@@ -754,14 +766,7 @@ namespace EHive.Students.Tests
                 studentsApiSettings,
                 mapper,
                 mockEventRegister.Object,
-                mockStudentActivitiesService.Object,
-                mockUsersService.Object,
-                mockProductsService.Object,
-                mockCoursesService.Object,
-                mockCertificatesService.Object,
-                mockExamsService.Object,
-                mockVideosService.Object,
-                mockStorageFilesService.Object);
+                mockServicesHub.Object);
         }
 
         private LoggedUserDto GetTestUser()

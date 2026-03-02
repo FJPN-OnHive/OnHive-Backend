@@ -1,5 +1,9 @@
 ## Documentação
 
-#### [Acordos técnicos](./DevGuideLines.md)
+#### [Acordos técnicos](./docs/DevGuideLines.md)
 
-#### [Contratos](./GeneralContracts.md)
+#### [Contratos](./docs/GeneralContracts.md)
+
+#### Arquitetura Macro:
+
+![Arquitetura Macro](./docs/OnHiveMacroArchitecture.jpg)

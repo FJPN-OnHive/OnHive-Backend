@@ -68,8 +68,6 @@ namespace EHive.Admin.Services
 
         ICertificatesService CertificatesService { get; }
 
-        IJobsService JobsService { get; }
-
         IMauticIntegrationService MauticIntegrationService { get; }
 
         IStudentReportsService StudentReportsService { get; }

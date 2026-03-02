@@ -46,7 +46,6 @@ builder.Services.AddSingleton<IWebhookService, WebhookService>();
 builder.Services.AddSingleton<IUserProfileService, UserProfileService>();
 builder.Services.AddSingleton<IVideoService, VideoService>();
 builder.Services.AddSingleton<ICertificatesService, CertificatesService>();
-builder.Services.AddSingleton<IJobsService, JobsService>();
 builder.Services.AddSingleton<IMauticIntegrationService, MauticIntegrationService>();
 builder.Services.AddSingleton<IStudentReportsService, StudentReportsService>();
 
