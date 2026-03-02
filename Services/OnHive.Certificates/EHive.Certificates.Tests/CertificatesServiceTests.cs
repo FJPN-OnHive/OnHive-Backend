@@ -12,6 +12,7 @@ using EHive.Courses.Domain.Abstractions.Services;
 using EHive.Tenants.Domain.Abstractions.Services;
 using FluentAssertions;
 using Moq;
+using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 using System.Text.Json;
 
@@ -24,6 +25,8 @@ namespace EHive.Certificates.Tests
         private readonly Mock<ICertificateMountsRepository> mockCertificateMountsRepository;
         private readonly Mock<ITenantsService> mockTenantsService;
         private readonly Mock<ICoursesService> mockCoursesService;
+        private readonly Mock<IServicesHub> mockServicesHub;
+
         private readonly CertificatesApiSettings certificatesApiSettings;
         private readonly IMapper mapper;
 
@@ -35,6 +38,9 @@ namespace EHive.Certificates.Tests
             mockCertificateMountsRepository = mockRepository.Create<ICertificateMountsRepository>();
             mockCoursesService = mockRepository.Create<ICoursesService>();
             mockTenantsService = mockRepository.Create<ITenantsService>();
+            mockServicesHub = mockRepository.Create<IServicesHub>();
+            mockServicesHub.SetupGet(s => s.CoursesService).Returns(mockCoursesService.Object);
+            mockServicesHub.SetupGet(s => s.TenantsService).Returns(mockTenantsService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             certificatesApiSettings = new CertificatesApiSettings();
             certificatesApiSettings.CertificatesAdminPermission = "certificates_admin";
@@ -378,8 +384,7 @@ namespace EHive.Certificates.Tests
                 mockCertificateMountsRepository.Object,
                 certificatesApiSettings,
                 mapper,
-                mockTenantsService.Object,
-                mockCoursesService.Object);
+                mockServicesHub.Object);
         }
 
         private UserDto GetTestUser()

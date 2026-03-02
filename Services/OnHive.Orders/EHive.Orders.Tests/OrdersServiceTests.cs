@@ -23,6 +23,7 @@ using EHive.Payments.Domain.Abstractions.Services;
 using EHive.Students.Domain.Abstractions.Services;
 using FluentAssertions;
 using Moq;
+using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 using System.Net;
 using System.Text.Json;
@@ -40,6 +41,7 @@ namespace EHive.Orders.Tests
         private readonly Mock<IEmailsService> mockEmailsService;
         private readonly Mock<IPaymentsService> mockPaymentsService;
         private readonly Mock<IProductsService> mockProductsService;
+        private readonly Mock<IServicesHub> mockServicesHub;
         private readonly OrdersApiSettings ordersApiSettings;
         private readonly IMapper mapper;
         private readonly MockHttpMessageHandler mockHttpHandler;
@@ -57,6 +59,12 @@ namespace EHive.Orders.Tests
             mockEmailsService = mockRepository.Create<IEmailsService>();
             mockPaymentsService = mockRepository.Create<IPaymentsService>();
             mockProductsService = mockRepository.Create<IProductsService>();
+            mockServicesHub = mockRepository.Create<IServicesHub>();
+            mockServicesHub.SetupGet(s => s.StudentsService).Returns(mockStudentsService.Object);
+            mockServicesHub.SetupGet(s => s.InvoicesService).Returns(mockInvoicesService.Object);
+            mockServicesHub.SetupGet(s => s.EmailsService).Returns(mockEmailsService.Object);
+            mockServicesHub.SetupGet(s => s.PaymentsService).Returns(mockPaymentsService.Object);
+            mockServicesHub.SetupGet(s => s.ProductsService).Returns(mockProductsService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             mockHttpHandler = new MockHttpMessageHandler();
             httpClient = new HttpClient(mockHttpHandler);
@@ -793,11 +801,7 @@ namespace EHive.Orders.Tests
                 mockCartsRepository.Object,
                 mapper,
                 mockEventRegister.Object,
-                mockStudentsService.Object,
-                mockInvoicesService.Object,
-                mockEmailsService.Object,
-                mockPaymentsService.Object,
-                mockProductsService.Object);
+                mockServicesHub.Object);
         }
 
         private LoggedUserDto GetTestUser()

@@ -12,6 +12,7 @@ using EHive.Core.Library.Entities.Catalog;
 using EHive.Core.Library.Enums.Catalog;
 using FluentAssertions;
 using Moq;
+using OnHive.Domains.Common.Abstractions.Services;
 
 namespace EHive.Catalog.Tests
 {
@@ -21,6 +22,7 @@ namespace EHive.Catalog.Tests
         private readonly Mock<ICouponsRepository> mockCouponsRepository;
         private readonly Mock<IUserCouponsRepository> mockUserCouponsRepository;
         private readonly Mock<IProductsService> mockProductsService;
+        private readonly Mock<IServicesHub> mockServicesHub;
         private readonly IMapper mapper;
 
         public CouponsServiceTests()
@@ -30,6 +32,8 @@ namespace EHive.Catalog.Tests
             mockCouponsRepository = mockRepository.Create<ICouponsRepository>();
             mockUserCouponsRepository = mockRepository.Create<IUserCouponsRepository>();
             mockProductsService = mockRepository.Create<IProductsService>();
+            mockServicesHub = mockRepository.Create<IServicesHub>();
+            mockServicesHub.SetupGet(s => s.ProductsService).Returns(mockProductsService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
         }
 
@@ -485,7 +489,7 @@ namespace EHive.Catalog.Tests
             return new CouponsService(
                 mockCouponsRepository.Object,
                 mockUserCouponsRepository.Object,
-                mockProductsService.Object,
+                mockServicesHub.Object,
                 mapper);
         }
 

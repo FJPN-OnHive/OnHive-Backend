@@ -19,6 +19,7 @@ using EHive.Payments.Services;
 using EHive.Users.Domain.Abstractions.Services;
 using FluentAssertions;
 using Moq;
+using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 using System.Net;
 using System.Text.Json;
@@ -34,6 +35,7 @@ namespace EHive.Payments.Tests
         private readonly Mock<IBankSlipSettingsRepository> mockBankSlipSettingsRepository;
         private readonly Mock<IOrdersService> mockOrdersService;
         private readonly Mock<IUsersService> mockUsersService;
+        private readonly Mock<IServicesHub> mockServicesHub;
 
         private readonly PaymentsApiSettings paymentApiSettings;
         private readonly IMapper mapper;
@@ -50,6 +52,9 @@ namespace EHive.Payments.Tests
             mockBankSlipSettingsRepository = mockRepository.Create<IBankSlipSettingsRepository>();
             mockOrdersService = mockRepository.Create<IOrdersService>();
             mockUsersService = mockRepository.Create<IUsersService>();
+            mockServicesHub = mockRepository.Create<IServicesHub>();
+            mockServicesHub.SetupGet(s => s.UsersService).Returns(mockUsersService.Object);
+            mockServicesHub.SetupGet(s => s.OrdersService).Returns(mockOrdersService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             mockHttpHandler = new MockHttpMessageHandler();
             httpClient = new HttpClient(mockHttpHandler);
@@ -547,8 +552,7 @@ namespace EHive.Payments.Tests
                 mapper,
                 httpClient,
                 mockEventRegister.Object,
-                mockOrdersService.Object,
-                mockUsersService.Object);
+                mockServicesHub.Object);
         }
 
         private UserDto GetTestUser()

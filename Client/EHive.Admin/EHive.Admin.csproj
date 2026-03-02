@@ -29,6 +29,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Libraries\OnHive.Core.Library\EHive.Core.Library.csproj" />
+	  <ProjectReference Include="..\..\Services\OnHive.Domain\OnHive.Domains.csproj" />
 	</ItemGroup>
 </Project>
