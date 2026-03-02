@@ -1,0 +1,23 @@
+[
+  {
+    "Id": "LMS_DOMAIN",
+    "Group": "SYSTEM_DOMAINS",
+    "Name": "lms system domain",
+    "Type": "string",
+    "Value": "http://lms.e-hive.com"
+  },
+  {
+    "Id": "ADMIN_DOMAIN",
+    "Group": "SYSTEM_DOMAINS",
+    "Name": "admin system domain",
+    "Type": "string",
+    "Value": "http://adm.e-hive.com"
+  },
+  {
+    "Id": "SYSTEM_VERSION",
+    "Group": "SYSTEM",
+    "Name": "system current version",
+    "Type": "string",
+    "Value": "1.0"
+  }
+]

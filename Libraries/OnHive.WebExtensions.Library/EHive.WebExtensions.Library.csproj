@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <Title>e-Hive WebExtensions Library</Title>
+	  <Authors>e-Hive Dev Team</Authors>
+	  <Company>e-Hive</Company>
+	  <Product>e-Hive</Product>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Copyright>e-Hive</Copyright>
+	  <Description>e-Hive Core Library</Description>
+	  <RepositoryUrl>https://github.com/e-hive/EHive_WebExtensions_Library</RepositoryUrl>
+	  <PackageProjectUrl>https://github.com/e-hive/EHive_WebExtensions_Library</PackageProjectUrl>
+	  <Version>1.99.999.0</Version>
+  </PropertyGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\OnHive.Core.Library\EHive.Core.Library.csproj" />
+	</ItemGroup>
+</Project>

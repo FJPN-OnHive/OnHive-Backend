@@ -1,0 +1,52 @@
+### e-hive - storages
+
+storages Back-End
+
+#### Rules:
+The file will be converted top webp in 3 resolutions (hires, midres, lowres) hires will be the original resolution.
+
+.svg files will not be converted
+
+.gif files will not be converted
+
+
+
+#### Upload Image Form Data:
+
+	* "imageId" = Image Id (If not provided will use the file name)
+	* "name" = (Optional) Image Name (If not provided the image name will be the file name)
+	* "altText" = (Optional) Image altText (If not provided the image description will be empty)
+	* "subtitle" = (Optional) Image subtitle (If not provided the image description will be empty)
+	* "tags" = (Optional) Image tags (If not provided the image tags will be empty)
+	* "categories" : (Optional) Image categories (If not provided the image categories will be empty)
+	* "public" = (Optional) Image visibility (If not provided the image visibility will be public)
+
+#### Resolutions:
+
+Add resolution in query for: /v1/Storage/Image/{{tenantId}}/{{ImageId}}?res=hires
+
+	* Supported Image Types:
+		* Bmp
+		* Gif
+		* Jpeg
+		* Jpg
+		* Pbm
+		* Png
+		* Tiff
+		* Tga
+		* WebP
+		* Svg
+
+	* Supported resolutions:
+		* hires = ?res=hires (default if no query)
+		* midres = ?res=midres
+		* lowres = ?res=lowres
+
+#### Upload File Form Data:
+
+	* "fileId" = File Id (If not provided will use the file name)
+	* "name" = (Optional) File Name (If not provided the image name will be the file name)
+	* "description" = (Optional) File description (If not provided the image description will be empty)
+	* "tags" = (Optional) File tags (If not provided the image tags will be empty)
+	* "categories" : (Optional) File categories (If not provided the image categories will be empty)
+	* "public" = (Optional) File visibility (If not provided the image visibility will be public)

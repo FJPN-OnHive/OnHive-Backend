@@ -1,0 +1,145 @@
+﻿@using EHive.Core.Library.Contracts.Messages
+@using EHive.Core.Library.Contracts.Users
+@page "/messageChannels"
+@inherits MessageChannelsBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudCardContent>
+                    <MudTable Items="@Channels" T="MessageChannelDto" Hover="true" Outlined="true" Dense="true" RowClassFunc="RowClassSelector"
+                              SelectedItemChanged="SelectGroup" Filter="canal => canal.Name.Contains(SearchChannel, StringComparison.InvariantCultureIgnoreCase)
+                                                                            || canal.Description.Contains(SearchChannel, StringComparison.InvariantCultureIgnoreCase)
+                                                                            || string.IsNullOrEmpty(SearchChannel)">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Canais</MudText>
+                            <MudSpacer />
+                            <MudTextField @bind-Value="@SearchChannel" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh>Código</MudTh>
+                            <MudTh>Nome</MudTh>
+                            <MudTh>Descrição</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Código">@context.Code</MudTd>
+                            <MudTd DataLabel="Name">@context.Name</MudTd>
+                            <MudTd DataLabel="Description">@context.Description</MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                                                                           SelectedChannel = new MessageChannelDto{
+                                                                                                    Name = "Novo canal",
+                                                                                                    Description = "Descrição do novo canal",
+                                                                                                    SendEmail = false,
+                                                                                                    MessagesExpirationDays = 0,
+                                                                                                    EmailTemplateCode = "",
+                                                                                                    UsersIds = [],
+                                                                                                    UsersGroupIds = []
+                                                                                                 };
+                                                                                       })" />
+                </MudCardActions>
+            </MudCard>
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudCardContent>
+                    <MudItem xs="12">
+                        <MudTextField ReadOnly="true" Label="Id" @bind-Value="@SelectedChannel.Id" />
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudTextField Label="Código" @bind-Value="@SelectedChannel.Code" />
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudTextField Label="Nome" @bind-Value="@SelectedChannel.Name" />
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudTextField Label="Descriçao" @bind-Value="@SelectedChannel.Description" />
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudNumericField Label="Dias para expiração (0 não expira)" @bind-Value="@SelectedChannel.MessagesExpirationDays" />
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudSwitch Label="Envia Email" @bind-Value="@SelectedChannel.SendEmail" />
+                    </MudItem>
+                    @if (SelectedChannel.SendEmail)
+                    {
+                        <MudItem xs="12">
+                            <MudTextField Label="Template de Email" @bind-Value="@SelectedChannel.EmailTemplateCode" />
+                        </MudItem>
+                    }
+                    <MudCard>
+                        <MudCardContent>
+
+                            <MudTable Items="@AllGroups" T="UserGroupDto" Hover="true" Outlined="true" Dense="true" @bind-SelectedItems="SelectedGroups" MultiSelection="true" Height="300px"
+                                      Filter="group => group.Name.Contains(SearchUser, StringComparison.InvariantCultureIgnoreCase)
+                                                || group.Description.Contains(SearchUser, StringComparison.InvariantCultureIgnoreCase)
+                                                || string.IsNullOrEmpty(SearchUser) ">
+                                <ToolBarContent>
+                                    <MudText Typo="Typo.h6">Grupos</MudText>
+                                    <MudSpacer />
+                                    <MudTextField @bind-Value="@SearchGroup" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                                </ToolBarContent>
+                                <RowTemplate>
+                                    <MudTd DataLabel="Nome">@context.Name</MudTd>
+                                    <MudTd DataLabel="Descrição">@context.Description</MudTd>
+                                </RowTemplate>
+                            </MudTable>
+                        </MudCardContent>
+                    </MudCard>
+                    <MudCard>
+                        <MudCardContent>
+                            <MudTable Items="@AllUsers" T="UserDto" Hover="true" Outlined="true" Dense="true" @bind-SelectedItems="SelectedUsers" MultiSelection="true" Height="300px"
+                                      Filter="user => user.Name.Contains(SearchUser, StringComparison.InvariantCultureIgnoreCase)
+                                                || user.MainEmail.Contains(SearchUser, StringComparison.InvariantCultureIgnoreCase)
+                                                || user.Login.Contains(SearchUser, StringComparison.InvariantCultureIgnoreCase)
+                                                || string.IsNullOrEmpty(SearchUser) ">
+                                <ToolBarContent>
+                                    <MudText Typo="Typo.h6">Usuários</MudText>
+                                    <MudSpacer />
+                                    <MudTextField @bind-Value="@SearchUser" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                                </ToolBarContent>
+                                <RowTemplate>
+                                    <MudTd DataLabel="Email">@context.MainEmail</MudTd>
+                                </RowTemplate>
+                            </MudTable>
+                        </MudCardContent>
+                    </MudCard>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="@SaveChannel" Class="m-2">Salvar</MudButton>
+                    @if (SelectedChannel != null && !string.IsNullOrEmpty(SelectedChannel.Id))
+                    {
+                        <MudButton Color="Color.Error" Variant="MudBlazor.Variant.Filled" OnClick="@(() => ShowDeleteMessage = true )" Class="m-2">Deletar</MudButton>
+                        <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="@TestMessage" Class="m-2">Mensagem de teste</MudButton>
+                    }
+                    <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@Clear" Class="m-2">Limpar</MudButton>
+                    <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                        <div class="d-flex flex-column">
+                            <MudText>@Message</MudText>
+                            <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                        </div>
+                    </MudPopover>
+                    <MudPopover Open="@ShowDeleteMessage" Fixed="true" Class="px-4 pt-4">
+                        <div class="d-flex flex-column">
+                            <MudText>Deseja realmente deletar este canal, esta ação não pode ser desfeita.</MudText>
+                            <MudButton OnClick="@(() => {@ShowDeleteMessage = false; DeleteChannel();})" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Confirmar</MudButton>
+                            <MudButton OnClick="@(() => @ShowDeleteMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Cancelar</MudButton>
+                        </div>
+                    </MudPopover>
+                </MudCardActions>
+            </MudCard>
+        </MudCardContent>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}
+
+

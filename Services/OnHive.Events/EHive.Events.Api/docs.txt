@@ -1,0 +1,42 @@
+# e-hive - events
+
+
+### Mautic Integration:
+
+
+* Query or Header Parameters:
+
+X-API-KEY: YOUR_API_KEY
+
+
+* Body (post):
+
+{
+    "name": "name",
+    "email": "email@email.com",
+    "phone": "(99)999999999",
+    "tag": "test",
+    "conversion": "CONVERSAO",
+    "formId": "FORM_ID",
+    "formName": "FORM_NAME",
+    "acceptance": true
+}
+
+
+* Formdata (post):
+
+name => name
+email => "email@email.com
+phone => "(99)999999999
+tag => test
+conversion => CONVERSAO
+formId => FORM_ID
+formName => FORM_NAME
+acceptance => true
+
+
+* Query (get):
+
+?name=name&email=email@email.com&phone=(99)999999999&tag=test&conversion=CONVERSAO&formId=FORM_ID&formName=FORM_NAME&acceptance=true
+
+

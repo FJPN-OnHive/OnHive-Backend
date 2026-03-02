@@ -1,0 +1,130 @@
+﻿@using EHive.Core.Library.Contracts.Certificates
+@using EHive.Core.Library.Contracts.Posts
+@using EHive.Core.Library.Enums.Common
+@using EHive.Core.Library.Enums.Posts
+@page "/certificates"
+@inherits CertificatesBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudTable Items="@Certificates" T="CertificateDto" Hover="true" Outlined="true" Dense="true" RowClassFunc="RowClassSelectorCertificate"
+                          SelectedItemChanged="SelectCertificateAsync" Filter="certificate => certificate.Name.Contains(CertificateSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || certificate.Title.Contains(CertificateSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || certificate.Description.Contains(CertificateSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || certificate.Code.Contains(CertificateSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || string.IsNullOrEmpty(CertificateSearch)">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">Certificates</MudText>
+                        <MudSpacer />
+                        <MudTextField @bind-Value="@CertificateSearch" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>Name</MudTh>
+                        <MudTh>Descrição</MudTh>
+                        <MudTh>Title</MudTh>
+                        <MudTh>Categoria</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="Description">@context.Description</MudTd>
+                        <MudTd DataLabel="Description">@context.Title</MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager />
+                    </PagerContent>
+                </MudTable>
+
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                                                                       SelectedCertificate = new CertificateDto{
+                                                                                                 Name = "novo Certificado - curso",
+                                                                                                 Title = "Novo certificado - titulo",
+                                                                                                 Description = "Descrição do certificado",
+                                                                                                 Code = "NOVO_CODIGO"
+                                                                                             };
+                                                                                       })" />
+                </MudCardActions>
+            </MudCard>
+
+            @if (SelectedCertificate != null)
+            {
+
+                <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="true" Label="Id" @bind-Value="@SelectedCertificate.Id" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Código" @bind-Value="@SelectedCertificate.Code" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Nome" @bind-Value="@SelectedCertificate.Name" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Título" @bind-Value="@SelectedCertificate.Title" />
+                        </MudItem>                        
+                        <MudItem xs="12">
+                            <MudTextField Lines="4" Label="Descrição" @bind-Value="@SelectedCertificate.Description" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Miniatura" @bind-Value="@SelectedCertificate.ThumbnailUrl" />
+                        </MudItem>                        
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Corpo</MudText>
+                            </MudCardHeader>                            
+                            <MudCardContent>
+                                <MudItem xs="12">
+                                    <RadzenHtmlEditor @ref="Editor" @bind-Value="@SelectedCertificate.TemplateBody" class="html-editor" />
+                                </MudItem>
+                            </MudCardContent>                            
+                        </MudCard>
+                        
+                        <MudCard>
+                            <MudCardHeader>                                
+                                <MudText Typo="Typo.h6">Campos Disponíveis</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@Fields" T="CertificateParameterDto" Hover="true" Outlined="true" Dense="true">
+                                    <HeaderContent>
+                                        <MudTh>Campo</MudTh>
+                                        <MudTh>Chave</MudTh>
+                                        <MudTh>Descrição</MudTh>
+                                        <MudTh>Copiar</MudTh>
+                                    </HeaderContent>
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Campo">@context.Value</MudTd>
+                                        <MudTd DataLabel="Chave">@context.Key</MudTd>
+                                        <MudTd DataLabel="Descrição">@context.Description</MudTd>
+                                        <MudTd DataLabel="Copiar">
+                                            <MudIconButton Icon="@Icons.Material.Filled.ContentCopy" OnClick="@(() => CopyToClipboard(@context.Key))" />
+                                        </MudTd>
+                                    </RowTemplate>                                    
+                                </MudTable>
+                            </MudCardContent>
+                        </MudCard>
+
+                    </MudCardContent>
+                </MudCard>
+            }
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@SaveCertificate">Salvar</MudButton>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@ClearAsync" Class="m-2">Limpar</MudButton>
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}
+

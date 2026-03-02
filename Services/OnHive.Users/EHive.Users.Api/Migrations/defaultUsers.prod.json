@@ -1,0 +1,146 @@
+[
+  {
+    "Id": "",
+    "TenantId": "00564475000968",
+    "IsActive": true,
+    "CreatedAt": "2023-10-02T00:00:00",
+    "CreatedBy": "1",
+    "UpdatedAt": "2023-10-02T00:00:00",
+    "UpdatedBy": "1",
+    "Version": "1",
+    "Name": "admin",
+    "Surname": "",
+    "Login": "admin",
+    "Emails": [
+      {
+        "IsMain": true,
+        "Email": "admin@fenixeducacao.org.br",
+        "IsValidated": true,
+        "ValidationCodes": [
+
+        ]
+      }
+    ],
+    "PasswordHash": "8635698c11677b7db2b874d33e612f6d",
+    "SocialLoginToken": "",
+    "ChangePasswordCodes": [
+
+    ],
+    "IsChangePasswordRequested": false,
+    "SocialName": "",
+    "BirthDate": "0001-01-01",
+    "Gender": "",
+    "Nationality": "",
+    "PhoneNumber": "",
+    "MobilePhoneNumber": "",
+    "Roles": [
+      "admin"
+    ],
+    "Documents": [
+
+    ],
+    "RedirectLoginCode": {
+      "ExpirationDate": "0001-01-01T00:00:00",
+      "Code": "",
+      "Remember": false
+    },
+    "IsForeigner": false,
+    "Occupation": ""
+  },
+  {
+    "Id": "",
+    "TenantId": "00564475000968",
+    "IsActive": true,
+    "CreatedAt": "2023-10-02T00:00:00",
+    "CreatedBy": "1",
+    "UpdatedAt": "2023-10-02T00:00:00",
+    "UpdatedBy": "1",
+    "Version": "1",
+    "Name": "staff",
+    "Surname": "",
+    "Login": "staff",
+    "Emails": [
+      {
+        "IsMain": true,
+        "Email": "staff@fenixeducacao.org.br",
+        "IsValidated": true,
+        "ValidationCodes": [
+
+        ]
+      }
+    ],
+    "PasswordHash": "5e4517e9af2bb109afd9d86f5d3d3f80",
+    "SocialLoginToken": "",
+    "ChangePasswordCodes": [
+
+    ],
+    "IsChangePasswordRequested": false,
+    "SocialName": "",
+    "BirthDate": "0001-01-01",
+    "Gender": "",
+    "Nationality": "",
+    "PhoneNumber": "",
+    "MobilePhoneNumber": "",
+    "Roles": [
+      "staff"
+    ],
+    "Documents": [
+
+    ],
+    "RedirectLoginCode": {
+      "ExpirationDate": "0001-01-01T00:00:00",
+      "Code": "",
+      "Remember": false
+    },
+    "IsForeigner": false,
+    "Occupation": ""
+  },
+  {
+    "Id": "",
+    "TenantId": "00564475000968",
+    "IsActive": true,
+    "CreatedAt": "2023-10-02T00:00:00",
+    "CreatedBy": "1",
+    "UpdatedAt": "2023-10-02T00:00:00",
+    "UpdatedBy": "1",
+    "Version": "1",
+    "Name": "marketing",
+    "Surname": "",
+    "Login": "marketing",
+    "Emails": [
+      {
+        "IsMain": true,
+        "Email": "marketing@fenixeducacao.org.br",
+        "IsValidated": true,
+        "ValidationCodes": [
+
+        ]
+      }
+    ],
+    "PasswordHash": "669183c04d487bfa271a08962741cb39",
+    "SocialLoginToken": "",
+    "ChangePasswordCodes": [
+
+    ],
+    "IsChangePasswordRequested": false,
+    "SocialName": "",
+    "BirthDate": "0001-01-01",
+    "Gender": "",
+    "Nationality": "",
+    "PhoneNumber": "",
+    "MobilePhoneNumber": "",
+    "Roles": [
+      "marketing"
+    ],
+    "Documents": [
+
+    ],
+    "RedirectLoginCode": {
+      "ExpirationDate": "0001-01-01T00:00:00",
+      "Code": "",
+      "Remember": false
+    },
+    "IsForeigner": false,
+    "Occupation": ""
+  }
+]

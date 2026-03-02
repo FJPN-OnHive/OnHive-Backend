@@ -1,0 +1,21 @@
+﻿@inherits HomeBase
+@page "/"
+@page "/{Slug}"
+
+<PageTitle>Home</PageTitle>
+
+@if (AdminService.IsLoggedIn)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudText Typo="Typo.h4">Bem Vindo ao On-Hive Admin</MudText>
+            <MudText Typo="Typo.body2">Usuário @AdminService.LoggedUser.User.Name</MudText>
+            <MudText Typo="Typo.body2">Navegue utilizando o menu ao lado.</MudText>
+        </MudCardContent>
+    </MudCard>
+}
+else
+{
+    <Login Callback="@Callback" />
+}
+

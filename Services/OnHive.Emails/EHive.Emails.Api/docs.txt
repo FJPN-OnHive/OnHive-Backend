@@ -1,0 +1,3 @@
+﻿EHive Emails Api
+
+Serviço centralizador de envio de emails.

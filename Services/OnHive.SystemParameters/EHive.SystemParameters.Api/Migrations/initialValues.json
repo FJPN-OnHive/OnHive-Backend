@@ -1,0 +1,37 @@
+[
+  {
+    "Id": "LMS_DOMAIN",
+    "Group": "SYSTEM_DOMAINS",
+    "Name": "lms system domain",
+    "Type": "string",
+    "Value": "http://lms.e-hive.com"
+  },
+  {
+    "Id": "CMS_DOMAIN",
+    "Group": "SYSTEM_DOMAINS",
+    "Name": "cms system domain",
+    "Type": "string",
+    "Value": "http://cms.e-hive.com"
+  },
+  {
+    "Id": "ACCOUNT_DOMAIN",
+    "Group": "SYSTEM_DOMAINS",
+    "Name": "account system domain",
+    "Type": "string",
+    "Value": "http://account.e-hive.com"
+  },
+  {
+    "Id": "ADMIN_DOMAIN",
+    "Group": "SYSTEM_DOMAINS",
+    "Name": "account admin domain",
+    "Type": "string",
+    "Value": "http://admin.e-hive.com"
+  },
+  {
+    "Id": "SYSTEM_VERSION",
+    "Group": "SYSTEM",
+    "Name": "system current version",
+    "Type": "string",
+    "Value": "1"
+  }
+]

@@ -1,0 +1,33 @@
+﻿namespace EHive.Admin.Models
+{
+    public enum PermissionFilters
+    {
+        Admin,
+        Tenant,
+        User,
+        Roles,
+        Register,
+        Products,
+        Courses,
+        Events,
+        EventsAdmin,
+        Automations,
+        AutomationsAdmin,
+        Redirects,
+        Media,
+        Images,
+        Videos,
+        Posts,
+        Dict,
+        UserGroups,
+        MessageAdmin,
+        MessageChannels,
+        EmailTemplates,
+        SearchAdmin,
+        Files,
+        Storage,
+        Jobs,
+        Integrations,
+        StudentAdmin
+    }
+}

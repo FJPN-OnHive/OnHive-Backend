@@ -1,0 +1,518 @@
+﻿@using EHive.Admin.Models
+@using EHive.Core.Library.Contracts.Users
+@page "/users"
+@inherits UsersBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudTable Items="@Users"
+                          T="UserDto"
+                          Hover="true"
+                          Outlined="true"
+                          Dense="true"
+                          RowClassFunc="RowClassSelectorUsers"
+                          SelectedItemChanged="SelectUserAsync"
+                          Loading="@IsLoading"
+                          LoadingProgressColor="Color.Info"
+                          RowsPerPage="@Filter.PageLimit"
+                          CustomPaging="true"
+                          AllowUnsorted="true">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">Usuários</MudText>
+                        <MudSpacer />
+                        <MudTextField @bind-Value="@SearchTerm"
+                                      Placeholder="Busca"
+                                      Adornment="Adornment.Start"
+                                      AdornmentIcon="@Icons.Material.Filled.Search"
+                                      IconSize="Size.Medium"
+                                      Class="mt-0"
+                                      OnAdornmentClick="@Search"
+                                      OnKeyDown="OnSearchKeyDown">
+                        </MudTextField>
+                    </ToolBarContent>
+
+                    <HeaderContent>
+                        <MudTh>Nome</MudTh>
+                        <MudTh>Email</MudTh>
+                        <MudTh>Roles</MudTh>
+                    </HeaderContent>
+
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="Email">@context.MainEmail</MudTd>
+                        <MudTd DataLabel="Roles">@(string.Join(",", context.Roles))</MudTd>
+                    </RowTemplate>
+
+                    <PagerContent>
+                        <PaginationToolbar CurrentPage="@Filter.Page"
+                                           TotalPages="@TotalPages"
+                                           PageLimit="@Filter.PageLimit"
+                                           OnPageLimitChanged="@ChangePageLimit"
+                                           OnFirstPage="@GoToFirstPage"
+                                           OnPreviousPage="@GoToPreviousPage"
+                                           OnNextPage="@GoToNextPage"
+                                           OnLastPage="@GoToLastPage" />
+                    </PagerContent>
+                </MudTable>
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                   OnClick="@(() =>
+                                                                                                         {
+                                                                                                             SelectedUser = new UserDto
+                                                                                                             {
+                                                                                                                 IsActive = true,
+                                                                                                                 BirthDate = DateTime.Today,
+                                                                                                                 Documents = new List<UserDocumentDto>(),
+                                                                                                                 Emails = new List<UserEmailDto>(),
+                                                                                                                 Addresses = new List<AddressDto>(),
+                                                                                                                 NewPassword = "",
+                                                                                                                 Roles = new List<string>()
+                                                                                                             };
+                                                                                                         })">
+                </MudIconButton>
+            </MudCardActions>
+        </MudCard>
+
+        @if (SelectedUser != null)
+            {
+                <MudCard Outlined="true" Class="form-card-body mt-2">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Informações Básicas</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="true" Label="Id" @bind-Value="@SelectedUser.Id" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudSwitch @bind-Value="@SelectedUser.IsActive"
+                                       Color="Color.Primary"
+                                       T="bool"
+                                       Label="Ativo" />
+                        </MudItem>
+                        @if (string.IsNullOrEmpty(SelectedUser.Id))
+                        {
+                            <MudItem xs="12">
+                                <MudTextField Label="Senha Inicial"
+                                              @bind-Value="@SelectedUser.NewPassword"
+                                              InputType="InputType.Password"
+                                              UserAttributes="@InputAttributes"
+                                              Required>
+                                </MudTextField>
+                            </MudItem>
+                        }
+                        else
+                        {
+                            <MudItem xs="12">
+                                <MudTextField Label="Resetar Senha"
+                                              @bind-Value="@ResetPassword"
+                                              InputType="InputType.Password"
+                                              UserAttributes="@InputAttributes">
+                                </MudTextField>
+                            </MudItem>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(ResetPassword) || string.IsNullOrEmpty(SelectedUser.Id))
+                        {
+                            <MudItem xs="12">
+                                <MudSwitch Label="Solicitar Mudança de Senha"
+                                           @bind-Value="@SelectedUser.IsChangePasswordRequested"
+                                           Color="Color.Primary"
+                                           T="bool" />
+                            </MudItem>
+                        }
+
+                        <MudSpacer />
+
+
+                        <MudCard>
+                           <MudCardContent>
+                                <MudPaper>
+                                    @if (!string.IsNullOrWhiteSpace(TempPassword) || string.IsNullOrEmpty(SelectedUser.Id))
+                                    {
+                                        <MudTextField Label="Senha Temporária"
+                                                      @bind-Value="@TempPassword"
+                                                      ReadOnly="true">
+                                        </MudTextField>
+                                        <MudSpacer />
+                                        <MudIconButton Icon="@Icons.Material.Filled.ContentCopy" OnClick="CopyTempPassword"></MudIconButton>
+                                         <MudText>Senhas temporárias são validas por 30 minutos a partir da criacão e não serão exibidas novamente.</MudText>
+
+                                    }
+
+                                </MudPaper>
+                         </MudCardContent>
+                         <MudCardActions>
+                                <MudButton Color="Color.Primary"
+                                           Variant="MudBlazor.Variant.Filled"
+                                           OnClick="@CreateTempPasswordAsync">
+                                    Criar Senha Temporária
+                                </MudButton>
+                         </MudCardActions>
+                            
+
+                        </MudCard>
+                        <MudSpacer />
+                        <MudItem xs="12">
+                            <MudTextField Label="Nome" @bind-Value="@SelectedUser.Name" Required />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Sobrenome" @bind-Value="@SelectedUser.Surname" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Nome Social" @bind-Value="@SelectedUser.SocialName" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Telefone" @bind-Value="@SelectedUser.PhoneNumber" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudDatePicker Label="Data de Nascimento" @bind-Date="@SelectedUser.BirthDate" Required />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudSelect T="string" Label="Gênero" @bind-Value="@SelectedUser.Gender">
+                                @foreach (var item in Constants.Genders)
+                                {
+                                    <MudSelectItem Value="@item">@item</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Ocupação" @bind-Value="@SelectedUser.Occupation" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudSelect T="string" Label="Nacionalidade" @bind-Value="@SelectedUser.Nationality" Required>
+                                @foreach (var item in Constants.Countries)
+                                {
+                                    <MudSelectItem Value="@item">@item</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudSwitch @bind-Value="@SelectedUser.IsForeigner"
+                                       Color="Color.Primary"
+                                       T="bool"
+                                       Label="Estrangeiro" />
+                        </MudItem>
+                    </MudCardContent>
+                </MudCard>
+
+                <MudCard Outlined="true" Class="form-card-body mt-2">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Documentos</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTable Items="@SelectedUser.Documents"
+                                  T="UserDocumentDto"
+                                  ReadOnly="false"
+                                  Hover="true"
+                                  Outlined="true"
+                                  Dense="true"
+                                  RowClassFunc="RowClassSelectorDocuments"
+                                  CanCancelEdit="true"
+                                  CommitEditTooltip="Confirmar"
+                                  CancelEditTooltip="Cancelar"
+                                  RowEditPreview="BackupDocument"
+                                  RowEditCancel="ResetDocument"
+                                  Height="150px">
+                            <HeaderContent>
+                                <MudTh>Tipo</MudTh>
+                                <MudTh>Número</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Type">@context.DocumentType</MudTd>
+                                <MudTd DataLabel="Number">@context.DocumentNumber</MudTd>
+                                <MudTd DataLabel="Remover">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Remove"
+                                                   OnClick="@(() => SelectedUser.Documents.Remove(context))">
+                                    </MudIconButton>
+                                </MudTd>
+                            </RowTemplate>
+                            <RowEditingTemplate>
+                                <MudTd DataLabel="Type">
+                                    <MudTextField @bind-Value="@context.DocumentType" Required />
+                                </MudTd>
+                                <MudTd DataLabel="Number">
+                                    <MudTextField @bind-Value="@context.DocumentNumber" Required />
+                                </MudTd>
+                            </RowEditingTemplate>
+                        </MudTable>
+                        <MudCardActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                           OnClick="@(() => SelectedUser.Documents.Add(new UserDocumentDto
+                                           {
+                                               DocumentType = "Tipo",
+                                               DocumentNumber = ""
+                                           }))">
+                    </MudIconButton>
+                </MudCardActions>
+            </MudCardContent>
+        </MudCard>
+
+                <MudCard Outlined="true" Class="form-card-body mt-2">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">E-Mails</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTable Items="@SelectedUser.Emails"
+                                  T="UserEmailDto"
+                                  ReadOnly="false"
+                                  Hover="true"
+                                  Outlined="true"
+                                  Dense="true"
+                                  RowClassFunc="RowClassSelectorEmails"
+                                  CanCancelEdit="true"
+                                  CommitEditTooltip="Confirmar"
+                                  CancelEditTooltip="Cancelar"
+                                  RowEditPreview="BackupEmail"
+                                  RowEditCancel="ResetEmail"
+                                  Height="200px"
+                                  RowEditCommit="CheckMainEmail">
+                            <HeaderContent>
+                                <MudTh>Email</MudTh>
+                                <MudTh>Principal</MudTh>
+                                <MudTh>Validado</MudTh>
+                                <MudTh>Validar</MudTh>
+                                <MudTh>Remover</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Email">@context.Email</MudTd>
+                                <MudTd DataLabel="Main">@(context.IsMain ? "Sim" : "Não")</MudTd>
+                                <MudTd DataLabel="Validated">@(context.IsValidated ? "Sim" : "Não")</MudTd>
+                        @if (!context.IsValidated)
+                                {
+                                    <MudTd DataLabel="Validar">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Check"
+                                                       OnClick="@(() => ValidateEmail(context))">
+                                        </MudIconButton>
+                                    </MudTd>
+                                }
+                                @if (SelectedUser.Emails.Count() > 1 && !context.IsMain)
+                                {
+                                    <MudTd DataLabel="Remove">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Remove"
+                                                       OnClick="@(() => SelectedUser.Emails.Remove(context))">
+                                        </MudIconButton>
+                                    </MudTd>
+                                }
+                            </RowTemplate>
+                            <RowEditingTemplate>
+                                <MudTd DataLabel="Email">
+                                    <MudTextField @bind-Value="@context.Email" Required />
+                                </MudTd>
+                                <MudTd DataLabel="Main">
+                                    <MudSwitch @bind-Value="@context.IsMain" />
+                                </MudTd>
+                                <MudTd DataLabel="Main">@(context.IsMain ? "Sim" : "Não")</MudTd>
+                            </RowEditingTemplate>
+                        </MudTable>
+                        <MudCardActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                           OnClick="@(() => SelectedUser.Emails.Add(new UserEmailDto()))">
+                            </MudIconButton>
+                        </MudCardActions>
+                    </MudCardContent>
+                </MudCard>
+
+                <MudCard Outlined="true" Class="form-card-body mt-2">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Endereços</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTable Items="@SelectedUser.Addresses"
+                                  T="AddressDto"
+                                  ReadOnly="false"
+                                  Hover="true"
+                                  Outlined="true"
+                                  Dense="true"
+                                  RowClassFunc="RowClassSelectorAddress"
+                                  CanCancelEdit="true"
+                                  CommitEditTooltip="Confirmar"
+                                  CancelEditTooltip="Cancelar"
+                                  RowEditPreview="BackupAddress"
+                                  RowEditCancel="ResetAddress"
+                                  Height="200px"
+                                  RowEditCommit="CheckMainAddress">
+                            <HeaderContent>
+                                <MudTh>Nome</MudTh>
+                                <MudTh>Endereço</MudTh>
+                                <MudTh>Número</MudTh>
+                                <MudTh>Complemento</MudTh>
+                                <MudTh>Bairro</MudTh>
+                                <MudTh>Cidade</MudTh>
+                                <MudTh>UF</MudTh>
+                                <MudTh>CEP</MudTh>
+                                <MudTh>País</MudTh>
+                                <MudTh>Principal</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Name">@context.Name</MudTd>
+                                <MudTd DataLabel="AddressLines">@context.AddressLines</MudTd>
+                                <MudTd DataLabel="Number">@context.Number</MudTd>
+                                <MudTd DataLabel="Complement">@context.Complement</MudTd>
+                                <MudTd DataLabel="District">@context.District</MudTd>
+                                <MudTd DataLabel="City">@context.City</MudTd>
+                                <MudTd DataLabel="State">@context.State.Code</MudTd>
+                                <MudTd DataLabel="ZipCode">@context.ZipCode</MudTd>
+                                <MudTd DataLabel="Country">@context.Country.Code</MudTd>
+                                <MudTd DataLabel="IsMainAddress">@(context.IsMainAddress ? "Sim" : "Não")</MudTd>
+                                <MudTd DataLabel="Remove">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Remove"
+                                                   OnClick="@(() => SelectedUser.Addresses.Remove(context))">
+                                    </MudIconButton>
+                                </MudTd>
+                            </RowTemplate>
+                            <RowEditingTemplate>
+                                <MudTd DataLabel="Name">
+                                    <MudTextField @bind-Value="@context.Name" Required />
+                                </MudTd>
+                                <MudTd DataLabel="AddressLines">
+                                    <MudTextField @bind-Value="@context.AddressLines" Required />
+                                </MudTd>
+                                <MudTd DataLabel="Number">
+                                    <MudTextField @bind-Value="@context.Number" Required />
+                                </MudTd>
+                                <MudTd DataLabel="Complement">
+                                    <MudTextField @bind-Value="@context.Complement" Required />
+                                </MudTd>
+                                <MudTd DataLabel="District">
+                                    <MudTextField @bind-Value="@context.District" Required />
+                                </MudTd>
+                                <MudTd DataLabel="City">
+                                    <MudTextField @bind-Value="@context.City" Required />
+                                </MudTd>
+                                <MudTd DataLabel="State">
+                                    <MudSelect Label="UF" @bind-Value="@context.State.Code">
+                                        @foreach (var item in Constants.UFs)
+                                        {
+                                            <MudSelectItem Value="@item">@item</MudSelectItem>
+                                        }
+                                    </MudSelect>
+                                </MudTd>
+                                <MudTd DataLabel="ZipCode">
+                                    <MudTextField @bind-Value="@context.ZipCode" Required />
+                                </MudTd>
+                                <MudTd DataLabel="Country">
+                                    <MudSelect Label="País" @bind-Value="@context.Country.Code">
+                                        @foreach (var item in Constants.Countries)
+                                        {
+                                            <MudSelectItem Value="@item">@item</MudSelectItem>
+                                        }
+                                    </MudSelect>
+                                </MudTd>
+                                <MudTd DataLabel="IsMainAddress">
+                                    <MudSwitch @bind-Value="@context.IsMainAddress" />
+                                </MudTd>
+                            </RowEditingTemplate>
+                        </MudTable>
+                        <MudCardActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                           OnClick="@(() => SelectedUser.Addresses.Add(new AddressDto
+                                           {
+                                               Name = "Novo endereço",
+                                               State = new StateDto { Code = "AM", Name = "Amazonas" },
+                                               Country = new CountryDto { Code = "BR", Name = "Brasil" }
+                                           }))">
+                    </MudIconButton>
+                </MudCardActions>
+            </MudCardContent>
+        </MudCard>
+
+
+                <MudCard Outlined="true" Class="form-card-body mt-2">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Perfis</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudSelect T="string" Label="Tipo de Perfil" Value="@SelectedProfileType" ValueChanged="(t) => SelectUserProfileAsync(t)">
+                        @foreach (var item in Constants.ProfileTypes)
+                                {
+                                    <MudSelectItem Value="@item">@item</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+
+                        @if (SelectedUserProfile != null)
+                        {
+                            <MudItem xs="12">
+                                <MudTextField Label="Titulo" @bind-Value="@SelectedUserProfile.Title" Required />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Label="Foto de Perfil" @bind-Value="@SelectedUserProfile.ProfilePictureUrl" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Label="Foto de Capa" @bind-Value="@SelectedUserProfile.CoverPictureUrl" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Lines="30" Label="Bio" @bind-Value="@SelectedUserProfile.Body" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudSwitch Label="Email Público" @bind-Value="@SelectedUserProfile.PublicEmail" />
+                            </MudItem>
+                        }
+
+                    </MudCardContent>
+                </MudCard>
+
+                <MudTable Items="@Roles"
+                          T="RoleDto"
+                          Hover="true"
+                          Outlined="true"
+                          Dense="true"
+                          @bind-SelectedItems="SelectedRoles"
+                          MultiSelection="true"
+                          Height="300px"
+                          Filter="role => role.Name.Contains(SearchRole, StringComparison.InvariantCultureIgnoreCase)
+                                                                                       || string.IsNullOrEmpty(SearchRole)">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Roles</MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="@SearchRole"
+                              Placeholder="Busca"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Class="mt-0" />
+            </ToolBarContent>
+
+                    <RowTemplate>
+                        <MudTd DataLabel="Role">@context.Name</MudTd>
+                    </RowTemplate>
+                </MudTable>
+                }
+        </MudCardContent>
+
+        <MudCardActions>
+            @if (SelectedUser != null)
+            {
+                <MudButton Color="Color.Primary"
+                           Variant="MudBlazor.Variant.Filled"
+                           OnClick="@SaveUser">
+                    Salvar
+                </MudButton>
+            }
+            <MudButton Variant="MudBlazor.Variant.Filled"
+                       Color="Color.Secondary"
+                       OnClick="@Clear"
+                       Class="m-2">
+                Limpar
+            </MudButton>
+
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)"
+                               Class="ml-auto mr-n3 mb-1"
+                               Color="Color.Error">
+                        Close
+                    </MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}

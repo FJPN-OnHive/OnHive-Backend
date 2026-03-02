@@ -1,0 +1,247 @@
+﻿@page "/disciplines"
+@using EHive.Core.Library.Contracts.Courses
+@inherits DisciplinesBase
+
+
+<MudCard>
+    <MudCardContent>
+
+        <MudCard Outlined="true" Class="form-card-body">
+            <MudTable Items="@Disciplines"
+                      T="DisciplineDto"
+                      Hover="true"
+                      Outlined="true"
+                      Dense="true"
+                      Loading="@DisciplineLoading"
+                      RowsPerPage="@DisciplinesFilter.PageLimit"
+                      RowClassFunc="RowClassSelector"
+                      SelectedItemChanged="SelectDisciplineAsync">
+
+                <ToolBarContent>
+                    <MudText Typo="Typo.h6">Disciplinas</MudText>
+                    <MudSpacer />
+                    <MudTextField @bind-Value="@DisciplineSearch"
+                                  Placeholder="Busca"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  OnAdornmentClick="LoadDisciplines"
+                                  IconSize="Size.Medium"
+                                  Class="mt-0">
+                    </MudTextField>
+                </ToolBarContent>
+
+                <HeaderContent>
+                    <MudTh>Nome</MudTh>
+                    <MudTh>Código</MudTh>
+                    <MudTh>Descrição</MudTh>
+                    <MudTh>Categoria</MudTh>
+                </HeaderContent>
+
+                <RowTemplate>
+                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                    <MudTd DataLabel="Code">@context.Code</MudTd>
+                    <MudTd DataLabel="Description">@context.Description</MudTd>
+                    <MudTd DataLabel="Category">@context.Category</MudTd>
+                </RowTemplate>
+
+                <PagerContent>
+                    <MudPagination Color="Color.Primary" ShowFirstButton="true" ShowLastButton="true" Count="@DisciplinesTotalPages" Selected="@DisciplinesFilter.Page" SelectedChanged="DisciplinesPageChanged" />
+                    <MudSelect T="int" Label="Qtd. por Página" Value="@DisciplinesFilter.PageLimit" ValueChanged="@((t) => ChangeDisciplinesPageLimit(t))">
+                        <MudSelectItem Value="10">10</MudSelectItem>
+                        <MudSelectItem Value="25">25</MudSelectItem>
+                        <MudSelectItem Value="50">50</MudSelectItem>
+                        <MudSelectItem Value="100">100</MudSelectItem>
+                    </MudSelect>
+                </PagerContent>
+            </MudTable>
+
+            <MudCardActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Add"
+                               OnClick="@(() =>
+                                                                                   {
+                                                                                       SelectedDiscipline = new DisciplineDto();
+                                                                                       Disciplines.Add(new DisciplineDto
+                                                                                       {
+                                                                                           Name = "Nova disciplina",
+                                                                                           Code = CodeHelper.GenerateNumericCode(11),
+                                                                                           Description = string.Empty,
+                                                                                           Category = string.Empty,
+                                                                                           Order = 1
+                                                                                       });
+                                                                                       SelectDisciplineAsync(Disciplines.Last());
+                                                                                   })">
+                </MudIconButton>
+            </MudCardActions>
+        </MudCard>
+
+        @if (SelectedDiscipline != null)
+        {
+            <MudCard Outlined="true" Class="form-card-body mt-2">
+                <MudCardContent>
+                    <MudItem xs="12">
+                        <MudTextField ReadOnly="true" Label="Id" @bind-Value="@SelectedDiscipline.Id" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField Label="Código" @bind-Value="@SelectedDiscipline.Code" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudNumericField Label="Ordem" @bind-Value="@SelectedDiscipline.Order" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField Label="Nome" @bind-Value="@SelectedDiscipline.Name" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField Label="Descrição" @bind-Value="@SelectedDiscipline.Description" />
+                    </MudItem>
+
+                    <MudCard Outlined="true" Class="form-card-body mt-2">
+                        <MudCardHeader>
+                            <MudText Typo="Typo.h6">Corpo</MudText>
+                        </MudCardHeader>
+                        <MudCardContent Class="html-editor">
+                            <StandaloneCodeEditor @ref="Editor"
+                                                  Id="DisciplineBodyEditor"
+                                                  ConstructionOptions="EditorConstructionOptions"
+                                                  CssClass="html-editor" />
+                        </MudCardContent>
+                    </MudCard>
+
+                    <MudItem xs="12">
+                        <MudTextField Label="Categoria" @bind-Value="@SelectedDiscipline.Category" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField Label="Miniatura" @bind-Value="@SelectedDiscipline.Thumbnail" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField Label="Imagem" @bind-Value="@SelectedDiscipline.ImageUrl" />
+                    </MudItem>
+                </MudCardContent>
+            </MudCard>
+
+
+            <MudCard Outlined="true" Class="form-card-body mt-2">
+                <MudCardContent>
+                    <MudTable Items="@SelectedDiscipline.Lessons"
+                              T="LessonDto"
+                              Hover="true"
+                              Outlined="true"
+                              Dense="true"
+                              Height="300px"
+                              Loading="@SelectedLessonsLoading"
+                              LoadingProgressColor="Color.Info">
+
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Aulas da Disciplina</MudText>
+                        </ToolBarContent>
+
+                        <HeaderContent>
+                            <MudTh>Nome</MudTh>
+                            <MudTh>Código</MudTh>
+                            <MudTh>Descrição</MudTh>
+                            <MudTh>Categoria</MudTh>
+                            <MudTh>Remover</MudTh>
+                        </HeaderContent>
+
+                        <RowTemplate>
+                            <MudTd DataLabel="Name">@context.Name</MudTd>
+                            <MudTd DataLabel="Code">@context.Code</MudTd>
+                            <MudTd DataLabel="Description">@context.Description</MudTd>
+                            <MudTd DataLabel="Category">@context.Category</MudTd>
+                            <MudTd DataLabel="Remove">
+                                <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => RemoveLesson(context))">
+                                </MudIconButton>
+                            </MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudCardContent>
+            </MudCard>
+
+
+
+            <MudCard Outlined="true" Class="form-card-body mt-2">
+                <MudCardContent>
+
+
+                    <MudTable Items="@Lessons"
+                              T="LessonDto"
+                              Hover="true"
+                              Outlined="true"
+                              Dense="true"
+                              Height="300px"
+                              RowsPerPage="@LessonsFilter.PageLimit"
+                              Loading="@LessonsLoading"
+                              LoadingProgressColor="Color.Info">
+
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Aulas</MudText>
+                            <MudSpacer />
+                            <MudTextField @bind-Value="@SearchLesson"
+                                          Placeholder="Busca"
+                                          Adornment="Adornment.Start"
+                                          AdornmentIcon="@Icons.Material.Filled.Search"
+                                          IconSize="Size.Medium"
+                                          OnAdornmentClick="LoadLessons"
+                                          Class="mt-0"
+                                          @onkeydown="@(async (KeyboardEventArgs e) => { if (e.Key == "Enter") await LoadLessons(); })" />
+                        </ToolBarContent>
+
+                        <HeaderContent>
+                            <MudTh>Nome</MudTh>
+                            <MudTh>Código</MudTh>
+                            <MudTh>Descrição</MudTh>
+                            <MudTh>Categoria</MudTh>
+                            <MudTh>Adicionar</MudTh>
+                        </HeaderContent>
+
+                        <RowTemplate>
+                            <MudTd DataLabel="Name">@context.Name</MudTd>
+                            <MudTd DataLabel="Code">@context.Code</MudTd>
+                            <MudTd DataLabel="Description">@context.Description</MudTd>
+                            <MudTd DataLabel="Category">@context.Category</MudTd>
+                            <MudTd DataLabel="Remove">
+                                <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => AddLesson(context))">
+                                </MudIconButton>
+                            </MudTd>
+                        </RowTemplate>
+
+                        <PagerContent>
+                            <MudPagination Color="Color.Primary" ShowFirstButton="true" ShowLastButton="true" Count="@LessonsTotalPages" Selected="@LessonsFilter.Page" SelectedChanged="LessonsPageChanged" />
+                            <MudSelect T="int" Label="Qtd. por Página" Value="@LessonsFilter.PageLimit" ValueChanged="@((t) => ChangeLessonsPageLimit(t))">
+                                <MudSelectItem Value="10">10</MudSelectItem>
+                                <MudSelectItem Value="25">25</MudSelectItem>
+                                <MudSelectItem Value="50">50</MudSelectItem>
+                                <MudSelectItem Value="100">100</MudSelectItem>
+                            </MudSelect>
+                        </PagerContent>
+                    </MudTable>
+                </MudCardContent>
+            </MudCard>
+        }
+
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@SaveDiscipline">
+            Salvar
+        </MudButton>
+        <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@Clear" Class="m-2">
+            Limpar
+        </MudButton>
+
+        <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+            <div class="d-flex flex-column">
+                <MudText>@Message</MudText>
+                <MudButton OnClick="@(() => @ShowMessage = false)"
+                           Class="ml-auto mr-n3 mb-1"
+                           Color="Color.Error">
+                    Close
+                </MudButton>
+            </div>
+        </MudPopover>
+    </MudCardActions>
+</MudCard>

@@ -1,0 +1,26 @@
+<MudToolBar>
+    <MudText>Itens por página:</MudText>
+    <MudSelect T="int" Value="@PageLimit" ValueChanged="@OnPageLimitChanged" Dense="true" Margin="Margin.Dense">
+        <MudSelectItem Value="10">10</MudSelectItem>
+        <MudSelectItem Value="25">25</MudSelectItem>
+        <MudSelectItem Value="50">50</MudSelectItem>
+        <MudSelectItem Value="100">100</MudSelectItem>
+    </MudSelect>
+    <MudSpacer />
+    <MudIconButton Icon="@Icons.Material.Filled.FirstPage" OnClick="@OnFirstPage" Disabled="@(CurrentPage == 1)" />
+    <MudIconButton Icon="@Icons.Material.Filled.NavigateBefore" OnClick="@OnPreviousPage" Disabled="@(CurrentPage == 1)" />
+    <MudText>Página @CurrentPage de @TotalPages</MudText>
+    <MudIconButton Icon="@Icons.Material.Filled.NavigateNext" OnClick="@OnNextPage" Disabled="@(CurrentPage >= TotalPages)" />
+    <MudIconButton Icon="@Icons.Material.Filled.LastPage" OnClick="@OnLastPage" Disabled="@(CurrentPage >= TotalPages)" />
+</MudToolBar>
+
+@code {
+    [Parameter] public int CurrentPage { get; set; } = 1;
+    [Parameter] public int TotalPages { get; set; } = 1;
+    [Parameter] public int PageLimit { get; set; } = 10;
+    [Parameter] public EventCallback<int> OnPageLimitChanged { get; set; }
+    [Parameter] public EventCallback OnFirstPage { get; set; }
+    [Parameter] public EventCallback OnPreviousPage { get; set; }
+    [Parameter] public EventCallback OnNextPage { get; set; }
+    [Parameter] public EventCallback OnLastPage { get; set; }
+}

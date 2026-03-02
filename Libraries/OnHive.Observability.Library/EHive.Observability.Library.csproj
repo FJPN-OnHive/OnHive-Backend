@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Title>e-hive Observability Library</Title>
+		<Authors>e-hive Dev Team</Authors>
+		<Company>e-hive</Company>
+		<Product>e-hive</Product>
+		<Description>e-hive Observability Library</Description>
+		<Copyright>e-hive</Copyright>
+		<PackageProjectUrl>https://github.com/e-hive/EHive_Observability_Library</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/e-hive/EHive_Observability_Library</RepositoryUrl>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>1.99.999.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Exceptions\**" />
+	  <EmbeddedResource Remove="Exceptions\**" />
+	  <None Remove="Exceptions\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Serilog" Version="4.3.1" />		
+		<PackageReference Include="Serilog.Enrichers.AspNetCore" Version="1.0.0" />
+		<PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
+		<PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+		<PackageReference Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\OnHive.Configuration.Library\EHive.Configuration.Library.csproj" />
+	  <ProjectReference Include="..\OnHive.Core.Library\EHive.Core.Library.csproj" />
+	</ItemGroup>
+
+</Project>

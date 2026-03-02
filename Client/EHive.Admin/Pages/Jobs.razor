@@ -1,0 +1,126 @@
+﻿@using EHive.Core.Library.Contracts.Carreiras
+@using EHive.Core.Library.Enums.Common
+@using EHive.Core.Library.Enums.Posts
+@page "/jobs"
+@inherits JobsBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudTable Items="@Jobs" T="JobDto" Hover="true" Outlined="true" Dense="true" RowClassFunc="RowClassSelectorJob"
+                          SelectedItemChanged="SelectJobAsync" Filter="job =>  job.Title.Contains(JobsSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || job.Description.Contains(JobsSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || string.IsNullOrEmpty(JobsSearch)">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">Vagas</MudText>
+                        <MudSpacer />
+                        <MudTextField @bind-Value="@JobsSearch" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                    </ToolBarContent>
+                    <HeaderContent>                        
+                        <MudTh>Título</MudTh>
+                        <MudTh>Descrição</MudTh>
+                        <MudTh>Tipo</MudTh>
+                        <MudTh>Localização</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>                        
+                        <MudTd DataLabel="Título">@context.Title</MudTd>
+                        <MudTd DataLabel="Description">@context.Description</MudTd>
+                        <MudTd DataLabel="Tipo">@context.Type</MudTd>
+                        <MudTd DataLabel="Localização">@context.Location</MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager />
+                    </PagerContent>
+                </MudTable>
+
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                                                                       SelectedJob = new JobDto{
+                                                                                                 Title = "Nova Vaga",
+                                                                                                 Description = "Descrição da nova vaga"
+                                                                                             };
+                                                                                       })" />
+                </MudCardActions>
+            </MudCard>
+
+            @if (SelectedJob != null)
+            {
+
+                <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="true" Label="Id" @bind-Value="@SelectedJob.Id" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudSwitch Label="Ativo"
+                                       @bind-Value="@SelectedJob.IsActive"
+                                       Color="Color.Primary"
+                                       T="bool" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Título" @bind-Value="@SelectedJob.Title" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Lines="4" Label="Descrição" @bind-Value="@SelectedJob.Description" />
+                        </MudItem>
+
+                        <MudItem xs="12">
+                            <MudDatePicker Label="Data Inicial" @bind-Date="@SelectedJob.InitialDate" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudDatePicker Label="Data Final" @bind-Date="@SelectedJob.FinalDate" />
+                        </MudItem>
+
+                        <MudItem xs="12">
+                            <MudNumericField Label="Prioridade" @bind-Value="@SelectedJob.Priority" />
+                        </MudItem>
+
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Corpo</MudText>
+                            </MudCardHeader>                            
+                            <MudCardContent>
+                                <MudItem xs="12">
+                                    <RadzenHtmlEditor @ref="Editor" @bind-Value="@SelectedJob.Body" class="html-editor" />
+                                </MudItem>
+                            </MudCardContent>                            
+                        </MudCard>
+                    </MudCardContent>
+                </MudCard>
+            }
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@SaveJob">Salvar</MudButton>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@ClearAsync" Class="m-2">Limpar</MudButton>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Error" OnClick="@(() => ShowDeleteMessage = true )" Class="m-2">Deletar</MudButton>
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                </div>
+            </MudPopover>
+
+            <MudPopover Open="@ShowDeleteMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>Deseja realmente deletar esta vaga? Esta ação não pode ser desfeita.</MudText>
+                    <MudButton OnClick="@(() => { @ShowDeleteMessage = false; DeleteAsync(); })"
+                               Class="ml-auto mr-n3 mb-1"
+                               Color="Color.Error">
+                        Confirmar
+                    </MudButton>
+                    <MudButton OnClick="@(() => @ShowDeleteMessage = false)"
+                               Class="ml-auto mr-n3 mb-1"
+                               Color="Color.Error">
+                        Cancelar
+                    </MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}

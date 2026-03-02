@@ -1,0 +1,13 @@
+﻿:root {
+    --primary: #F2BC17;
+    --primary-dark: #AF5601;
+    --primary-light: #FFEBB4;
+    --secondary: #CCE4F7;
+    --secondary-dark: #AF3D0D;
+    --secondary-light: #CCE4F7;
+    --font-color-dark: #212529;
+    --font-color-light: #FFFFFF;
+    --background-color: linear-gradient(0deg,#ddd,#ddd 40%,#e8e8e8 0,#e8e8e8);
+    --background-dark: #f3f3f3;
+    --background-light: #f3f3f3;
+}

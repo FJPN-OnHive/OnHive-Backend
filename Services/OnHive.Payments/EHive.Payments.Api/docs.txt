@@ -1,0 +1,26 @@
+### e-hive Payment Hub API
+ 
+ Interfaces with multiple Payment providers.
+
+ ##### Tipos de Pagamento:
+
+ - 0 = **Boleto**
+ - 1 = **Cartao de Credito**
+ - 2 = **Cartao de Debito**
+ - 3 = **Pix**
+
+
+ ##### Cartoes de teste para o ambiente de homologacao:
+
+|FINAL DO CARTAO	| STATUS DA TRANSACAO	| CODIGO DE RETORNO	| MENSAGEM DE RETORNO |
+|---|---|---|---|
+|XXXX.XXXX.XXXX.XXX0    | Autorizado	 | 4/6 | Operacao realizada com sucesso |
+|XXXX.XXXX.XXXX.XXX1    | Autorizado	 | 4/6 | Operacao realizada com sucesso |
+|XXXX.XXXX.XXXX.XXX4	| Autorizado	 | 4/6 | Operacao realizada com sucesso |
+|XXXX.XXXX.XXXX.XXX2	| Nao Autorizado |	05	| Nao Autorizada |
+|XXXX.XXXX.XXXX.XXX3	| Nao Autorizado |	57	| Cartao Expirado |
+|XXXX.XXXX.XXXX.XXX5	| Nao Autorizado |	78	| Cartao Bloqueado |
+|XXXX.XXXX.XXXX.XXX6	| Nao Autorizado |	99	| Time Out |
+|XXXX.XXXX.XXXX.XXX7	| Nao Autorizado |	77	| Cartao Cancelado |
+|XXXX.XXXX.XXXX.XXX8	| Nao Autorizado |	70	| Problemas com o Cartao de Credito |
+|XXXX.XXXX.XXXX.XXX9	| Autorização Aleatoria	| 4 a 99 | Operation Successful / Time Out |

@@ -1,0 +1,123 @@
+﻿@page "/tenant"
+@using EHive.Core.Library.Contracts.Tenants
+@inherits TenantBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h5">Tenant</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudStack>
+                <MudCard Outlined="true" Class="form-card-body">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Informações Básicas:</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="true" Label="Id" @bind-Value="@CurrentTenant.Id" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Nome" @bind-Value="@CurrentTenant.Name" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Domínio" @bind-Value="@CurrentTenant.Domain" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Slug" @bind-Value="@CurrentTenant.Slug" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="E-Mail" @bind-Value="@CurrentTenant.Email" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="CNPJ" @bind-Value="@CurrentTenant.CNPJ" />
+                        </MudItem>
+                    </MudCardContent>
+                </MudCard>
+
+                <MudCard Outlined="true" Class="form-card-body">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Informações Fiscais:</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField Label="Inscrição Estadual" @bind-Value="@CurrentTenant.StateInscription" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Inscrição Municipal" @bind-Value="@CurrentTenant.CityInscription" />
+                        </MudItem>
+                    </MudCardContent>
+                </MudCard>
+
+
+                <MudCard Outlined="true" Class="form-card-body">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Endereço:</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField Label="Cidade" @bind-Value="@CurrentTenant.City" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="UF" @bind-Value="@CurrentTenant.State" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Bairro" @bind-Value="@CurrentTenant.District" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Endereço" @bind-Value="@CurrentTenant.Address" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="CEP" @bind-Value="@CurrentTenant.PostalCode" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Pais" @bind-Value="@CurrentTenant.Country" />
+                        </MudItem>
+                    </MudCardContent>
+                </MudCard>
+
+                <MudCard Outlined="true" Class="form-card-body">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Funcionalidades:</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTable Items="@Features" T="FeatureDto" Hover="true" Outlined="true" Dense="true" @bind-SelectedItems="SelectedFeatures" MultiSelection="true" Height="300px"
+                                  Filter="feature => feature.Name.Contains(SearchFeature, StringComparison.InvariantCultureIgnoreCase) || feature.Key.Contains(SearchFeature, StringComparison.InvariantCultureIgnoreCase) || string.IsNullOrEmpty(SearchFeature) ">
+                            <ToolBarContent>
+                                <MudText Typo="Typo.h6">Funcionalidades</MudText>
+                                <MudSpacer />
+                                <MudTextField @bind-Value="@SearchFeature" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                            </ToolBarContent>
+                            <HeaderContent>
+                                <MudTh>Chave</MudTh>
+                                <MudTh>Nome</MudTh>
+                                <MudTh>Descrição</MudTh>
+                                <MudTh>Serviço</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Feature">@context.Key</MudTd>
+                                <MudTd DataLabel="Feature">@context.Name</MudTd>
+                                <MudTd DataLabel="Feature">@context.Description</MudTd>
+                                <MudTd DataLabel="Feature">@context.Service</MudTd>
+                            </RowTemplate>
+                        </MudTable>
+                    </MudCardContent>
+                </MudCard>
+            </MudStack>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@SaveTenant">Salvar</MudButton>
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@TenantMessage</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}

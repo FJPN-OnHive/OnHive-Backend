@@ -1,0 +1,146 @@
+﻿@page "/redirects"
+@using EHive.Core.Library.Contracts.Redirects
+@using EHive.Core.Library.Enums.Common
+@using EHive.Core.Library.Enums.Redirects
+@inherits RedirectsBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudCardContent>
+                    <MudTable Items="@Redirects" T="RedirectDto" Hover="true" Outlined="true" Dense="true" RowClassFunc="RowClassSelectorRedirect"
+                              CanCancelEdit="true" CommitEditTooltip="Confirmar" CancelEditTooltip="Cancelar" RowEditPreview="BackupRedirect" RowEditCancel="ResetRedirect"
+                              IsEditRowSwitchingBlocked="true" EditTrigger="TableEditTrigger.EditButton"
+                              OnPreviewEditClick="()=> IsEditing = true" OnCancelEditClick="()=> IsEditing = false" OnCommitEditClick="()  => IsEditing = false"
+                              SelectedItemChanged="SelectRedirect" Filter="exam => exam.Name.Contains(RedirectSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || exam.Path.Contains(RedirectSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || exam.Description.Contains(RedirectSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || exam.RedirectUrl.Contains(RedirectSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || string.IsNullOrEmpty(RedirectSearch)">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Redirects de Conteúdo</MudText>
+                            <MudSpacer />
+                            <MudTextField @bind-Value="@RedirectSearch" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh>Nome</MudTh>
+                            <MudTh>Descrição</MudTh>
+                            <MudTh>Chave</MudTh>
+                            <MudTh>Destino</MudTh>
+                            <MudTh>Tipo</MudTh>
+                            @if (!IsEditing)
+                            {
+                                <MudTh>Link</MudTh>
+                                <MudTh>Editar</MudTh>
+                            }
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Name">@context.Name</MudTd>
+                            <MudTd DataLabel="Description">@context.Description</MudTd>
+                            <MudTd DataLabel="Path">@context.Path</MudTd>
+                            <MudTd DataLabel="RedirectUrl">@context.RedirectUrl</MudTd>
+                            <MudTd DataLabel="Type">
+                                @(
+                                    context.Type switch
+                                    {
+                                        RedirectType.Temporary => "Temporary (307)",
+                                        RedirectType.Found => "Found (302)",
+                                        RedirectType.Permanent => "Permanent (308)",
+                                        _ => ""
+                                    }
+                                    )
+                            </MudTd>
+                            <MudIconButton Icon="@Icons.Material.Filled.CopyAll" OnClick="@(() => CopyToClipboard(context))"></MudIconButton>
+                        </RowTemplate>
+                        <RowEditingTemplate>
+                            <MudTd DataLabel="Name">
+                                <MudTextField @bind-Value="@context.Name" Required />
+                            </MudTd>
+                            <MudTd DataLabel="Description">
+                                <MudTextField @bind-Value="@context.Description" Required />
+                            </MudTd>
+                            <MudTd DataLabel="Path">
+                                <MudTextField @bind-Value="@context.Path" Required />
+                            </MudTd>
+                            <MudTd DataLabel="RedirectUrl">
+                                <MudTextField @bind-Value="@context.RedirectUrl" Required />
+                            </MudTd>
+                            <MudTd DataLabel="Type">
+                                <MudSelect T="RedirectType" Label="Tipo" @bind-Value="context.Type">
+                                    <MudSelectItem Value="RedirectType.Temporary">Temporary (307)</MudSelectItem>
+                                    <MudSelectItem Value="RedirectType.Found">Found (302)</MudSelectItem>
+                                    <MudSelectItem Value="RedirectType.Permanent">Permanent (308)</MudSelectItem>
+                                </MudSelect>
+
+                            </MudTd>
+                        </RowEditingTemplate>
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+                </MudCardContent>
+                <MudCardActions>
+                    @if (!IsEditing)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                        Redirects.Add(new RedirectDto { Name = "Novo", Description = "Novo", Path = "chave", RedirectUrl="https://" });
+                            SelectRedirect(Redirects.Last());
+                        })"></MudIconButton>
+                    }
+                </MudCardActions>
+            </MudCard>
+        </MudCardContent>
+        <MudCardActions>
+            @if (SelectedRedirect != null && !IsEditing)
+            {
+                <MudButton Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@SaveRedirect">Salvar</MudButton>
+                <MudButton Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@(() => ShowDeleteMessage = true )" Class="m-2">Deletar</MudButton>
+            }
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                </div>
+            </MudPopover>
+            <MudPopover Open="@ShowDeleteMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>Deseja realmente deletar este redirect, esta ação não pode ser desfeita.</MudText>
+                    <MudButton OnClick="@(() => {@ShowDeleteMessage = false; DeleteRedirect();})" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Confirmar</MudButton>
+                    <MudButton OnClick="@(() => @ShowDeleteMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Cancelar</MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+
+    <MudCard>
+        <MudCardActions>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@ExportAsync" Class="m-2">Exportar</MudButton>
+            <MudSelect T="ExportFormats" Label="Tipo" Value="@ExportType" ValueChanged="(t) => ChangeExportType(t)" Class="export-format">
+                <MudSelectItem Value="ExportFormats.Csv">CSV</MudSelectItem>
+                <MudSelectItem Value="ExportFormats.Json">JSON</MudSelectItem>
+                <MudSelectItem Value="ExportFormats.Xml">XML</MudSelectItem>
+            </MudSelect>
+            <MudSwitch Label="Active Only" @bind-Value="@ExportActiveOnly" />
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@CopyExportLink" Class="m-2">Copiar Link</MudButton>
+        </MudCardActions>
+    </MudCard>
+
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}
+
+<script type="text/javascript">
+    downloadFile = (fileName, data) => {
+        const blob = new Blob([data], { type: "text/plain" });
+        const downloadLink = document.createElement("a");
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = fileName;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    };
+</script>

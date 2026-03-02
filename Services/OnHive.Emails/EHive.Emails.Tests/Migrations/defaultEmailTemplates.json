@@ -1,0 +1,14 @@
+[
+  {
+    "Code": "EMAIL_VALIDATION",
+    "Name": "Email Validation Default Template",
+    "Body": "<div style=\"display: flex; flex-direction: column;\"><H4 style=\"margin: 10px;\">Olá &NAME; Use este código para validar seu email na plataforma E-Hive.</h4><br /><br /><h2 style=\"align-self: center;\">&CODE;</h2><br /><br /></div>",
+    "Subject": "E-Hive - Confirmação de Email"
+  },
+  {
+    "Code": "PASSWORD_RECOVERY",
+    "Name": "Password Recovery Default Template",
+    "Body": "<div style=\"display: flex; flex-direction: column;\"><H4 style=\"margin: 10px;\">Olá &NAME; Use este código para cadastrar uma nova senha.</h4><br /><br /><h2 style=\"align-self: center;\">&CODE;</h2><br /><br /></div>",
+    "Subject": "E-Hive - Recuperação de Senha"
+  }
+]

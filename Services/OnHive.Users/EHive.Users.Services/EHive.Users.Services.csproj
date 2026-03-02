@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libraries\OnHive.Authorization.Library\EHive.Authorization.Library.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\OnHive.Enrich.Library\EHive.Enrich.Library.csproj" />
+    <ProjectReference Include="..\..\OnHive.Domain\OnHive.Domains.csproj" />
+    <ProjectReference Include="..\EHive.Users.Repositories\EHive.Users.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="4.3.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

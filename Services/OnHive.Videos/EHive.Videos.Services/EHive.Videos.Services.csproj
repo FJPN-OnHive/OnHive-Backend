@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.0.1" />
+	  <PackageReference Include="Mux.Csharp.Sdk" Version="2.1.0" />
+	  <PackageReference Include="Serilog" Version="4.3.1" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OnHive.Domain\OnHive.Domains.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

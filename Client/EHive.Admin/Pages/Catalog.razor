@@ -1,0 +1,391 @@
+﻿@page "/catalog"
+@using EHive.Core.Library.Contracts.Catalog
+@using System.Globalization
+@using EHive.Core.Library.Contracts.Courses
+@using EHive.Core.Library.Enums.Common
+@using EHive.Core.Library.Enums.Payments
+@inherits CatalogBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudTable Items="@Products" T="ProductDto" Hover="true" Outlined="true" Dense="true" RowClassFunc="RowClassSelector"
+                SelectedItemChanged="SelectProduct" Filter="product => product.Name.Contains(ProductSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || product.Sku.Contains(ProductSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || product.Description.Contains(ProductSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || string.IsNullOrEmpty(ProductSearch)">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">Produtos</MudText>
+                        <MudSpacer />
+                        <MudTextField @bind-Value="@ProductSearch" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>Nome</MudTh>
+                        <MudTh>Sku</MudTh>
+                        <MudTh>Descrição</MudTh>
+                        <MudTh>Matrícula</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="Sku">@context.Sku</MudTd>
+                        <MudTd DataLabel="Description">@context.Description</MudTd>
+                        @if (string.IsNullOrEmpty(context.Id))
+                        {
+                            <MudTd DataLabel="Remove">
+                                <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => {
+                                                                                            Products.Remove(context);
+                                                                                            SelectedProduct = null;
+                                                                                        })"></MudIconButton>
+                            </MudTd>
+                        }
+                        @if (context.FullPrice <= 0.0001 && context.FullPrice >= -0.0001)
+                        {
+                            <MudTd DataLabel="Matríciula">
+                                <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="@(() => GetInscriptionLink(context))">
+                                </MudIconButton>
+                            </MudTd>
+                        }
+                        else
+                        {
+                            <MudTd DataLabel="Matríciula">
+
+                            </MudTd>
+                        }
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager />
+                    </PagerContent>
+                </MudTable>
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Add" 
+                        OnClick="@(() =>{  
+                                            SelectedProduct = new();
+                                            Products.Add(new ProductDto { Name = "Novo produto", ItemType="Course", IsActive = true, TenantId = AdminService.LoggedUser.User.TenantId, Sku = CodeHelper.GenerateNumericCode(11) });
+                                            Products.Last().Prices = [new ProductPriceDto { Description = "Novo Preço",
+                                                                        Sequence =  SelectedProduct.Prices.Count  + 1,
+                                                                        Installments = [new InstallmentDto { Installments = 1, Value = SelectedProduct.FullPrice, Total =  SelectedProduct.FullPrice}]}];
+                                            Products.Last().RelatedProducts = [];
+                                            Products.Last().Categories = [];
+                                            Products.Last().Tags = [];
+                                            SelectProduct(Products.Last());
+                                        })">
+                    </MudIconButton>
+                </MudCardActions>
+            </MudCard>
+            @if (SelectedProduct != null)
+            {
+                <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="true" Label="Id" @bind-Value="@SelectedProduct.Id" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudSwitch  Label="Ativo" 
+                                        @bind-Value="@SelectedProduct.IsActive" 
+                                        Color="Color.Primary"
+                                        T="bool" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Nome" @bind-Value="@SelectedProduct.Name" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Sku" @bind-Value="@SelectedProduct.Sku" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Slug" @bind-Value="@SelectedProduct.Slug" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Lines="4" Label="Descrição" @bind-Value="@SelectedProduct.Description" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Url da Imagem" @bind-Value="@SelectedProduct.ImageUrl" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="AltText da Imagem" @bind-Value="@SelectedProduct.ImageAltText" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Id Externo" @bind-Value="@SelectedProduct.ExternalId" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudNumericField Format="N2" Culture="@CultureInfo.GetCultureInfo("pt-BR")" Label="Preço Base" @bind-Value="@SelectedProduct.FullPrice" />
+                        </MudItem>
+
+                        <MudItem xs="12">
+                            <MudDateRangePicker PickerVariant="@PickerVariant.Dialog" @bind-DateRange="@DateRange" Margin="Margin.Dense" Label="Período de Validade" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudNumericField T="int" Label="Vendas" @bind-Value="@SelectedProduct.Sales" />
+                        </MudItem>
+
+                    </MudCardContent>
+                </MudCard>
+            }
+            @if (SelectedProduct != null)
+            {
+                <MudCard Outlined="true" Class="form-card-body">
+                    <MudTable Items="@Courses" T="CourseDto" Hover="true" Outlined="true" Dense="true" RowClassFunc="RowClassSelectorCourse" Height="150px"
+                              SelectedItemChanged="SelectCourse" Filter="course => course.Name.Contains(CourseSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                                   || course.Code.Contains(CourseSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                                   || course.Description.Contains(CourseSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                                   || string.IsNullOrEmpty(CourseSearch)">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Curso</MudText>
+                            <MudSpacer />
+                            <MudTextField @bind-Value="@CourseSearch" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh>Nome</MudTh>
+                            <MudTh>Código</MudTh>
+                            <MudTh>Descrição</MudTh>
+                            <MudTh>Categoria</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Name">@context.Name</MudTd>
+                            <MudTd DataLabel="Code">@context.Code</MudTd>
+                            <MudTd DataLabel="Description">@context.Description</MudTd>
+                            <MudTd DataLabel="Category">@(string.Join(", ", context.Categories))</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudCard>
+
+                <MudCard Outlined="true" Class="form-card-body">
+                    <MudCardContent>
+                        <MudTextField Label="Url customizada" @bind-Value="@SelectedProduct.ItemUrl" />
+                    </MudCardContent>
+                </MudCard>
+                <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Preços</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTable Items="@SelectedProduct.Prices.OrderBy(i => i.Sequence)" T="ProductPriceDto" ReadOnly="false" Hover="true" Outlined="true" Dense="true"
+                                  RowClassFunc="RowClassSelectorPrice" @bind-SelectedItem="SelectedPrice" Height="500px">
+                            <HeaderContent>
+                                <MudTh>Descrição</MudTh>
+                                <MudTh>Tipo</MudTh>
+                                <MudTh>Ordem</MudTh>
+                                <MudTh>Price</MudTh>
+                                <MudTh>Desconto</MudTh>
+                                <MudTh>Ativo</MudTh>
+                                <MudTh>Promoção Ativa</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Description">@context.Description</MudTd>
+                                <MudTd DataLabel="PaymentType">
+                                    @{
+                                        switch (context.PaymentType)
+                                        {
+                                            case PaymentType.CreditCard:
+                                                <MudText>Cartão de Crédito</MudText>
+                                                break;
+                                            case PaymentType.DebitCard:
+                                                <MudText>Cartão de Débito</MudText>
+                                                break;
+                                            case PaymentType.BankSlip:
+                                                <MudText>Boleto</MudText>
+                                                break;
+                                            case PaymentType.PIX:
+                                                <MudText>Pix</MudText>
+                                                break;
+                                        }
+                                    }
+                                </MudTd>
+                                <MudTd DataLabel="Sequence">@context.Sequence</MudTd>
+                                <MudTd DataLabel="Price">@context.Price</MudTd>
+                                <MudTd DataLabel="Discount">@context.Discount %</MudTd>
+                                <MudTd DataLabel="Ativo">@(context.IsActive ? "Sim" : "Não")</MudTd>
+                                <MudTd DataLabel="Promoção Ativa">@(context.ActivePromo ? "Sim" : "Não")</MudTd>
+
+                                <MudTd DataLabel="Remove">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => {
+                                                                                        SelectedProduct.Prices.Remove(context);
+                                                                                        SelectedPrice = null;
+                                                                                    })"></MudIconButton>
+                                </MudTd>
+                            </RowTemplate>
+                        </MudTable>
+                        <MudCardActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                                                                        SelectedProduct.Prices.Add(new ProductPriceDto { Description = "Novo Preço",
+                                                                                            Sequence =  SelectedProduct.Prices.Count > 0 ? SelectedProduct.Prices.Last().Sequence + 1 : 1,
+                                                                                            Installments = [new InstallmentDto { Installments = 1, Value = SelectedProduct.FullPrice, Total =  SelectedProduct.FullPrice}]});
+                                                                                        SelectedPrice = SelectedProduct.Prices.Last();
+                                                                                    })" />
+                        </MudCardActions>
+                    </MudCardContent>
+                </MudCard>
+
+                @if (SelectedPrice != null)
+                {
+                    <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                        <MudCardContent>
+                            <MudItem xs="12">
+                                <MudTextField Label="Descricao" @bind-Value="@SelectedPrice.Description" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudSelect T="PaymentType" Label="Tipo" Value="@SelectedPrice.PaymentType" ValueChanged="(t) => ChangePaymentType(t)">
+                                    <MudSelectItem Value="PaymentType.CreditCard">Cartão de Crédito</MudSelectItem>
+                                    <MudSelectItem Value="PaymentType.DebitCard">Cartão de Débito</MudSelectItem>
+                                    <MudSelectItem Value="PaymentType.BankSlip">Boleto</MudSelectItem>
+                                    <MudSelectItem Value="PaymentType.PIX">PIX</MudSelectItem>
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudNumericField nLabel="Ordem" @bind-Value="@SelectedPrice.Sequence" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Label="Id Externo" @bind-Value="@SelectedPrice.ExternalId" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudNumericField Format="N2" Culture="@CultureInfo.GetCultureInfo("pt-BR")" Label="Preço" @bind-Value="@SelectedPrice.Price" />
+                            </MudItem>
+                            <!--
+                            <MudItem xs="12">
+                                <MudNumericField Format="N2" Culture="@CultureInfo.GetCultureInfo("pt-BR")" Label="Desconto" @bind-Value="@SelectedPrice.Discount" />
+                            </MudItem>
+                            -->
+                            <MudItem xs="12">
+                                <MudSwitch T="bool" Label="Ativo" @bind-value="@SelectedPrice.IsActive" Color="Color.Primary" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudSwitch T="bool" Label="Promoção Ativa" @bind-value="@SelectedPrice.ActivePromo" Color="Color.Primary" />
+                            </MudItem>
+                        </MudCardContent>
+                    </MudCard>
+
+                    @if (SelectedPrice.PaymentType == PaymentType.CreditCard)
+                    {
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Parcelas</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedPrice.Installments.OrderBy(i => i.Interest)" T="InstallmentDto" ReadOnly="false" Hover="true" Outlined="true" Dense="true"
+                                          CanCancelEdit="true" CommitEditTooltip="Confirmar" CancelEditTooltip="Cancelar" RowEditPreview="BackupInstallment" RowEditCancel="ResetInstallment" Height="400px">
+                                    <HeaderContent>
+                                        <MudTh>Parcelas</MudTh>
+                                        <MudTh>Valor</MudTh>
+                                        <MudTh>Juros</MudTh>
+                                        <MudTh>Total</MudTh>
+                                    </HeaderContent>
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Installments">@context.Installments</MudTd>
+                                        <MudTd DataLabel="Value">@context.Value</MudTd>
+                                        <MudTd DataLabel="Interest">@context.Interest %</MudTd>
+                                        <MudTd DataLabel="Total">@context.Total</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => SelectedPrice.Installments.Remove(context))"></MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                    <RowEditingTemplate>
+                                        <MudTd DataLabel="Installments">
+                                            <MudNumericField Min="1" Max="99" @bind-Value="@context.Installments" Required />
+                                        </MudTd>
+                                        <MudTd DataLabel="Value">
+                                            <MudNumericField Format="N2" Culture="@CultureInfo.GetCultureInfo("pt-BR")" Min="0" @bind-Value="@context.Value" Required />
+                                        </MudTd>
+                                        <MudTd DataLabel="Interest">
+                                            <MudNumericField Format="N2" Culture="@CultureInfo.GetCultureInfo("pt-BR")" Min="0" @bind-Value="@context.Interest" Required />
+                                        </MudTd>
+                                        <MudTd DataLabel="Total">
+                                            <MudNumericField Format="N2" Culture="@CultureInfo.GetCultureInfo("pt-BR")" Min="0" @bind-Value="@context.Total" Required />
+                                        </MudTd>
+                                    </RowEditingTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => SelectedPrice.Installments.Add(new InstallmentDto { Installments =  SelectedPrice.Installments.Count > 0 ? SelectedPrice.Installments.Last().Installments + 1 : 1 }))"></MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+                    }
+
+                }
+                @if (ProductConversionData != null)
+                {
+                    <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                        <MudCardHeader>
+                            <MudText Typo="Typo.h6">Dados de Conversão</MudText>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudItem xs="12">
+                                <MudTextField Label="Conversão" @bind-Value="@ProductConversionData.Conversao" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                                    <MudCardHeader>
+                                        <MudText Typo="Typo.h6">Tags</MudText>
+                                    </MudCardHeader>
+                                    <MudCardContent>
+                                        <MudTable Items="@ProductConversionData.Tags" T="String" ReadOnly="false" Hover="true" Outlined="true" Dense="true" Height="100px">
+                                            <RowTemplate>
+                                                <MudTd DataLabel="Tag">@context</MudTd>
+                                                <MudTd DataLabel="Remove">
+                                                    <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => ProductConversionData.Tags.Remove(context))"></MudIconButton>
+                                                </MudTd>
+                                            </RowTemplate>
+                                        </MudTable>
+                                        <MudCardActions>
+                                            <MudItem xs="12">
+                                                <MudTextField Label="Tag:" @bind-Value="@NewConversionTag" />
+                                            </MudItem>
+                                            <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                            if(!string.IsNullOrEmpty(NewConversionTag))
+                                            {
+                                                 ProductConversionData.Tags.Add(NewConversionTag);
+                                                 NewConversionTag = string.Empty;
+                                                }
+                                            })">
+                                            </MudIconButton>
+                                        </MudCardActions>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudItem>
+                        </MudCardContent>
+                    </MudCard>
+                }
+            }
+
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@SaveProduct">Salvar</MudButton>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@Clear" Class="m-2">Limpar</MudButton>            
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@RefreshPrices" Class="m-2">Atualizar Preços</MudButton>            
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+    <MudCard>
+        <MudCardActions>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@ExportAsync" Class="m-2">Exportar</MudButton>
+            <MudSelect T="ExportFormats" Label="Tipo" Value="@ExportType" ValueChanged="(t) => ChangeExportType(t)" Class="export-format">
+                <MudSelectItem Value="ExportFormats.Csv">CSV</MudSelectItem>
+                <MudSelectItem Value="ExportFormats.Json">JSON</MudSelectItem>
+                <MudSelectItem Value="ExportFormats.Xml">XML</MudSelectItem>
+            </MudSelect>
+            <MudSwitch Label="Active Only" @bind-Value="@ExportActiveOnly" />
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@CopyExportLink" Class="m-2">Copiar Link</MudButton>
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}
+<script type="text/javascript">
+    downloadFile = (fileName, data) => {
+        const blob = new Blob([data], { type: "text/plain" });
+        const downloadLink = document.createElement("a");
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = fileName;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    };
+</script>
+

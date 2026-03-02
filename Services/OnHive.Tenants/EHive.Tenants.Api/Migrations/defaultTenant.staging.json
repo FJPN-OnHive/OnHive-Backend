@@ -1,0 +1,85 @@
+{
+  "Id": "11111111111111",
+  "TenantId": "11111111111111",
+  "IsActive": true,
+  "CreatedAt": "2023-10-02T00:00:00",
+  "CreatedBy": "1",
+  "UpdatedAt": "2023-10-02T00:00:00",
+  "UpdatedBy": "1",
+  "Version": "1",
+  "Name": "e-hive",
+  "Domain": "e-hive",
+  "Email": "contato@e-hive.com.br",
+  "CNPJ": "11111111111111",
+  "StateInscription": "",
+  "CityInscription": "",
+  "Address": "Av. Marquês de São Vicente, 182 – Sala 12",
+  "District": "Várzea da Barra Funda",
+  "City": "São Paulo",
+  "State": "SP",
+  "PostalCode": "01139000",
+  "Country": "Brazil",
+  "ApiKey": "",
+  "Features": [
+    {
+      "key": "users",
+      "name": "users",
+      "description": "users feature",
+      "service": "users"
+    },
+    {
+      "key": "roles",
+      "name": "roles",
+      "description": "roles feature",
+      "service": "roles"
+    },
+    {
+      "key": "payments",
+      "name": "payments",
+      "description": "payments feature",
+      "service": "payments"
+    },
+    {
+      "key": "teachers",
+      "name": "teachers",
+      "description": "teachers feature",
+      "service": "teachers"
+    },
+    {
+      "key": "students",
+      "name": "students",
+      "description": "students feature",
+      "service": "students"
+    },
+    {
+      "key": "classes",
+      "name": "classes",
+      "description": "classes feature",
+      "service": "classes"
+    },
+    {
+      "key": "courses",
+      "name": "courses",
+      "description": "courses feature",
+      "service": "courses"
+    },
+    {
+      "key": "carts",
+      "name": "carts",
+      "description": "carts feature",
+      "service": "carts"
+    },
+    {
+      "key": "orders",
+      "name": "orders",
+      "description": "orders feature",
+      "service": "orders"
+    },
+    {
+      "key": "products",
+      "name": "products",
+      "description": "products feature",
+      "service": "products"
+    }
+  ]
+}

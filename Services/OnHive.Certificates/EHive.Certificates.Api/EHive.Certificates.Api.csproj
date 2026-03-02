@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <None Remove="docs.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="docs.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libraries\OnHive.Authorization.Library\EHive.Authorization.Library.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\OnHive.Observability.Library\EHive.Observability.Library.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\OnHive.WebExtensions.Library\EHive.WebExtensions.Library.csproj" />
+    <ProjectReference Include="..\EHive.Certificates.Services\EHive.Certificates.Services.csproj" />
+    <ProjectReference Include="..\EHive.Certificates.Repositories\EHive.Certificates.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,193 @@
+﻿@inherits NavMenuBase
+
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="title-bar container-fluid">
+        <img alt="On-Hive logo" src="images/on-Hive.svg" class="logo-image" />
+
+        @if (AdminService.Tenant != null)
+        {
+            <span>On-Hive Admin: @AdminService.Tenant.Name</span>
+        }
+        else
+        {
+            <span>On-Hive Admin</span>
+        }
+
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    @if (AdminService.IsLoggedIn && AdminService.LoggedUser != null)
+    {
+        <nav class="flex-column">
+            <MudNavMenu>
+                <MudNavLink Icon="@Icons.Material.Filled.Home" Href="">Inicio</MudNavLink>
+                <MudNavGroup Icon="@Icons.Material.Filled.AccountCircle" Title="Acesso">
+                    <MudNavLink Icon="@Icons.Material.Filled.Security" Href="changepassword">Alterar Senha</MudNavLink>
+                </MudNavGroup>
+                @if (CheckPermission(Models.PermissionFilters.Admin))
+                {
+                    <MudNavGroup Icon="@Icons.Material.Filled.Security" Title="Segurança">
+                        @if (CheckPermission(Models.PermissionFilters.Tenant))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.Business" Href="tenant">Tenant</MudNavLink>
+                        }
+                        @if (CheckPermission(Models.PermissionFilters.User))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.People" Href="users">Usuários</MudNavLink>
+                        }
+                        @if (CheckPermission(Models.PermissionFilters.Roles))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.AssignmentInd" Href="roles">Permissões</MudNavLink>
+                        }
+                        @if (CheckPermission(Models.PermissionFilters.UserGroups))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.Groups" Href="userGroups">Grupos de Usuários</MudNavLink>
+                        }
+                    </MudNavGroup>
+                }
+                @if (CheckPermission(Models.PermissionFilters.Register))
+                {
+                    <MudNavGroup Icon="@Icons.Material.Filled.Edit" Title="Cadastros">
+                        @if (CheckPermission(Models.PermissionFilters.Courses))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.Rule" Href="exams">Exames</MudNavLink>
+                            <MudNavLink Icon="@Icons.Material.Filled.VideoLibrary" Href="lessons">Aulas</MudNavLink>
+                            <MudNavLink Icon="@Icons.Material.Filled.CollectionsBookmark" Href="disciplines">Disciplinas</MudNavLink>
+                            <MudNavLink Icon="@Icons.Material.Filled.ArtTrack" Href="courses">Cursos</MudNavLink>
+                            <MudNavLink Icon="@Icons.Material.Filled.WorkspacePremium" Href="certificates">Certificados</MudNavLink>
+                        }
+                        @if (CheckPermission(Models.PermissionFilters.Products))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.ShoppingCart" Href="catalog">Catálogo</MudNavLink>
+                        }
+                        <MudNavLink Icon="@Icons.Material.Filled.School" Href="students">Alunos</MudNavLink>
+                    </MudNavGroup>
+                }
+
+                @if (CheckPermission(Models.PermissionFilters.Media))
+                {
+                    <MudNavGroup Icon="@Icons.Material.Filled.CollectionsBookmark" Title="Conteúdo">
+                        @if (CheckPermission(Models.PermissionFilters.Posts))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.PostAdd" Href="posts">Blog</MudNavLink>
+                            <MudNavLink Icon="@Icons.Material.Filled.PostAdd" Href="postseditor">Blog Editor - Beta</MudNavLink>
+                        }
+                        @if (CheckPermission(Models.PermissionFilters.Files))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.FileUpload" Href="files">Arquivos</MudNavLink>
+                        }
+
+                        @if (CheckPermission(Models.PermissionFilters.Images))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.Image" Href="images">Imagens</MudNavLink>
+                        }
+
+                        @if (CheckPermission(Models.PermissionFilters.Videos))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.VideoCall" Href="videos">Videos</MudNavLink>
+                        }
+                        @if (CheckPermission(Models.PermissionFilters.Redirects))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.Map" Href="redirects">Redirects de Conteúdo</MudNavLink>
+                        }
+                        @if (CheckPermission(Models.PermissionFilters.Dict))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.DataArray" Href="dict">Dicionário de Valores</MudNavLink>
+                        }
+                        @if (CheckPermission(Models.PermissionFilters.Jobs))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.Badge" Href="jobs">Carreiras</MudNavLink>
+                        }
+                    </MudNavGroup>
+                }
+
+                @if (CheckPermission(Models.PermissionFilters.Events))
+                {
+                    <MudNavGroup Icon="@Icons.Material.Filled.Event" Title="Eventos">
+
+                        <MudNavLink Icon="@Icons.Material.Filled.Event" Href="events">Eventos</MudNavLink>
+                        @if (CheckPermission(Models.PermissionFilters.EventsAdmin))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.Settings" Href="eventsettings">Configurações</MudNavLink>
+                        }
+
+                        @if (CheckPermission(Models.PermissionFilters.Automations))
+                        {
+                            <MudNavLink Icon="@Icons.Material.Filled.AutoMode" Href="automations">Automações</MudNavLink>
+                            <MudNavLink Icon="@Icons.Material.Filled.Link" Href="webhooks">WebHooks</MudNavLink>
+                        }
+
+
+                    </MudNavGroup>
+                }
+
+                <MudNavGroup Icon="@Icons.Material.Filled.Mail" Title="Mensagens">
+                    <MudNavLink Icon="@Icons.Material.Filled.Mail" Href="messages">Caixa de Entrada</MudNavLink>
+                    @if (CheckPermission(Models.PermissionFilters.MessageChannels))
+                    {
+                        <MudNavLink Icon="@Icons.Material.Filled.ContactMail" Href="messageChannels">Canais</MudNavLink>
+                    }
+                    @if (CheckPermission(Models.PermissionFilters.EmailTemplates))
+                    {
+                        <MudNavLink Icon="@Icons.Material.Filled.FilterFrames" Href="emailTemplate">Templates de Emails</MudNavLink>
+                    }
+                </MudNavGroup>
+
+                <MudNavGroup Icon="@Icons.Material.Filled.InsertChart" Title="Relatórios">
+                    @if (CheckPermission(Models.PermissionFilters.StudentAdmin))
+                    {
+                        <MudNavLink Icon="@Icons.Material.Filled.InsertChart" Href="EnrollmentsReport">Matriculas</MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.InsertChart" Href="SurveyReport">Pesquisas</MudNavLink>
+                    }
+                </MudNavGroup>
+
+
+                <MudNavGroup Icon="@Icons.Material.Filled.Bolt" Title="Gatilhos">
+                    @if (CheckPermission(Models.PermissionFilters.SearchAdmin))
+                    {
+                        <MudNavLink Icon="@Icons.Material.Filled.Search" OnClick="TriggerSearchFull">Busca Geral</MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.Search" OnClick="TriggerProductCourseSearch">Produto x Cursos</MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.Search" OnClick="TriggerProductCourseSearchFull">Produto x Cursos Completo</MudNavLink>
+                    }
+                </MudNavGroup>
+
+                @if (CheckPermission(Models.PermissionFilters.Integrations))
+                {
+                    <MudNavGroup Icon="@Icons.Material.Filled.Insights" Title="Integrações">
+                        <MudNavLink Icon="@Icons.Material.Filled.Email" Href="mauticintegration">Mautic</MudNavLink>                        
+                    </MudNavGroup>
+                }
+
+                <!--
+                <MudNavGroup Icon="@Icons.Material.Filled.AccountBalance" Title="Financeiro">
+                    <MudNavLink Icon="@Icons.Material.Filled.Payments" Href="bankslip">Configuracão de Boletos</MudNavLink>
+                    <MudNavLink Icon="@Icons.Material.Filled.Money" Href="transactions">Transações</MudNavLink>
+                </MudNavGroup>
+                -->
+                <MudNavLink Icon="@Icons.Material.Filled.Logout" OnClick="@Logout">Sair</MudNavLink>
+            </MudNavMenu>
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                </div>
+            </MudPopover>
+        </nav>
+    }
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

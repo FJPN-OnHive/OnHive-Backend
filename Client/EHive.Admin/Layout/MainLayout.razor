@@ -1,0 +1,36 @@
+﻿@inherits MainLayoutBase
+<div class="page">
+    <MudPopoverProvider />    
+    <MudSnackbarProvider />
+    <MudDialogProvider />
+    <MudThemeProvider @ref="@mudThemeProvider" @bind-IsDarkMode="@IsDarkMode" Theme="Theme" />    
+    <div class="sidebar">
+        <MudPaper>
+            <NavMenu />                        
+            <div class="menu-buttons">                
+                <MudSwitch @bind-value="@IsDarkMode" onclick="@SaveDarkMode" Color="Color.Primary" T="bool" Label="Modo Escuro" />
+                @if(AdminService.LoggedUser != null)
+                {
+                    <MudButton OnClick="@(() => OpenStudentArea())" Class="ml-auto mr-n3 mb-1" Color="Color.Primary">Área do Aluno</MudButton>                    
+                }
+            </div>              
+        </MudPaper>
+        <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+            <div class="d-flex flex-column">
+                <MudText>@Message</MudText>
+                <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+            </div>
+        </MudPopover>
+    </div>
+
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>    
+</div>
+<script>
+    function openNewTab(url) {
+        window.open(url, '_blank');
+    }
+</script>

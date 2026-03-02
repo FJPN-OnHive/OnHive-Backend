@@ -1,0 +1,85 @@
+{
+  "Id": "00564475000968",
+  "TenantId": "00564475000968",
+  "IsActive": true,
+  "CreatedAt": "2024-07-04T00:00:00",
+  "CreatedBy": "1",
+  "UpdatedAt": "2024-07-04T00:00:00",
+  "UpdatedBy": "1",
+  "Version": "1",
+  "Name": "fenix educação",
+  "Domain": "fenixeducacao.org.br",
+  "Email": "contato@fenixeducacao.org.br",
+  "CNPJ": "00564475000968",
+  "StateInscription": "",
+  "CityInscription": "",
+  "Address": "Av. Marquês de São Vicente, 182 – Sala 12",
+  "District": "Várzea da Barra Funda",
+  "City": "São Paulo",
+  "State": "SP",
+  "PostalCode": "01139000",
+  "Country": "Brazil",
+  "ApiKey": "",
+  "Features": [
+    {
+      "Key": "users",
+      "Name": "users",
+      "Description": "users feature",
+      "Service": "users"
+    },
+    {
+      "Key": "roles",
+      "Name": "roles",
+      "Description": "roles feature",
+      "Service": "roles"
+    },
+    {
+      "Key": "payments",
+      "Name": "payments",
+      "Description": "payments feature",
+      "Service": "payments"
+    },
+    {
+      "Key": "teachers",
+      "Name": "teachers",
+      "Description": "teachers feature",
+      "Service": "teachers"
+    },
+    {
+      "Key": "students",
+      "Name": "students",
+      "Description": "students feature",
+      "Service": "students"
+    },
+    {
+      "Key": "classes",
+      "Name": "classes",
+      "Description": "classes feature",
+      "Service": "classes"
+    },
+    {
+      "Key": "courses",
+      "Name": "courses",
+      "Description": "courses feature",
+      "Service": "courses"
+    },
+    {
+      "Key": "carts",
+      "Name": "carts",
+      "Description": "carts feature",
+      "Service": "carts"
+    },
+    {
+      "Key": "orders",
+      "Name": "orders",
+      "Description": "orders feature",
+      "Service": "orders"
+    },
+    {
+      "Key": "products",
+      "Name": "products",
+      "Description": "products feature",
+      "Service": "products"
+    }
+  ]
+}

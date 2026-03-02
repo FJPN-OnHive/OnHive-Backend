@@ -1,0 +1,35 @@
+{
+  "features": [
+    {
+      "key": "payments",
+      "name": "payments",
+      "description": "payments feature",
+      "service": "payments"
+    },
+    {
+      "key": "orders",
+      "name": "orders",
+      "description": "orders feature",
+      "service": "orders"
+    },
+    {
+      "key": "courses",
+      "name": "courses",
+      "description": "courses feature",
+      "service": "courses"
+    },
+    {
+      "key": "teachers",
+      "name": "teachers",
+      "description": "teachers feature",
+      "service": "teachers"
+    },
+    {
+      "key": "students",
+      "name": "students",
+      "description": "students feature",
+      "service": "students"
+    }
+  ],
+  "hash": ""
+}

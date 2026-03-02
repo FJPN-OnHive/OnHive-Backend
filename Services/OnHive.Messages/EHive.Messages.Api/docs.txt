@@ -1,0 +1,16 @@
+# e-hive - messages
+
+
+messages Back-End
+
+
+###Enums:
+
+```Csharp
+public enum MessageStatus
+{
+    New,
+    Read,
+    Deleted
+}
+```

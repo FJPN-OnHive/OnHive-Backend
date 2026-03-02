@@ -1,0 +1,65 @@
+{
+  "features": [
+    {
+      "key": "users",
+      "name": "users",
+      "description": "users feature",
+      "service": "users"
+    },
+    {
+      "key": "roles",
+      "name": "roles",
+      "description": "roles feature",
+      "service": "roles"
+    },
+    {
+      "key": "payments",
+      "name": "payments",
+      "description": "payments feature",
+      "service": "payments"
+    },
+    {
+      "key": "teachers",
+      "name": "teachers",
+      "description": "teachers feature",
+      "service": "teachers"
+    },
+    {
+      "key": "students",
+      "name": "students",
+      "description": "students feature",
+      "service": "students"
+    },
+    {
+      "key": "classes",
+      "name": "classes",
+      "description": "classes feature",
+      "service": "classes"
+    },
+    {
+      "key": "courses",
+      "name": "courses",
+      "description": "courses feature",
+      "service": "courses"
+    },
+    {
+      "key": "carts",
+      "name": "carts",
+      "description": "carts feature",
+      "service": "carts"
+    },
+    {
+      "key": "orders",
+      "name": "orders",
+      "description": "orders feature",
+      "service": "orders"
+    },
+    {
+      "key": "products",
+      "name": "products",
+      "description": "products feature",
+      "service": "products"
+    }
+  ],
+  "hash": ""
+}

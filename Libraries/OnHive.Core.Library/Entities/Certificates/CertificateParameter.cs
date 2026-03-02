@@ -1,0 +1,11 @@
+﻿namespace EHive.Core.Library.Entities.Certificates
+{
+    public class CertificateParameter
+    {
+        public string Key { get; set; } = string.Empty;
+
+        public string Value { get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
+    }
+}

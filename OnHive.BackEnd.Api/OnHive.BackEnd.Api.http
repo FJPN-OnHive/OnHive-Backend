@@ -1,0 +1,6 @@
+@OnHive.BackEnd.Api_HostAddress = http://localhost:5023
+
+GET {{OnHive.BackEnd.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

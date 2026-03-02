@@ -1,0 +1,11 @@
+# e-hive - invoices
+
+
+#### invoices Back-End
+
+![Invoice Flux](https://ehive-apidocs-assets.s3.us-east-2.amazonaws.com/invoice_flux.png)
+
+
+### Execução automática com ativada pela confirmação do pagamento.
+
+
