@@ -149,6 +149,7 @@
     <File Path="docs/DevGuideLines.md" />
     <File Path="docs/docs.md" />
     <File Path="docs/GeneralContracts.md" />
+    <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>
   <Project Path="OnHive.BackEnd.Api/OnHive.BackEnd.Api.csproj" />
