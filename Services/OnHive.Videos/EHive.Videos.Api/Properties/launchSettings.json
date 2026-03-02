@@ -19,7 +19,6 @@
       }
     },
     "Docker": {
-      d
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",

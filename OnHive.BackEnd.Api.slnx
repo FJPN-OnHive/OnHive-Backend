@@ -145,5 +145,11 @@
     <Project Path="Services/OnHive.Videos/EHive.Videos.Services/EHive.Videos.Services.csproj" />
     <Project Path="Services/OnHive.Videos/EHive.Videos.Tests/EHive.Videos.Tests.csproj" />
   </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="docs/DevGuideLines.md" />
+    <File Path="docs/docs.md" />
+    <File Path="docs/GeneralContracts.md" />
+    <File Path="README.md" />
+  </Folder>
   <Project Path="OnHive.BackEnd.Api/OnHive.BackEnd.Api.csproj" />
 </Solution>
