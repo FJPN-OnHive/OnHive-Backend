@@ -2,7 +2,7 @@
 
 #### Versão .Net
 
-.net 7.0 +
+.net 10.0 +
 
 #### Língua do código
 
@@ -351,11 +351,11 @@ Também podemos consultar o [C# Code Convention da Microsoft](https://learn.micr
 
     * O Swagger deve estar apenas disponível em ambientes locais, de desenvolvimento e de homologação, nunca em ambientes produtivos.
 
-#### Template de soluções
+#### Template dos serviços
 
-1. **Nome das soluções:**
+1. **Nome dos serviços:**
 
-   * Devem iniciar com o nome da companhia, seguidos do nome da solução e do tipo da solução.
+   * Devem iniciar com o nome do projeto, seguidos do nome da solução e do tipo da solução.
 
    * Tipos de solução:
 
@@ -369,11 +369,11 @@ Também podemos consultar o [C# Code Convention da Microsoft](https://learn.micr
 
      * Tool
 
-  Exemplo: Sendo uma  solução de uma library chamada 'Core' ficaria: Sebrades.Core.Library
+  Exemplo: Sendo uma  solução de uma library chamada 'Core' ficaria: OnHive.Core.Library
 
 2. **Nome dos repositórios:**
 
-    * Devem ser compostos pelo nome da solução substituindo o '.' por '_', exemplo: solução Sebrades.Core.Library, ficaria sebrades_core_library.
+    * Devem ser compostos pelo nome da solução substituindo o '.' por '_', exemplo: solução OnHive.Core.Library, ficaria OnHive_core_library.
 
 3. **Estrutura geral da solução:**
 
@@ -429,7 +429,7 @@ Também podemos consultar o [C# Code Convention da Microsoft](https://learn.micr
 
   Visão geral da estrutura de pasta de uma solução típica:
 
-    * Sebrades.Example.Api (Application)
+    * OnHive.Example.Api (Application)
 
       * DependencyInjection/
 
@@ -449,7 +449,7 @@ Também podemos consultar o [C# Code Convention da Microsoft](https://learn.micr
 
     * Program.cs
 
-  * Sebrades.Example.Domain
+  * OnHive.Example.Domain
 
       * Abstractions/
 
@@ -469,15 +469,15 @@ Também podemos consultar o [C# Code Convention da Microsoft](https://learn.micr
 
         * ExampleEntity.cs
 
-   * Sebrades.Example.Services
+   * OnHive.Example.Services
 
       * ExampleService.cs
 
-   * Sebrades.Example.Repositories
+   * OnHive.Example.Repositories
 
       * ExampleRepository.cs
 
-   * Sebrades.Example.Tests
+   * OnHive.Example.Tests
 
       * Services/
 
@@ -517,27 +517,12 @@ Também podemos consultar o [C# Code Convention da Microsoft](https://learn.micr
 
 1. **Conceito**
 
- Execução de testes integrados automatizados em um ambiente isolado, com todos os serviços em funcionamento e com o banco de dados contendo dados de teste. Os testes integrados são escritos em linguagem de negócio utilizando a sintaxe Gherkin (ver link abaixo)
+ Execução de testes integrados automatizados em um ambiente isolado, com todos os serviços em funcionamento e com o banco de dados contendo dados de teste.
 
 2. **Framework**
-
-   * [BDD](https://blog.onedaytesting.com.br/bdd-introducao/)
-
-   * [Specflow (.net)](https://specflow.org/)
-
-   * [Sintaxe Gherkin](https://blog.onedaytesting.com.br/gherkin/)
-
-     * Dado, Quando, Então
-
-     * Podendo ser em português ou inglês.
-
-        ```
-        Dado que “Fulano” possui uma conta no sistema
-        E ele acessa a página de login
-        E ele preenche suas credenciais válidas
-        Quando ele aciona a opção de realizar login
-        Então ele deve ser redirecionado para a página inicial logado
-        ```
+1. 
+1. 
+   * [Cypress](https://www.cypress.io)
 
 3. **Estrutura**
 
