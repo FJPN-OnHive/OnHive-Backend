@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Emails.Domain.Models
+namespace OnHive.Emails.Domain.Models
 {
     public class EmailsApiSettings
     {

@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.Emails
+namespace OnHive.Core.Library.Entities.Emails
 {
     public class EmailTemplate : EntityBase
     {

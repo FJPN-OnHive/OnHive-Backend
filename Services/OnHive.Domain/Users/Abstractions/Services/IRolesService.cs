@@ -1,9 +1,9 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Contracts.Users;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Users;
 using System.Text.Json;
 
-namespace EHive.Users.Domain.Abstractions.Services
+namespace OnHive.Users.Domain.Abstractions.Services
 {
     public interface IRolesService
     {

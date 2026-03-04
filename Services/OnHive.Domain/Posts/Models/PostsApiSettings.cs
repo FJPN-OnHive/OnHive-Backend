@@ -1,4 +1,4 @@
-namespace EHive.Posts.Domain.Models
+namespace OnHive.Posts.Domain.Models
 {
     public class PostsApiSettings
     {

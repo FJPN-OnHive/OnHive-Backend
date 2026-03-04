@@ -1,6 +1,6 @@
-using EHive.Core.Library.Enums.Posts;
+using OnHive.Core.Library.Enums.Posts;
 
-namespace EHive.Core.Library.Entities.Posts
+namespace OnHive.Core.Library.Entities.Posts
 {
     public class BlogPostBackup : EntityBase
     {

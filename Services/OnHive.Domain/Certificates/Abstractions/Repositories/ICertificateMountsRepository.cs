@@ -1,8 +1,8 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Entities.Certificates;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Entities.Certificates;
 
-namespace EHive.Certificates.Domain.Abstractions.Repositories
+namespace OnHive.Certificates.Domain.Abstractions.Repositories
 {
     public interface ICertificateMountsRepository : IRepositoryBase<CertificateMount>
     {

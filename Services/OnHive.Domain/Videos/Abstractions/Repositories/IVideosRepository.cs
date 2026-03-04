@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Videos;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Videos;
 
-namespace EHive.Videos.Domain.Abstractions.Repositories
+namespace OnHive.Videos.Domain.Abstractions.Repositories
 {
     public interface IVideosRepository : IRepositoryBase<Video>
     {

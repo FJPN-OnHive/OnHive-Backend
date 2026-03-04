@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Catalog
+namespace OnHive.Core.Library.Contracts.Catalog
 {
     public class CouponDto
     {

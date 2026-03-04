@@ -1,9 +1,9 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Emails;
-using EHive.Core.Library.Contracts.Users;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Emails;
+using OnHive.Core.Library.Contracts.Users;
 using System.Text.Json;
 
-namespace EHive.Emails.Domain.Abstractions.Services
+namespace OnHive.Emails.Domain.Abstractions.Services
 {
     public interface IEmailsService
     {

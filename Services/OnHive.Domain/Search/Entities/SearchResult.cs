@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.Search
+namespace OnHive.Core.Library.Entities.Search
 {
     public class SearchResult : EntityBase
     {

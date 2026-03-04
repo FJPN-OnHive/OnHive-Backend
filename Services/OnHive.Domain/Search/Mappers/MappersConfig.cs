@@ -1,10 +1,10 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Catalog;
-using EHive.Core.Library.Contracts.Search;
-using EHive.Core.Library.Entities.Catalog;
-using EHive.Core.Library.Entities.Search;
+using OnHive.Core.Library.Contracts.Catalog;
+using OnHive.Core.Library.Contracts.Search;
+using OnHive.Core.Library.Entities.Catalog;
+using OnHive.Core.Library.Entities.Search;
 
-namespace EHive.Search.Domain.Mappers
+namespace OnHive.Search.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

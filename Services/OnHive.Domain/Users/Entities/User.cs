@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Entities.Users
+﻿namespace OnHive.Core.Library.Entities.Users
 {
     public class User : EntityBase
     {

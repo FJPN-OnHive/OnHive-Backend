@@ -1,4 +1,4 @@
-﻿namespace EHive.Configuration.Library.Exceptions
+﻿namespace OnHive.Configuration.Library.Exceptions
 {
     public class MissingConfigurationException<T> : Exception
     {

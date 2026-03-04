@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Search.Domain.Models
+namespace OnHive.Search.Domain.Models
 {
     public class SearchApiSettings
     {

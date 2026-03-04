@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi;
 using System.Text.Json;
 
-namespace EHive.Configuration.Library.Models
+namespace OnHive.Configuration.Library.Models
 {
     public class PermissionDocs : IOpenApiExtension
     {

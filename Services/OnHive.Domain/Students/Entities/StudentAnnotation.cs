@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Entities.Students
+﻿namespace OnHive.Core.Library.Entities.Students
 {
     public class StudentAnnotation
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Core.Library.Validations.Common
+namespace OnHive.Core.Library.Validations.Common
 {
     public static class ValidateExtension
     {

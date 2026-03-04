@@ -1,13 +1,13 @@
-﻿using EHive.Configuration.Library.Extensions;
-using EHive.Database.Library.HealthChecks;
-using EHive.Database.Library.Models;
-using EHive.HealthCheck.Library.Abstractions;
+﻿using OnHive.Configuration.Library.Extensions;
+using OnHive.Database.Library.HealthChecks;
+using OnHive.Database.Library.Models;
+using OnHive.HealthCheck.Library.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
 
-namespace EHive.Database.Library.Extensions
+namespace OnHive.Database.Library.Extensions
 {
     public static class BuilderExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Entities.Posts
+﻿namespace OnHive.Core.Library.Entities.Posts
 {
     public class PostMetadata
     {

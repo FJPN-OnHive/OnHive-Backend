@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Entities.Tenants
+﻿namespace OnHive.Core.Library.Entities.Tenants
 {
     public class TenantTheme : EntityBase
     {

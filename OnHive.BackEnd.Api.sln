@@ -7,23 +7,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.BackEnd.Api", "OnHiv
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{9123F88B-E531-3118-42D7-ED8CEF4BD00E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Admin", "Client\EHive.Admin\EHive.Admin.csproj", "{69C1BCB1-70E5-B475-B707-8F97E3FB0502}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Admin", "Client\OnHive.Admin\OnHive.Admin.csproj", "{69C1BCB1-70E5-B475-B707-8F97E3FB0502}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{F2E35B3E-9711-EDEC-6202-DB40BDEED14A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Authorization.Library", "Libraries\OnHive.Authorization.Library\EHive.Authorization.Library.csproj", "{FA1D3754-D14C-0E44-0118-8B1EDD3106FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Authorization.Library", "Libraries\OnHive.Authorization.Library\OnHive.Authorization.Library.csproj", "{FA1D3754-D14C-0E44-0118-8B1EDD3106FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Configuration.Library", "Libraries\OnHive.Configuration.Library\EHive.Configuration.Library.csproj", "{4873D231-1978-095B-FD53-04B2FAAF2025}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Configuration.Library", "Libraries\OnHive.Configuration.Library\OnHive.Configuration.Library.csproj", "{4873D231-1978-095B-FD53-04B2FAAF2025}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Database.Library", "Libraries\OnHive.DataBase.Library\EHive.Database.Library.csproj", "{91371BC2-036B-B905-2502-2EE34269C73B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Database.Library", "Libraries\OnHive.DataBase.Library\OnHive.Database.Library.csproj", "{91371BC2-036B-B905-2502-2EE34269C73B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Enrich.Library", "Libraries\OnHive.Enrich.Library\EHive.Enrich.Library.csproj", "{A04DB233-4BBF-DB36-796D-8270C8D6F26B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Enrich.Library", "Libraries\OnHive.Enrich.Library\OnHive.Enrich.Library.csproj", "{A04DB233-4BBF-DB36-796D-8270C8D6F26B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.HealthCheck.Library", "Libraries\OnHive.HealthCheck.Library\EHive.HealthCheck.Library.csproj", "{39044034-33CB-0E55-6AA8-84723E717340}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.HealthCheck.Library", "Libraries\OnHive.HealthCheck.Library\OnHive.HealthCheck.Library.csproj", "{39044034-33CB-0E55-6AA8-84723E717340}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Observability.Library", "Libraries\OnHive.Observability.Library\EHive.Observability.Library.csproj", "{E7A49D43-1965-264C-0A0A-F831367F9817}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Observability.Library", "Libraries\OnHive.Observability.Library\OnHive.Observability.Library.csproj", "{E7A49D43-1965-264C-0A0A-F831367F9817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.WebExtensions.Library", "Libraries\OnHive.WebExtensions.Library\EHive.WebExtensions.Library.csproj", "{F461283C-10D6-77FA-FECE-6D7B4A210071}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.WebExtensions.Library", "Libraries\OnHive.WebExtensions.Library\OnHive.WebExtensions.Library.csproj", "{F461283C-10D6-77FA-FECE-6D7B4A210071}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5854FF58-B8C5-05C6-5BF2-ACE42193F22B}"
 EndProject
@@ -31,219 +31,219 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Domains", "Services\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{944ACC7E-4FFC-A2A2-09E1-98A62C66F8DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Catalog.Api", "Services\OnHive.Catalog\EHive.Catalog.Api\EHive.Catalog.Api.csproj", "{45AFD05F-FCC8-86AC-23D2-F812DDED1B65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Catalog.Api", "Services\OnHive.Catalog\OnHive.Catalog.Api\OnHive.Catalog.Api.csproj", "{45AFD05F-FCC8-86AC-23D2-F812DDED1B65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Catalog.Repositories", "Services\OnHive.Catalog\EHive.Catalog.Repositories\EHive.Catalog.Repositories.csproj", "{2082E0AF-CF96-D61D-65DC-8313D9F563ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Catalog.Repositories", "Services\OnHive.Catalog\OnHive.Catalog.Repositories\OnHive.Catalog.Repositories.csproj", "{2082E0AF-CF96-D61D-65DC-8313D9F563ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Catalog.Services", "Services\OnHive.Catalog\EHive.Catalog.Services\EHive.Catalog.Services.csproj", "{A02A7181-5D0B-23E8-0B91-2C04223899F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Catalog.Services", "Services\OnHive.Catalog\OnHive.Catalog.Services\OnHive.Catalog.Services.csproj", "{A02A7181-5D0B-23E8-0B91-2C04223899F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Catalog.Tests", "Services\OnHive.Catalog\EHive.Catalog.Tests\EHive.Catalog.Tests.csproj", "{939B06C3-AC8A-C10C-E3EC-B6878FEAF1C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Catalog.Tests", "Services\OnHive.Catalog\OnHive.Catalog.Tests\OnHive.Catalog.Tests.csproj", "{939B06C3-AC8A-C10C-E3EC-B6878FEAF1C0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Certificates", "Certificates", "{5200B219-8C4C-DA60-171B-BF86225F318A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Certificates.Api", "Services\OnHive.Certificates\EHive.Certificates.Api\EHive.Certificates.Api.csproj", "{70E6DFA6-F5C4-D70C-B160-3C3D9BDA3165}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Certificates.Api", "Services\OnHive.Certificates\OnHive.Certificates.Api\OnHive.Certificates.Api.csproj", "{70E6DFA6-F5C4-D70C-B160-3C3D9BDA3165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Certificates.Repositories", "Services\OnHive.Certificates\EHive.Certificates.Repositories\EHive.Certificates.Repositories.csproj", "{313A44C6-26C5-AC93-2960-E71C1EFF29A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Certificates.Repositories", "Services\OnHive.Certificates\OnHive.Certificates.Repositories\OnHive.Certificates.Repositories.csproj", "{313A44C6-26C5-AC93-2960-E71C1EFF29A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Certificates.Services", "Services\OnHive.Certificates\EHive.Certificates.Services\EHive.Certificates.Services.csproj", "{09C44F16-9EAD-0EC4-5D05-08F27FDBD2CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Certificates.Services", "Services\OnHive.Certificates\OnHive.Certificates.Services\OnHive.Certificates.Services.csproj", "{09C44F16-9EAD-0EC4-5D05-08F27FDBD2CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Certificates.Tests", "Services\OnHive.Certificates\EHive.Certificates.Tests\EHive.Certificates.Tests.csproj", "{C98072CD-F153-D580-8572-76455B15B4DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Certificates.Tests", "Services\OnHive.Certificates\OnHive.Certificates.Tests\OnHive.Certificates.Tests.csproj", "{C98072CD-F153-D580-8572-76455B15B4DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{DAC5131F-7680-9D53-083A-E85F82930708}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Configuration.Api", "Services\OnHive.Configurations\EHive.Configuration.Api\EHive.Configuration.Api.csproj", "{BA6869B0-EE4A-4BED-A4F9-E946E30D92AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Configuration.Api", "Services\OnHive.Configurations\OnHive.Configuration.Api\OnHive.Configuration.Api.csproj", "{BA6869B0-EE4A-4BED-A4F9-E946E30D92AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Configuration.Repositories", "Services\OnHive.Configurations\EHive.Configuration.Repositories\EHive.Configuration.Repositories.csproj", "{27E9CC04-D7A2-FA3A-10B8-B72DCD50765F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Configuration.Repositories", "Services\OnHive.Configurations\OnHive.Configuration.Repositories\OnHive.Configuration.Repositories.csproj", "{27E9CC04-D7A2-FA3A-10B8-B72DCD50765F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Configuration.Services", "Services\OnHive.Configurations\EHive.Configuration.Services\EHive.Configuration.Services.csproj", "{E33F31CC-66FB-47D1-B5BE-BA84AED62796}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Configuration.Services", "Services\OnHive.Configurations\OnHive.Configuration.Services\OnHive.Configuration.Services.csproj", "{E33F31CC-66FB-47D1-B5BE-BA84AED62796}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Courses", "Courses", "{8374F492-29BD-A8E6-0ECE-621396CDAC7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Courses.Api", "Services\OnHive.Courses\EHive.Courses.Api\EHive.Courses.Api.csproj", "{27EDD083-5C61-807F-8B33-8EB1F1D9BCBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Courses.Api", "Services\OnHive.Courses\OnHive.Courses.Api\OnHive.Courses.Api.csproj", "{27EDD083-5C61-807F-8B33-8EB1F1D9BCBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Courses.Repositories", "Services\OnHive.Courses\EHive.Courses.Repositories\EHive.Courses.Repositories.csproj", "{6136D992-50CE-3723-0525-0D4B5D45DEB9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Courses.Repositories", "Services\OnHive.Courses\OnHive.Courses.Repositories\OnHive.Courses.Repositories.csproj", "{6136D992-50CE-3723-0525-0D4B5D45DEB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Courses.Services", "Services\OnHive.Courses\EHive.Courses.Services\EHive.Courses.Services.csproj", "{4E74D21B-6E45-92C7-8C4E-C8131356C436}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Courses.Services", "Services\OnHive.Courses\OnHive.Courses.Services\OnHive.Courses.Services.csproj", "{4E74D21B-6E45-92C7-8C4E-C8131356C436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Courses.Tests", "Services\OnHive.Courses\EHive.Courses.Tests\EHive.Courses.Tests.csproj", "{3C179445-E52A-5E35-47E8-EFC82E1A4CDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Courses.Tests", "Services\OnHive.Courses\OnHive.Courses.Tests\OnHive.Courses.Tests.csproj", "{3C179445-E52A-5E35-47E8-EFC82E1A4CDB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dict", "Dict", "{B4B52EE0-5DC7-0988-D396-507729BFE1A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Dict.Api", "Services\OnHive.Dict\EHive.Dict.Api\EHive.Dict.Api.csproj", "{523A24C0-97B8-3E5E-8C16-A28A41314DFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Dict.Api", "Services\OnHive.Dict\OnHive.Dict.Api\OnHive.Dict.Api.csproj", "{523A24C0-97B8-3E5E-8C16-A28A41314DFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Dict.Repositories", "Services\OnHive.Dict\EHive.Dict.Repositories\EHive.Dict.Repositories.csproj", "{74BB2C81-4F43-CAE7-917F-D2EA105C0E91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Dict.Repositories", "Services\OnHive.Dict\OnHive.Dict.Repositories\OnHive.Dict.Repositories.csproj", "{74BB2C81-4F43-CAE7-917F-D2EA105C0E91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Dict.Services", "Services\OnHive.Dict\EHive.Dict.Services\EHive.Dict.Services.csproj", "{5CC6C07A-21CC-94C6-06F2-085947E051CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Dict.Services", "Services\OnHive.Dict\OnHive.Dict.Services\OnHive.Dict.Services.csproj", "{5CC6C07A-21CC-94C6-06F2-085947E051CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Dict.Tests", "Services\OnHive.Dict\EHive.Dict.Tests\EHive.Dict.Tests.csproj", "{7B97FC0C-CEE2-F3F6-E683-BC8FEBB49C19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Dict.Tests", "Services\OnHive.Dict\OnHive.Dict.Tests\OnHive.Dict.Tests.csproj", "{7B97FC0C-CEE2-F3F6-E683-BC8FEBB49C19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Emails", "Emails", "{263EFDC7-6077-4144-1A71-9E92EDFAE117}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Emails.Api", "Services\OnHive.Emails\EHive.Emails.Api\EHive.Emails.Api.csproj", "{9D47E604-F5CA-B29C-7B21-0E60E4E96A16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Emails.Api", "Services\OnHive.Emails\OnHive.Emails.Api\OnHive.Emails.Api.csproj", "{9D47E604-F5CA-B29C-7B21-0E60E4E96A16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Emails.Repositories", "Services\OnHive.Emails\EHive.Emails.Repositories\EHive.Emails.Repositories.csproj", "{E8E6F105-FE49-3056-834E-854415520388}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Emails.Repositories", "Services\OnHive.Emails\OnHive.Emails.Repositories\OnHive.Emails.Repositories.csproj", "{E8E6F105-FE49-3056-834E-854415520388}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Emails.Services", "Services\OnHive.Emails\EHive.Emails.Services\EHive.Emails.Services.csproj", "{904C986E-5D5A-68BE-A9BB-15D4CDDE8CB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Emails.Services", "Services\OnHive.Emails\OnHive.Emails.Services\OnHive.Emails.Services.csproj", "{904C986E-5D5A-68BE-A9BB-15D4CDDE8CB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Emails.Tests", "Services\OnHive.Emails\EHive.Emails.Tests\EHive.Emails.Tests.csproj", "{053E9DE9-A20E-7EC5-1052-8E215CC11642}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Emails.Tests", "Services\OnHive.Emails\OnHive.Emails.Tests\OnHive.Emails.Tests.csproj", "{053E9DE9-A20E-7EC5-1052-8E215CC11642}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{F87152BA-842F-D5CC-CAFB-C07B37BF17D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Events.Api", "Services\OnHive.Events\EHive.Events.Api\EHive.Events.Api.csproj", "{681F34D3-87BE-F1DD-4905-8E837AEC1B5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Events.Api", "Services\OnHive.Events\OnHive.Events.Api\OnHive.Events.Api.csproj", "{681F34D3-87BE-F1DD-4905-8E837AEC1B5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Events.Repositories", "Services\OnHive.Events\EHive.Events.Repositories\EHive.Events.Repositories.csproj", "{A8F282B9-754F-650B-D879-35AB5AA9F8C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Events.Repositories", "Services\OnHive.Events\OnHive.Events.Repositories\OnHive.Events.Repositories.csproj", "{A8F282B9-754F-650B-D879-35AB5AA9F8C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Events.Services", "Services\OnHive.Events\EHive.Events.Services\EHive.Events.Services.csproj", "{CDDE3F84-34D2-0440-D9DF-B56ED08E0E4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Events.Services", "Services\OnHive.Events\OnHive.Events.Services\OnHive.Events.Services.csproj", "{CDDE3F84-34D2-0440-D9DF-B56ED08E0E4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Events.Tests", "Services\OnHive.Events\EHive.Events.Tests\EHive.Events.Tests.csproj", "{7B53A697-F996-F50D-E82A-8EF64670190D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Events.Tests", "Services\OnHive.Events\OnHive.Events.Tests\OnHive.Events.Tests.csproj", "{7B53A697-F996-F50D-E82A-8EF64670190D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Invoices", "Invoices", "{2F3EE251-ABB3-5BD4-C82E-E7341C2D16BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Invoices.Api", "Services\OnHive.Invoices\EHive.Invoices.Api\EHive.Invoices.Api.csproj", "{D407DD74-C605-B526-B8D7-71A90CC88377}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Invoices.Api", "Services\OnHive.Invoices\OnHive.Invoices.Api\OnHive.Invoices.Api.csproj", "{D407DD74-C605-B526-B8D7-71A90CC88377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Invoices.Repositories", "Services\OnHive.Invoices\EHive.Invoices.Repositories\EHive.Invoices.Repositories.csproj", "{E3421FBE-7182-EE8A-9D17-F8E59296D003}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Invoices.Repositories", "Services\OnHive.Invoices\OnHive.Invoices.Repositories\OnHive.Invoices.Repositories.csproj", "{E3421FBE-7182-EE8A-9D17-F8E59296D003}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Invoices.Services", "Services\OnHive.Invoices\EHive.Invoices.Services\EHive.Invoices.Services.csproj", "{0DE19653-FE67-5689-118F-89D60E522F4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Invoices.Services", "Services\OnHive.Invoices\OnHive.Invoices.Services\OnHive.Invoices.Services.csproj", "{0DE19653-FE67-5689-118F-89D60E522F4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Invoices.Tests", "Services\OnHive.Invoices\EHive.Invoices.Tests\EHive.Invoices.Tests.csproj", "{92666D77-BF04-2792-43E7-CEB88AEFA079}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Invoices.Tests", "Services\OnHive.Invoices\OnHive.Invoices.Tests\OnHive.Invoices.Tests.csproj", "{92666D77-BF04-2792-43E7-CEB88AEFA079}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messages", "Messages", "{E9541DCE-ECAD-262E-4CCC-30275377D830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Messages.Api", "Services\OnHive.Messages\EHive.Messages.Api\EHive.Messages.Api.csproj", "{948336C5-DAD4-2CE3-7C49-4D3D888862A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Messages.Api", "Services\OnHive.Messages\OnHive.Messages.Api\OnHive.Messages.Api.csproj", "{948336C5-DAD4-2CE3-7C49-4D3D888862A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Messages.Repositories", "Services\OnHive.Messages\EHive.Messages.Repositories\EHive.Messages.Repositories.csproj", "{48013B5C-F6DF-8ED3-1E6A-D4A32AEBEC2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Messages.Repositories", "Services\OnHive.Messages\OnHive.Messages.Repositories\OnHive.Messages.Repositories.csproj", "{48013B5C-F6DF-8ED3-1E6A-D4A32AEBEC2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Messages.Services", "Services\OnHive.Messages\EHive.Messages.Services\EHive.Messages.Services.csproj", "{670A3F9A-298F-3EA3-02A3-471CAC623E0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Messages.Services", "Services\OnHive.Messages\OnHive.Messages.Services\OnHive.Messages.Services.csproj", "{670A3F9A-298F-3EA3-02A3-471CAC623E0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Messages.Tests", "Services\OnHive.Messages\EHive.Messages.Tests\EHive.Messages.Tests.csproj", "{D94BDB3C-37D7-D936-CE5B-27BEEC1F35AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Messages.Tests", "Services\OnHive.Messages\OnHive.Messages.Tests\OnHive.Messages.Tests.csproj", "{D94BDB3C-37D7-D936-CE5B-27BEEC1F35AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders", "Orders", "{1C00F9DA-F33C-8627-D347-15FF6E4360B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Orders.Api", "Services\OnHive.Orders\EHive.Orders.Api\EHive.Orders.Api.csproj", "{4DE28B9E-38AA-7038-A80B-477231408849}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Orders.Api", "Services\OnHive.Orders\OnHive.Orders.Api\OnHive.Orders.Api.csproj", "{4DE28B9E-38AA-7038-A80B-477231408849}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Orders.Repositories", "Services\OnHive.Orders\EHive.Orders.Repositories\EHive.Orders.Repositories.csproj", "{F69C4639-8D7D-983E-5BD0-7D88A9391BD7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Orders.Repositories", "Services\OnHive.Orders\OnHive.Orders.Repositories\OnHive.Orders.Repositories.csproj", "{F69C4639-8D7D-983E-5BD0-7D88A9391BD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Orders.Services", "Services\OnHive.Orders\EHive.Orders.Services\EHive.Orders.Services.csproj", "{3670D8FB-1402-AD15-11D5-B07B6D0F63B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Orders.Services", "Services\OnHive.Orders\OnHive.Orders.Services\OnHive.Orders.Services.csproj", "{3670D8FB-1402-AD15-11D5-B07B6D0F63B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Orders.Tests", "Services\OnHive.Orders\EHive.Orders.Tests\EHive.Orders.Tests.csproj", "{21D24556-4E8B-3403-2DC8-AEBFCE2ACD37}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Orders.Tests", "Services\OnHive.Orders\OnHive.Orders.Tests\OnHive.Orders.Tests.csproj", "{21D24556-4E8B-3403-2DC8-AEBFCE2ACD37}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{D8AFF377-A933-C61A-6A84-6680BF48FD58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Payments.Api", "Services\OnHive.Payments\EHive.Payments.Api\EHive.Payments.Api.csproj", "{7324F513-EE76-EBD4-2760-3D920202B205}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Payments.Api", "Services\OnHive.Payments\OnHive.Payments.Api\OnHive.Payments.Api.csproj", "{7324F513-EE76-EBD4-2760-3D920202B205}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Payments.Repositories", "Services\OnHive.Payments\EHive.Payments.Repositories\EHive.Payments.Repositories.csproj", "{3401E1F4-0072-EF90-16FB-FEC8309DF1CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Payments.Repositories", "Services\OnHive.Payments\OnHive.Payments.Repositories\OnHive.Payments.Repositories.csproj", "{3401E1F4-0072-EF90-16FB-FEC8309DF1CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Payments.Services", "Services\OnHive.Payments\EHive.Payments.Services\EHive.Payments.Services.csproj", "{FCFEE045-740A-B5DC-5F2F-5A2C94D99C73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Payments.Services", "Services\OnHive.Payments\OnHive.Payments.Services\OnHive.Payments.Services.csproj", "{FCFEE045-740A-B5DC-5F2F-5A2C94D99C73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Payments.Tests", "Services\OnHive.Payments\EHive.Payments.Tests\EHive.Payments.Tests.csproj", "{96E4CBEF-C2A6-BD09-DA59-BE849E2639D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Payments.Tests", "Services\OnHive.Payments\OnHive.Payments.Tests\OnHive.Payments.Tests.csproj", "{96E4CBEF-C2A6-BD09-DA59-BE849E2639D8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaymentsCielo", "PaymentsCielo", "{AC01527B-03FF-5AD5-86AC-657BC7812945}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.PaymentsCielo.Api", "Services\OnHive.PaymentsCielo\EHive.PaymentsCielo.Api\EHive.PaymentsCielo.Api.csproj", "{BB314604-2780-A94A-BE2D-40A143CB9BE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.PaymentsCielo.Api", "Services\OnHive.PaymentsCielo\OnHive.PaymentsCielo.Api\OnHive.PaymentsCielo.Api.csproj", "{BB314604-2780-A94A-BE2D-40A143CB9BE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.PaymentsCielo.Services", "Services\OnHive.PaymentsCielo\EHive.PaymentsCielo.Services\EHive.PaymentsCielo.Services.csproj", "{D3DA2F39-A5F8-AF52-421B-A44A1C7461A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.PaymentsCielo.Services", "Services\OnHive.PaymentsCielo\OnHive.PaymentsCielo.Services\OnHive.PaymentsCielo.Services.csproj", "{D3DA2F39-A5F8-AF52-421B-A44A1C7461A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.PaymentsCielo.Tests", "Services\OnHive.PaymentsCielo\EHive.PaymentsCielo.Tests\EHive.PaymentsCielo.Tests.csproj", "{D1AAF6AB-641C-91A8-B33A-14346F93788F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.PaymentsCielo.Tests", "Services\OnHive.PaymentsCielo\OnHive.PaymentsCielo.Tests\OnHive.PaymentsCielo.Tests.csproj", "{D1AAF6AB-641C-91A8-B33A-14346F93788F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Posts", "Posts", "{1A74326A-BAB3-4C72-76C9-FB2911D3BDC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Posts.Api", "Services\OnHive.Posts\EHive.Posts.Api\EHive.Posts.Api.csproj", "{9CB0A87E-3294-634A-05BD-0FDE5052124F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Posts.Api", "Services\OnHive.Posts\OnHive.Posts.Api\OnHive.Posts.Api.csproj", "{9CB0A87E-3294-634A-05BD-0FDE5052124F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Posts.Repositories", "Services\OnHive.Posts\EHive.Posts.Repositories\EHive.Posts.Repositories.csproj", "{74BA816A-C4F1-97D6-0E92-74309B86FF1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Posts.Repositories", "Services\OnHive.Posts\OnHive.Posts.Repositories\OnHive.Posts.Repositories.csproj", "{74BA816A-C4F1-97D6-0E92-74309B86FF1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Posts.Services", "Services\OnHive.Posts\EHive.Posts.Services\EHive.Posts.Services.csproj", "{21BDA17A-DDC8-0EE3-50B8-A8BFF096213D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Posts.Services", "Services\OnHive.Posts\OnHive.Posts.Services\OnHive.Posts.Services.csproj", "{21BDA17A-DDC8-0EE3-50B8-A8BFF096213D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Posts.Tests", "Services\OnHive.Posts\EHive.Posts.Tests\EHive.Posts.Tests.csproj", "{B341FBFA-F1D4-BC76-9925-4B7D5FEC444E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Posts.Tests", "Services\OnHive.Posts\OnHive.Posts.Tests\OnHive.Posts.Tests.csproj", "{B341FBFA-F1D4-BC76-9925-4B7D5FEC444E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redirects", "Redirects", "{716297D1-B843-41FD-E51A-A95A126B3669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Redirects.Api", "Services\OnHive.Redirects\EHive.Redirects.Api\EHive.Redirects.Api.csproj", "{0E9E5ED9-F636-847A-AE71-390C073F9FB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Redirects.Api", "Services\OnHive.Redirects\OnHive.Redirects.Api\OnHive.Redirects.Api.csproj", "{0E9E5ED9-F636-847A-AE71-390C073F9FB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Redirects.Repositories", "Services\OnHive.Redirects\EHive.Redirects.Repositories\EHive.Redirects.Repositories.csproj", "{855F7B3D-C7F5-33A1-C524-D2D3161F8AC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Redirects.Repositories", "Services\OnHive.Redirects\OnHive.Redirects.Repositories\OnHive.Redirects.Repositories.csproj", "{855F7B3D-C7F5-33A1-C524-D2D3161F8AC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Redirects.Services", "Services\OnHive.Redirects\EHive.Redirects.Services\EHive.Redirects.Services.csproj", "{61C9EC62-DEDB-B50D-DE07-66C58FCE66BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Redirects.Services", "Services\OnHive.Redirects\OnHive.Redirects.Services\OnHive.Redirects.Services.csproj", "{61C9EC62-DEDB-B50D-DE07-66C58FCE66BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Redirects.Tests", "Services\OnHive.Redirects\EHive.Redirects.Tests\EHive.Redirects.Tests.csproj", "{A2974496-41AA-CEA0-2CB1-59701D4A773D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Redirects.Tests", "Services\OnHive.Redirects\OnHive.Redirects.Tests\OnHive.Redirects.Tests.csproj", "{A2974496-41AA-CEA0-2CB1-59701D4A773D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{3B0DE4D8-1454-6429-A135-0D27EE8319AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Search.Api", "Services\OnHive.Search\EHive.Search.Api\EHive.Search.Api.csproj", "{A73C0350-E4E7-3CDE-FAC8-E94A4157FCF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Search.Api", "Services\OnHive.Search\OnHive.Search.Api\OnHive.Search.Api.csproj", "{A73C0350-E4E7-3CDE-FAC8-E94A4157FCF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Search.Repositories", "Services\OnHive.Search\EHive.Search.Repositories\EHive.Search.Repositories.csproj", "{EEDB9C41-95DA-BC9E-E042-E03BE89E1715}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Search.Repositories", "Services\OnHive.Search\OnHive.Search.Repositories\OnHive.Search.Repositories.csproj", "{EEDB9C41-95DA-BC9E-E042-E03BE89E1715}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Search.Services", "Services\OnHive.Search\EHive.Search.Services\EHive.Search.Services.csproj", "{984C75DD-3A0D-CEBC-30EE-2FE0724AFA90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Search.Services", "Services\OnHive.Search\OnHive.Search.Services\OnHive.Search.Services.csproj", "{984C75DD-3A0D-CEBC-30EE-2FE0724AFA90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Search.Tests", "Services\OnHive.Search\EHive.Search.Tests\EHive.Search.Tests.csproj", "{FD1D90A1-74F1-BF4E-5F57-DBBE2612A45D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Search.Tests", "Services\OnHive.Search\OnHive.Search.Tests\OnHive.Search.Tests.csproj", "{FD1D90A1-74F1-BF4E-5F57-DBBE2612A45D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storages", "Storages", "{6F3DF9C4-EB5C-DAAD-9490-04EDBCC28D4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Storages.Api", "Services\OnHive.Storages\EHive.Storages.Api\EHive.Storages.Api.csproj", "{6BCCC40E-0E55-F944-EA77-B33A6103BC70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Storages.Api", "Services\OnHive.Storages\OnHive.Storages.Api\OnHive.Storages.Api.csproj", "{6BCCC40E-0E55-F944-EA77-B33A6103BC70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Storages.Repositories", "Services\OnHive.Storages\EHive.Storages.Repositories\EHive.Storages.Repositories.csproj", "{0B53FF4C-A120-D33A-BDF4-EEC604B254B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Storages.Repositories", "Services\OnHive.Storages\OnHive.Storages.Repositories\OnHive.Storages.Repositories.csproj", "{0B53FF4C-A120-D33A-BDF4-EEC604B254B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Storages.Services", "Services\OnHive.Storages\EHive.Storages.Services\EHive.Storages.Services.csproj", "{B77B5515-DEE3-4D6B-E5BE-70285FFB21AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Storages.Services", "Services\OnHive.Storages\OnHive.Storages.Services\OnHive.Storages.Services.csproj", "{B77B5515-DEE3-4D6B-E5BE-70285FFB21AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Storages.Tests", "Services\OnHive.Storages\EHive.Storages.Tests\EHive.Storages.Tests.csproj", "{B507C2E1-B84B-6EAB-5DE3-D8BE91E6A5CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Storages.Tests", "Services\OnHive.Storages\OnHive.Storages.Tests\OnHive.Storages.Tests.csproj", "{B507C2E1-B84B-6EAB-5DE3-D8BE91E6A5CB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Students", "Students", "{DC5B61F1-EE98-E1D2-C995-95F49A047AAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Students.Api", "Services\OnHive.Students\EHive.Students.Api\EHive.Students.Api.csproj", "{6A04B33A-A2E3-1676-739C-7310A2132C5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Students.Api", "Services\OnHive.Students\OnHive.Students.Api\OnHive.Students.Api.csproj", "{6A04B33A-A2E3-1676-739C-7310A2132C5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Students.Repositories", "Services\OnHive.Students\EHive.Students.Repositories\EHive.Students.Repositories.csproj", "{6395DFEA-9D4F-6356-7CA6-8B074D12A8BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Students.Repositories", "Services\OnHive.Students\OnHive.Students.Repositories\OnHive.Students.Repositories.csproj", "{6395DFEA-9D4F-6356-7CA6-8B074D12A8BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Students.Services", "Services\OnHive.Students\EHive.Students.Services\EHive.Students.Services.csproj", "{FE9FA9F3-3A0A-3CDD-E4B6-166F43DC80D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Students.Services", "Services\OnHive.Students\OnHive.Students.Services\OnHive.Students.Services.csproj", "{FE9FA9F3-3A0A-3CDD-E4B6-166F43DC80D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Students.Tests", "Services\OnHive.Students\EHive.Students.Tests\EHive.Students.Tests.csproj", "{05E2DDD3-A5DC-5B03-0995-785AC3BA8F2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Students.Tests", "Services\OnHive.Students\OnHive.Students.Tests\OnHive.Students.Tests.csproj", "{05E2DDD3-A5DC-5B03-0995-785AC3BA8F2F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SystemParameters", "SystemParameters", "{411D8B87-A97E-E91C-8C9C-8C99322B2614}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.SystemParameters.Api", "Services\OnHive.SystemParameters\EHive.SystemParameters.Api\EHive.SystemParameters.Api.csproj", "{1C0EB144-9948-F17B-BF68-3070B0DD30A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.SystemParameters.Api", "Services\OnHive.SystemParameters\OnHive.SystemParameters.Api\OnHive.SystemParameters.Api.csproj", "{1C0EB144-9948-F17B-BF68-3070B0DD30A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.SystemParameters.Repositories", "Services\OnHive.SystemParameters\EHive.SystemParameters.Repositories\EHive.SystemParameters.Repositories.csproj", "{C0A964BF-C50B-58E6-F77F-844CF6937D22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.SystemParameters.Repositories", "Services\OnHive.SystemParameters\OnHive.SystemParameters.Repositories\OnHive.SystemParameters.Repositories.csproj", "{C0A964BF-C50B-58E6-F77F-844CF6937D22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.SystemParameters.Services", "Services\OnHive.SystemParameters\EHive.SystemParameters.Services\EHive.SystemParameters.Services.csproj", "{F4892B55-DD84-1AA5-A03B-660C33D7B906}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.SystemParameters.Services", "Services\OnHive.SystemParameters\OnHive.SystemParameters.Services\OnHive.SystemParameters.Services.csproj", "{F4892B55-DD84-1AA5-A03B-660C33D7B906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.SystemParameters.Tests", "Services\OnHive.SystemParameters\EHive.SystemParameters.Tests\EHive.SystemParameters.Tests.csproj", "{F4337086-4644-7365-2F8A-1CDB7870D9F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.SystemParameters.Tests", "Services\OnHive.SystemParameters\OnHive.SystemParameters.Tests\OnHive.SystemParameters.Tests.csproj", "{F4337086-4644-7365-2F8A-1CDB7870D9F5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Teachers", "Teachers", "{7E73D059-F0C7-6D11-31EA-5EB5848C6FB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Teachers.Api", "Services\OnHive.Teachers\EHive.Teachers.Api\EHive.Teachers.Api.csproj", "{256C2610-66EA-1070-27EC-062990083D71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Teachers.Api", "Services\OnHive.Teachers\OnHive.Teachers.Api\OnHive.Teachers.Api.csproj", "{256C2610-66EA-1070-27EC-062990083D71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Teachers.Repositories", "Services\OnHive.Teachers\EHive.Teachers.Repositories\EHive.Teachers.Repositories.csproj", "{0948B15C-54FE-0A53-C0C7-30B6C9BE8BE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Teachers.Repositories", "Services\OnHive.Teachers\OnHive.Teachers.Repositories\OnHive.Teachers.Repositories.csproj", "{0948B15C-54FE-0A53-C0C7-30B6C9BE8BE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Teachers.Services", "Services\OnHive.Teachers\EHive.Teachers.Services\EHive.Teachers.Services.csproj", "{110ADB43-8AA3-E156-F180-3510FFD98649}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Teachers.Services", "Services\OnHive.Teachers\OnHive.Teachers.Services\OnHive.Teachers.Services.csproj", "{110ADB43-8AA3-E156-F180-3510FFD98649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Teachers.Tests", "Services\OnHive.Teachers\EHive.Teachers.Tests\EHive.Teachers.Tests.csproj", "{B64FB4F8-1D0E-4740-18C3-050B6C54DDD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Teachers.Tests", "Services\OnHive.Teachers\OnHive.Teachers.Tests\OnHive.Teachers.Tests.csproj", "{B64FB4F8-1D0E-4740-18C3-050B6C54DDD2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tenants", "Tenants", "{2C0EE0AE-396B-312F-E939-DF63EAE9A2DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Tenants.Api", "Services\OnHive.Tenants\EHive.Tenants.Api\EHive.Tenants.Api.csproj", "{5CF3EDE6-C2DD-2882-6386-DC2E5ACF06BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Tenants.Api", "Services\OnHive.Tenants\OnHive.Tenants.Api\OnHive.Tenants.Api.csproj", "{5CF3EDE6-C2DD-2882-6386-DC2E5ACF06BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Tenants.Repositories", "Services\OnHive.Tenants\EHive.Tenants.Repositories\EHive.Tenants.Repositories.csproj", "{04A97828-57DD-5B4C-4196-7511046EDCF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Tenants.Repositories", "Services\OnHive.Tenants\OnHive.Tenants.Repositories\OnHive.Tenants.Repositories.csproj", "{04A97828-57DD-5B4C-4196-7511046EDCF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Tenants.Services", "Services\OnHive.Tenants\EHive.Tenants.Services\EHive.Tenants.Services.csproj", "{5552E762-EF8B-4179-EFC2-1055F5C1D725}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Tenants.Services", "Services\OnHive.Tenants\OnHive.Tenants.Services\OnHive.Tenants.Services.csproj", "{5552E762-EF8B-4179-EFC2-1055F5C1D725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Tenants.Tests", "Services\OnHive.Tenants\EHive.Tenants.Tests\EHive.Tenants.Tests.csproj", "{3CAD3D0C-D0CC-8086-335A-92A24A531E30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Tenants.Tests", "Services\OnHive.Tenants\OnHive.Tenants.Tests\OnHive.Tenants.Tests.csproj", "{3CAD3D0C-D0CC-8086-335A-92A24A531E30}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{7F5E4303-C61D-8574-96A4-AEBE3E9C691B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Users.Api", "Services\OnHive.Users\EHive.Users.Api\EHive.Users.Api.csproj", "{B154537C-2E25-A163-9C32-339F3900C9C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Users.Api", "Services\OnHive.Users\OnHive.Users.Api\OnHive.Users.Api.csproj", "{B154537C-2E25-A163-9C32-339F3900C9C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Users.Repositories", "Services\OnHive.Users\EHive.Users.Repositories\EHive.Users.Repositories.csproj", "{F879B094-40DD-C7F7-A9DD-7D7BD6487DE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Users.Repositories", "Services\OnHive.Users\OnHive.Users.Repositories\OnHive.Users.Repositories.csproj", "{F879B094-40DD-C7F7-A9DD-7D7BD6487DE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Users.Services", "Services\OnHive.Users\EHive.Users.Services\EHive.Users.Services.csproj", "{B228F1B3-B3D6-C04A-E059-AA530E5D922B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Users.Services", "Services\OnHive.Users\OnHive.Users.Services\OnHive.Users.Services.csproj", "{B228F1B3-B3D6-C04A-E059-AA530E5D922B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Users.Tests", "Services\OnHive.Users\EHive.Users.Tests\EHive.Users.Tests.csproj", "{22EFE0CE-4B34-2953-89A4-22A2461616B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Users.Tests", "Services\OnHive.Users\OnHive.Users.Tests\OnHive.Users.Tests.csproj", "{22EFE0CE-4B34-2953-89A4-22A2461616B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Videos", "Videos", "{E112EF60-60C8-0B7A-7DE7-009DDC0E5D09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Videos.Api", "Services\OnHive.Videos\EHive.Videos.Api\EHive.Videos.Api.csproj", "{58FCA6C0-A10D-73CA-2885-22993C7A453C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Videos.Api", "Services\OnHive.Videos\OnHive.Videos.Api\OnHive.Videos.Api.csproj", "{58FCA6C0-A10D-73CA-2885-22993C7A453C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Videos.Repositories", "Services\OnHive.Videos\EHive.Videos.Repositories\EHive.Videos.Repositories.csproj", "{C8309E8D-818D-5189-8BE8-6B2A6675D3EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Videos.Repositories", "Services\OnHive.Videos\OnHive.Videos.Repositories\OnHive.Videos.Repositories.csproj", "{C8309E8D-818D-5189-8BE8-6B2A6675D3EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Videos.Services", "Services\OnHive.Videos\EHive.Videos.Services\EHive.Videos.Services.csproj", "{15209D06-0CA0-56B1-EF95-6D413623DA92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Videos.Services", "Services\OnHive.Videos\OnHive.Videos.Services\OnHive.Videos.Services.csproj", "{15209D06-0CA0-56B1-EF95-6D413623DA92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHive.Videos.Tests", "Services\OnHive.Videos\EHive.Videos.Tests\EHive.Videos.Tests.csproj", "{9593F096-3440-4584-9E80-0ECA9A6C2493}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnHive.Videos.Tests", "Services\OnHive.Videos\OnHive.Videos.Tests\OnHive.Videos.Tests.csproj", "{9593F096-3440-4584-9E80-0ECA9A6C2493}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{089100B1-113F-4E66-888A-E83F3999EAFD}"
 	ProjectSection(SolutionItems) = preProject

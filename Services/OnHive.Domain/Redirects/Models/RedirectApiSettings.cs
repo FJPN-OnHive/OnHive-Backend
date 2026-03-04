@@ -1,4 +1,4 @@
-namespace EHive.Redirects.Domain.Models
+namespace OnHive.Redirects.Domain.Models
 {
     public class RedirectApiSettings
     {

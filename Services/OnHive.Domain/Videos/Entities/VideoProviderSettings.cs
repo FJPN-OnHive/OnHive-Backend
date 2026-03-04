@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Core.Library.Entities.Videos
+namespace OnHive.Core.Library.Entities.Videos
 {
     public class VideoProviderSettings : EntityBase
     {

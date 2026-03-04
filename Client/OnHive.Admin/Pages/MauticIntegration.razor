@@ -1,0 +1,60 @@
+﻿@page "/mauticintegration"
+@using OnHive.Core.Library.Contracts.Tenants
+@inherits MauticIntegrationBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h5">Integração - Mautic</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudStack>
+                <MudCard Outlined="true" Class="form-card-body">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">Informações Básicas:</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="true" Label="Id" @bind-Value="@MauticIntegrationSettings.Id" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudCardActions>
+                                <MudTextField Label="ApiKey" @bind-Value="@MauticIntegrationSettings.IntegrationAPIKey" />
+                                <MudIconButton Icon="@Icons.Material.Filled.NewLabel" Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@CreateApikey"></MudIconButton>
+                            </MudCardActions>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Mautic Url" @bind-Value="@MauticIntegrationSettings.MauticUrl" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Mautic Client Id" @bind-Value="@MauticIntegrationSettings.MauticClientId" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Mautic Client Secret" @bind-Value="@MauticIntegrationSettings.MauticClientSecret" />
+                        </MudItem>
+                        <MudItem>
+                            <MudSwitch Label="Ativo"
+                                       @bind-Value="@MauticIntegrationSettings.IsActive"
+                                       Color="Color.Primary"
+                                       T="bool" />
+                        </MudItem>
+                    </MudCardContent>
+                </MudCard>
+            </MudStack>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@SaveSettings">Salvar</MudButton>
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}

@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.SystemParameters;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.SystemParameters;
 
-namespace EHive.SystemParameters.Domain.Abstractions.Repositories
+namespace OnHive.SystemParameters.Domain.Abstractions.Repositories
 {
     public interface ISystemParametersRepository : IRepositoryBase<SystemParameter>
     {

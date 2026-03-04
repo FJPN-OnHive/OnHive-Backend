@@ -1,8 +1,8 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Redirects;
-using EHive.Core.Library.Entities.Redirects;
+using OnHive.Core.Library.Contracts.Redirects;
+using OnHive.Core.Library.Entities.Redirects;
 
-namespace EHive.Redirects.Domain.Mappers
+namespace OnHive.Redirects.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

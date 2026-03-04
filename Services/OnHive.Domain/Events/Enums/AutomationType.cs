@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.Events
+﻿namespace OnHive.Core.Library.Enums.Events
 {
     public enum AutomationType
     {

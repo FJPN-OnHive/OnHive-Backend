@@ -1,11 +1,11 @@
-﻿using EHive.HealthCheck.Library.Abstractions;
-using EHive.HealthCheck.Library.Helpers;
+﻿using OnHive.HealthCheck.Library.Abstractions;
+using OnHive.HealthCheck.Library.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace EHive.HealthCheck.Library.Extensions
+namespace OnHive.HealthCheck.Library.Extensions
 {
     public static class ApplicationExtensions
     {

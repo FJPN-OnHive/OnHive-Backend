@@ -1,8 +1,8 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.SystemParameters;
-using EHive.Core.Library.Entities.SystemParameters;
+using OnHive.Core.Library.Contracts.SystemParameters;
+using OnHive.Core.Library.Entities.SystemParameters;
 
-namespace EHive.SystemParameters.Domain.Mappers
+namespace OnHive.SystemParameters.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

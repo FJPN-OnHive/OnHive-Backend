@@ -1,4 +1,4 @@
-﻿namespace EHive.WebExtensions.Library
+﻿namespace OnHive.WebExtensions.Library
 {
     public static class ContentTypeHelper
     {

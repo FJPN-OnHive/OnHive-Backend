@@ -1,8 +1,8 @@
-﻿using EHive.Database.Library.Models;
+﻿using OnHive.Database.Library.Models;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using MongoDB.Driver;
 
-namespace EHive.Database.Library.HealthChecks
+namespace OnHive.Database.Library.HealthChecks
 {
     internal class MongoDbHealthCheck : IHealthCheck
     {

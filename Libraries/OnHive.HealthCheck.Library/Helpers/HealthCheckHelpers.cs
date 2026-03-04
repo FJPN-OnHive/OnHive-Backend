@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Text.Json;
 
-namespace EHive.HealthCheck.Library.Helpers
+namespace OnHive.HealthCheck.Library.Helpers
 {
     internal static class HealthCheckHelpers
     {

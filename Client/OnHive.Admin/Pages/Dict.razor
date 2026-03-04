@@ -1,0 +1,172 @@
+﻿@page "/dict"
+@using OnHive.Core.Library.Contracts.Dict
+@inherits DictBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardContent>
+
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudCardContent>
+                    <MudTable Items="@Values"
+                              T="ValueRegistryDto"
+                              Hover="true"
+                              Outlined="true"
+                              Dense="true"
+                              RowClassFunc="RowClassSelectorValue"
+                              SelectedItemChanged="SelectValue"
+                              Filter="value =>
+                                    value.Name.Contains(ValueSearch, StringComparison.InvariantCultureIgnoreCase)
+                                 || value.Group.Contains(ValueSearch, StringComparison.InvariantCultureIgnoreCase)
+                                 || value.Description.Contains(ValueSearch, StringComparison.InvariantCultureIgnoreCase)
+                                 || value.Key.Contains(ValueSearch, StringComparison.InvariantCultureIgnoreCase)
+                                 || string.IsNullOrEmpty(ValueSearch)">
+
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Valores</MudText>
+                            <MudSpacer />
+                            <MudTextField @bind-Value="@ValueSearch"
+                                          Placeholder="Busca"
+                                          Adornment="Adornment.Start"
+                                          AdornmentIcon="@Icons.Material.Filled.Search"
+                                          IconSize="Size.Medium"
+                                          Class="mt-0" >
+                            </MudTextField>
+
+                        </ToolBarContent>
+
+                        <HeaderContent>
+                            <MudTh>Nome</MudTh>
+                            <MudTh>Descrição</MudTh>
+                            <MudTh>Grupo</MudTh>
+                            <MudTh>Chave</MudTh>
+                            <MudTh>Valor</MudTh>
+                        </HeaderContent>
+
+                        <RowTemplate>
+                            <MudTd DataLabel="Name">@context.Name</MudTd>
+                            <MudTd DataLabel="Description">@context.Description</MudTd>
+                            <MudTd DataLabel="Group">@context.Group</MudTd>
+                            <MudTd DataLabel="Key">@context.Key</MudTd>
+                            <MudTd DataLabel="Value">@context.Value</MudTd>
+                            @if (string.IsNullOrEmpty(context.Id))
+                            {
+                                <MudTd DataLabel="Remove">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Remove"
+                                                   OnClick="@(() =>
+                                                   {
+                                                       Values.Remove(context);
+                                                       SelectedValue = new();
+                                                   })" >
+                                    </MudIconButton>
+                                </MudTd>
+                            }
+                        </RowTemplate>
+
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+
+                    <MudCardActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                       OnClick="@(() =>
+                                       {
+                                            ValueRegistryDto newValue = new ValueRegistryDto
+                                           {
+                                               Name = "Novo",
+                                               Description = "Novo",
+                                               Value = "Novo Valor",
+                                               Group = "Grupo",
+                                               Key = "Chave"
+                                           };
+
+                                           Values.Add(newValue);
+                                           SelectValue(Values.Last());
+                                       })" />
+                    </MudCardActions>
+                </MudCardContent>
+            </MudCard>
+
+            @if (SelectedValue != null)
+            {
+                <MudCard Outlined="true" Class="form-card-body mt-2">
+                    <MudCardContent>
+                        <MudGrid>
+                            <MudItem xs="12">
+                                <MudTextField Label="Nome" @bind-Value="@SelectedValue.Name" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Label="Descrição" @bind-Value="@SelectedValue.Description" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Label="Grupo" @bind-Value="@SelectedValue.Group" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Label="Chave" @bind-Value="@SelectedValue.Key" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Label="Categoria" @bind-Value="@SelectedValue.Category" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Lines="8" Label="Valor" @bind-Value="@SelectedValue.Value" />
+                            </MudItem>
+                        </MudGrid>
+                    </MudCardContent>
+                </MudCard>
+            }
+        </MudCardContent>
+
+        <MudCardActions>
+            @if (SelectedValue != null)
+            {
+                <MudButton Color="Color.Primary"
+                           Variant="MudBlazor.Variant.Filled"
+                           OnClick="@SaveValue">
+                    Salvar
+                </MudButton>
+
+                <MudButton Color="Color.Primary"
+                           Variant="MudBlazor.Variant.Filled"
+                           OnClick="@(() => ShowDeleteMessage = true)"
+                           Class="m-2">
+                    Deletar
+                </MudButton>
+            }
+
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)"
+                               Class="ml-auto mr-n3 mb-1"
+                               Color="Color.Error">
+                        Close
+                    </MudButton>
+                </div>
+            </MudPopover>
+
+            <MudPopover Open="@ShowDeleteMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>
+                        Deseja realmente deletar este valor? Esta ação não pode ser desfeita.
+                    </MudText>
+                    <MudButton OnClick="@(() => { @ShowDeleteMessage = false; DeleteValue(); })"
+                               Class="ml-auto mr-n3 mb-1"
+                               Color="Color.Error">
+                        Confirmar
+                    </MudButton>
+                    <MudButton OnClick="@(() => @ShowDeleteMessage = false)"
+                               Class="ml-auto mr-n3 mb-1"
+                               Color="Color.Error">
+                        Cancelar
+                    </MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}

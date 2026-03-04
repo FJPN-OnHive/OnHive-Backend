@@ -1,8 +1,8 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Entities.Posts;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Entities.Posts;
 
-namespace EHive.Posts.Domain.Abstractions.Repositories
+namespace OnHive.Posts.Domain.Abstractions.Repositories
 {
     public interface IPostsRepository : IRepositoryBase<BlogPost>
     {

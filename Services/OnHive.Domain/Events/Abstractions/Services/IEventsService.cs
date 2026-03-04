@@ -1,8 +1,8 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Events;
-using EHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Events;
+using OnHive.Core.Library.Contracts.Login;
 
-namespace EHive.Events.Domain.Abstractions.Services
+namespace OnHive.Events.Domain.Abstractions.Services
 {
     public interface IEventsService
     {

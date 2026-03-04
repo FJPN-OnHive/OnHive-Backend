@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.Dict
+namespace OnHive.Core.Library.Entities.Dict
 {
     public class ValueRegistry : EntityBase
     {

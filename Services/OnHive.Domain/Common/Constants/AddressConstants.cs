@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Constants
+﻿namespace OnHive.Core.Library.Constants
 {
     public static class AddressConstants
     {

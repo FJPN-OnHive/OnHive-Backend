@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace EHive.Core.Library.Enums.Common
+namespace OnHive.Core.Library.Enums.Common
 {
     public enum ResponseCode
     {

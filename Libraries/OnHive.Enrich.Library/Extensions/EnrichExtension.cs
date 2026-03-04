@@ -1,12 +1,12 @@
-﻿using EHive.Core.Library.Abstractions.Enrich;
-using EHive.Core.Library.Entities.Enrichments;
-using EHive.Database.Library.Models;
-using EHive.Enrich.Library.Repository;
+﻿using OnHive.Core.Library.Abstractions.Enrich;
+using OnHive.Core.Library.Entities.Enrichments;
+using OnHive.Database.Library.Models;
+using OnHive.Enrich.Library.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using OnHive.Domains.Common.Helpers;
 using System.Text.Json;
 
-namespace EHive.Enrich.Library.Extensions
+namespace OnHive.Enrich.Library.Extensions
 {
     public static class EnrichExtension
     {

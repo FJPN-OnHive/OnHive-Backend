@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Helpers
+﻿namespace OnHive.Core.Library.Helpers
 {
     public static class CodeHelper
     {

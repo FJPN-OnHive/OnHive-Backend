@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Invoices
+namespace OnHive.Core.Library.Contracts.Invoices
 {
     public class InvoiceMessage
     {

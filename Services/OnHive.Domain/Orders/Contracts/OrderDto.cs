@@ -1,8 +1,8 @@
-﻿using EHive.Core.Library.Enums.Orders;
+﻿using OnHive.Core.Library.Enums.Orders;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Orders
+namespace OnHive.Core.Library.Contracts.Orders
 {
     public class OrderDto
     {

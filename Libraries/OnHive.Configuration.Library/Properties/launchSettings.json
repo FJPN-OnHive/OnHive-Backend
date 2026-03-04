@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "EHive.Configuration.Library": {
+    "OnHive.Configuration.Library": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

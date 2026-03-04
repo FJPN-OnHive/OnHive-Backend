@@ -1,7 +1,7 @@
-using EHive.Core.Library.Enums.WebHook;
+using OnHive.Core.Library.Enums.WebHook;
 using MongoDB.Bson;
 
-namespace EHive.Core.Library.Entities.Events
+namespace OnHive.Core.Library.Entities.Events
 {
     public class WebHook : EntityBase
     {

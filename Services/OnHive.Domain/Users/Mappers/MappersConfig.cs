@@ -1,10 +1,10 @@
 using AutoMapper;
-using EHive.Core.Library.Constants;
-using EHive.Core.Library.Contracts.Users;
-using EHive.Core.Library.Entities.Users;
-using EHive.Core.Library.Extensions;
+using OnHive.Core.Library.Constants;
+using OnHive.Core.Library.Contracts.Users;
+using OnHive.Core.Library.Entities.Users;
+using OnHive.Core.Library.Extensions;
 
-namespace EHive.Users.Domain.Mappers
+namespace OnHive.Users.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

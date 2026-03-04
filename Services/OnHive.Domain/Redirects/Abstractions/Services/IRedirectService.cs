@@ -1,9 +1,9 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Redirects;
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Enums.Common;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Redirects;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Enums.Common;
 
-namespace EHive.Redirects.Domain.Abstractions.Services
+namespace OnHive.Redirects.Domain.Abstractions.Services
 {
     public interface IRedirectService
     {

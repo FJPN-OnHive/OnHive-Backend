@@ -1,7 +1,7 @@
-﻿using EHive.HealthCheck.Library.Abstractions;
+﻿using OnHive.HealthCheck.Library.Abstractions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace EHive.HealthCheck.Library
+namespace OnHive.HealthCheck.Library
 {
     public class HealthCheckCollection : IHealthCheckCollection
     {

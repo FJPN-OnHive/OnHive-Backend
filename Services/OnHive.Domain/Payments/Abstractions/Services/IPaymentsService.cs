@@ -1,7 +1,7 @@
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Contracts.Payments;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Payments;
 
-namespace EHive.Payments.Domain.Abstractions.Services
+namespace OnHive.Payments.Domain.Abstractions.Services
 {
     public interface IPaymentsService
     {

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.SystemParameters
+namespace OnHive.Core.Library.Contracts.SystemParameters
 {
     public class SystemParameterDto
     {

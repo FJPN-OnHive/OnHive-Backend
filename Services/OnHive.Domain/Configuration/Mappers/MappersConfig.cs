@@ -1,11 +1,11 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Configuration;
-using EHive.Core.Library.Entities.Configuration;
+using OnHive.Core.Library.Contracts.Configuration;
+using OnHive.Core.Library.Entities.Configuration;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using System.Text.Json;
 
-namespace EHive.Configuration.Domain.Mappers
+namespace OnHive.Configuration.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

@@ -1,0 +1,235 @@
+﻿@page "/videos"
+@using OnHive.Core.Library.Contracts.Videos
+
+@inherits VideosBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h6">Vídeos</MudText>
+        </MudCardHeader>
+
+        <MudCardContent>
+            <MudCard>
+                <MudCardContent>
+                    <MudTable Items="@Videos" T="VideoDto"
+                              Hover="true"
+                              Outlined="true"
+                              Dense="true"
+                              RowClassFunc="RowClassSelectorVideos"
+                              SelectedItemChanged="SelectVideo"
+                              Filter="@(video => video.Name.Contains(VideoSearch, StringComparison.InvariantCultureIgnoreCase)
+                    || video.Description.Contains(VideoSearch, StringComparison.InvariantCultureIgnoreCase)
+                    || string.IsNullOrEmpty(VideoSearch))">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Vídeos</MudText>
+                            <MudSpacer />
+                            <MudTextField @bind-Value="@VideoSearch"
+                                          Placeholder="Busca"
+                                          Adornment="Adornment.Start"
+                                          AdornmentIcon="@Icons.Material.Filled.Search"
+                                          IconSize="Size.Medium"
+                                          Class="mt-0" />
+                        </ToolBarContent>
+
+                        <HeaderContent>
+                            <MudTh>Nome</MudTh>
+                            <MudTh>Descrição</MudTh>
+                            <MudTh>Status</MudTh>
+                            <MudTh>Copiar URL</MudTh>
+                        </HeaderContent>
+
+                        <RowTemplate>
+                            <MudTd DataLabel="Nome">@context.Name</MudTd>
+                            <MudTd DataLabel="Descrição">@context.Description</MudTd>
+                            <MudTd DataLabel="Status">@context.Status</MudTd>
+                            <MudTd DataLabel="Copiar URL">
+                                @if (context.Status.ToString().Equals("Ready", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <MudIconButton Icon="@Icons.Material.Filled.CopyAll"
+                                                   Title="Copiar VideoUrl"
+                                                   OnClick="@(() => CopyToClipboard(context.VideoUrl))" />
+                                }
+                            </MudTd>
+                        </RowTemplate>
+
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+                </MudCardContent>
+
+                <MudCardActions>
+                    <MudFileUpload T="IBrowserFile"
+                                   FilesChanged="UploadVideo"
+                                   Accept=".mp4, .mov, .avi, .wmv, .mkv"
+                                   MaximumFileCount="1">
+                        <ActivatorContent>
+                            <MudIconButton Icon="@Icons.Material.Filled.Add" Title="Adicionar Vídeo" />
+                        </ActivatorContent>
+                    </MudFileUpload>
+                </MudCardActions>
+            </MudCard>
+
+            @if (SelectedVideo != null)
+            {
+                <MudCard Class="mt-4">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">@SelectedVideo.Name</MudText>
+                    </MudCardHeader>
+
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="@(String.IsNullOrEmpty(SelectedVideo.Id) ? false : true)"
+                                          Label="Id"
+                                          @bind-Value="@SelectedVideo.Id" />
+                        </MudItem>
+
+                        @if (!string.IsNullOrEmpty(SelectedVideo.VideoUrl))
+                        {
+                            <MudItem xs="12">
+                                <MudTextField ReadOnly="true" Label="VideoUrl" @bind-Value="@SelectedVideo.VideoUrl" />
+                                <MudIconButton Icon="@Icons.Material.Filled.CopyAll"
+                                               OnClick="@(() => CopyToClipboard(@SelectedVideo.VideoUrl))">
+                                </MudIconButton>
+                            </MudItem>
+                        }
+
+                        @if (!string.IsNullOrEmpty(SelectedVideo.ThumbnailUrl))
+                        {
+                            <MudItem xs="12">
+                                <MudTextField ReadOnly="true" Label="ThumbnailUrl" @bind-Value="@SelectedVideo.ThumbnailUrl" />
+                                <MudIconButton Icon="@Icons.Material.Filled.CopyAll"
+                                               OnClick="@(() => CopyToClipboard(@SelectedVideo.ThumbnailUrl))">
+                                </MudIconButton>
+                            </MudItem>
+                        }
+
+                        <MudItem xs="12">
+                            <MudTextField Label="Nome" @bind-Value="@SelectedVideo.Name" />
+                        </MudItem>
+
+                        <MudItem xs="12">
+                            <MudTextField Label="Descrição" @bind-Value="@SelectedVideo.Description" />
+                        </MudItem>
+
+                        <MudItem xs="12">
+                            <MudTextField Label="Status" @bind-Value="@SelectedVideo.Status" />
+                        </MudItem>
+
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Categorias</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedVideo.Categories"
+                                          T="string"
+                                          ReadOnly="false"
+                                          Hover="true"
+                                          Outlined="true"
+                                          Dense="true"
+                                          Height="100px">
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Category">@context</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove"
+                                                           OnClick="@(() => SelectedVideo.Categories.Remove(context))">
+                                            </MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudItem xs="12">
+                                        <MudTextField Label="Categoria:" @bind-Value="@NewCategory" />
+                                    </MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                                   OnClick="@(() =>
+                                                   {
+                                                       if (!string.IsNullOrEmpty(NewCategory))
+                                                       {
+                                                           SelectedVideo.Categories.Add(NewCategory);
+                                                           NewCategory = string.Empty;
+                                                       }
+                                                   })">
+                                    </MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Tags</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedVideo.Tags"
+                                          T="string"
+                                          ReadOnly="false"
+                                          Hover="true"
+                                          Outlined="true"
+                                          Dense="true"
+                                          Height="100px">
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Tag">@context</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove"
+                                                           OnClick="@(() => SelectedVideo.Tags.Remove(context))">
+                                            </MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudItem xs="12">
+                                        <MudTextField Label="Tag:" @bind-Value="@NewTag" />
+                                    </MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                                   OnClick="@(() =>
+                                                   {
+                                                       if (!string.IsNullOrEmpty(NewTag))
+                                                       {
+                                                           SelectedVideo.Tags.Add(NewTag);
+                                                           NewTag = string.Empty;
+                                                       }
+                                                   })">
+                                    </MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudCardContent>
+
+                    <MudCardActions>
+                        <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="SaveVideo">Salvar</MudButton>
+                        <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" Class="m-2"
+                                   OnClick="@(() => SelectedVideo = null)">
+                            Limpar
+                        </MudButton>
+                    </MudCardActions>
+                </MudCard>
+            }
+        </MudCardContent>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}
+
+<MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4 my-popover">
+    <div class="d-flex flex-column">
+        <MudText>@Message</MudText>
+        <MudButton OnClick="@(() => ShowMessage = false)"
+                   Class="ml-auto mr-n3 mb-1"
+                   Color="Color.Error">
+            Fechar
+        </MudButton>
+    </div>
+</MudPopover>
+<style>
+    .my-popover {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 9999; 
+    }
+</style>

@@ -1,8 +1,8 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Dict;
-using EHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Dict;
+using OnHive.Core.Library.Contracts.Login;
 
-namespace EHive.Dict.Domain.Abstractions.Services
+namespace OnHive.Dict.Domain.Abstractions.Services
 {
     public interface IDictService
     {

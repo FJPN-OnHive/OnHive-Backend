@@ -1,4 +1,4 @@
-namespace EHive.Messages.Domain.Models
+namespace OnHive.Messages.Domain.Models
 {
     public class MessagesApiSettings
     {

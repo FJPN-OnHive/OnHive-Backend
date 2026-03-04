@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Core.Library.Entities.Events
+namespace OnHive.Core.Library.Entities.Events
 {
     public class MauticIntegration : EntityBase
     {

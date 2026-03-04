@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Tenants
+namespace OnHive.Core.Library.Contracts.Tenants
 {
     public class TenantParameterDto
     {

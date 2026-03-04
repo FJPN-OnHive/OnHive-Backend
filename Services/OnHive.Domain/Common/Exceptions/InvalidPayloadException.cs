@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Domain.Exceptions
+﻿namespace OnHive.Core.Library.Domain.Exceptions
 {
     public class InvalidPayloadException : Exception
     {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Teachers
+namespace OnHive.Core.Library.Contracts.Teachers
 {
     public class TeacherDisciplineDto
     {

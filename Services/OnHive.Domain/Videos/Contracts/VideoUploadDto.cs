@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Videos
+namespace OnHive.Core.Library.Contracts.Videos
 {
     public class VideoUploadDto
     {

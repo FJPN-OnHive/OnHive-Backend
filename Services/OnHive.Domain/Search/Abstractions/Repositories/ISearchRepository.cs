@@ -1,8 +1,8 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Search;
-using EHive.Search.Domain.Models;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Search;
+using OnHive.Search.Domain.Models;
 
-namespace EHive.Search.Domain.Abstractions.Repositories
+namespace OnHive.Search.Domain.Abstractions.Repositories
 {
     public interface ISearchRepository : IRepositoryBase<SearchResult>
     {

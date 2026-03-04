@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Core.Library.Enums.Invoices
+namespace OnHive.Core.Library.Enums.Invoices
 {
     public enum InvoiceStatus
     {

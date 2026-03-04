@@ -1,9 +1,9 @@
-using EHive.Core.Library.Entities.Events;
-using EHive.Core.Library.Enums.Events;
+using OnHive.Core.Library.Entities.Events;
+using OnHive.Core.Library.Enums.Events;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Events
+namespace OnHive.Core.Library.Contracts.Events
 {
     public class AutomationDto
     {

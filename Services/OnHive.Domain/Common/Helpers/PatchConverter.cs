@@ -1,9 +1,9 @@
-﻿using EHive.Core.Library.Entities;
+﻿using OnHive.Core.Library.Entities;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 
-namespace EHive.Core.Library.Helpers
+namespace OnHive.Core.Library.Helpers
 {
     public static class PatchConverter
     {

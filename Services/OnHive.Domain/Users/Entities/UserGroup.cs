@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Core.Library.Entities.Users
+namespace OnHive.Core.Library.Entities.Users
 {
     public class UserGroup : EntityBase
     {

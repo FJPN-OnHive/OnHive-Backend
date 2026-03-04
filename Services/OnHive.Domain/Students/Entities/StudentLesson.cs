@@ -1,10 +1,10 @@
-﻿using EHive.Core.Library.Entities.Courses;
-using EHive.Core.Library.Enums.Courses;
-using EHive.Core.Library.Enums.Students;
+﻿using OnHive.Core.Library.Entities.Courses;
+using OnHive.Core.Library.Enums.Courses;
+using OnHive.Core.Library.Enums.Students;
 using MongoDB.Bson.Serialization.Attributes;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Entities.Students
+namespace OnHive.Core.Library.Entities.Students
 {
     [BsonIgnoreExtraElements]
     public class StudentLesson

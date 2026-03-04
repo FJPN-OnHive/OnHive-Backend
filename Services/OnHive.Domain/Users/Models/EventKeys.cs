@@ -1,4 +1,4 @@
-﻿namespace EHive.Users.Domain.Models
+﻿namespace OnHive.Users.Domain.Models
 {
     public static class EventKeys
     {

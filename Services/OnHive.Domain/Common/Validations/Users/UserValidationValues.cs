@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Abstractions.Validation;
+﻿using OnHive.Core.Library.Abstractions.Validation;
 
-namespace EHive.Core.Library.Validations.Users
+namespace OnHive.Core.Library.Validations.Users
 {
     public class CountryValidValues : IStringValidationData
     {

@@ -1,10 +1,10 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Posts;
-using EHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Posts;
+using OnHive.Core.Library.Contracts.Login;
 using System.Text.Json;
-using EHive.Core.Library.Enums.Common;
+using OnHive.Core.Library.Enums.Common;
 
-namespace EHive.Posts.Domain.Abstractions.Services
+namespace OnHive.Posts.Domain.Abstractions.Services
 {
     public interface IPostsService
     {

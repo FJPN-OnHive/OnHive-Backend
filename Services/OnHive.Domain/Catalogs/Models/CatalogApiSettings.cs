@@ -1,4 +1,4 @@
-namespace EHive.Catalog.Domain.Models
+namespace OnHive.Catalog.Domain.Models
 {
     public class CatalogApiSettings
     {

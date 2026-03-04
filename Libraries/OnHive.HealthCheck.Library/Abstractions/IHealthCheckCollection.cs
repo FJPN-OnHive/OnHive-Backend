@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace EHive.HealthCheck.Library.Abstractions
+namespace OnHive.HealthCheck.Library.Abstractions
 {
     public interface IHealthCheckCollection
     {

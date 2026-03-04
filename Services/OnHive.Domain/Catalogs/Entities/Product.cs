@@ -1,7 +1,7 @@
-using EHive.Core.Library.Enums.Payments;
+using OnHive.Core.Library.Enums.Payments;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Entities.Catalog
+namespace OnHive.Core.Library.Entities.Catalog
 {
     public class Product : EntityBase
     {

@@ -1,9 +1,9 @@
-using EHive.Core.Library.Abstractions.Enrich;
-using EHive.Core.Library.Enums.Payments;
+using OnHive.Core.Library.Abstractions.Enrich;
+using OnHive.Core.Library.Enums.Payments;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Catalog
+namespace OnHive.Core.Library.Contracts.Catalog
 {
     public class ProductDto : IEnrichable
     {

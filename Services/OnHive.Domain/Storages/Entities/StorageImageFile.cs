@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.Storages
+namespace OnHive.Core.Library.Entities.Storages
 {
     public class StorageImageFile : EntityBase
     {

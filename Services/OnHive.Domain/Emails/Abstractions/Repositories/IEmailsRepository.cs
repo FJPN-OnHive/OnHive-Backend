@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Emails;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Emails;
 
-namespace EHive.Emails.Domain.Abstractions.Repositories
+namespace OnHive.Emails.Domain.Abstractions.Repositories
 {
     public interface IEmailsRepository : IRepositoryBase<EmailTemplate>
     {

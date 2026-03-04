@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Invoices;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Invoices;
 
-namespace EHive.Invoices.Domain.Abstractions.Repositories
+namespace OnHive.Invoices.Domain.Abstractions.Repositories
 {
     public interface IInvoicesRepository : IRepositoryBase<Invoice>
     {

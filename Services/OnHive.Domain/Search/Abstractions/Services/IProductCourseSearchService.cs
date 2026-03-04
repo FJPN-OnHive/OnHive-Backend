@@ -1,8 +1,8 @@
-using EHive.Core.Library.Contracts.Catalog;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Search;
+using OnHive.Core.Library.Contracts.Catalog;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Search;
 
-namespace EHive.Search.Domain.Abstractions.Services
+namespace OnHive.Search.Domain.Abstractions.Services
 {
     public interface IProductCourseSearchService
     {

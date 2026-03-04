@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Students.Domain.Models
+namespace OnHive.Students.Domain.Models
 {
     public class StudentsApiSettings
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace EHive.PaymentsCielo.Domain.Contracts
+namespace OnHive.PaymentsCielo.Domain.Contracts
 {
     public abstract class CieloRequestBase
     {

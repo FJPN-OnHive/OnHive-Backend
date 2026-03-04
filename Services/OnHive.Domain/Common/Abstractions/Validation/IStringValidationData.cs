@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Abstractions.Validation
+﻿namespace OnHive.Core.Library.Abstractions.Validation
 {
     public interface IStringValidationData
     {

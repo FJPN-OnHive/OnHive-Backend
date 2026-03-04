@@ -1,11 +1,11 @@
-﻿using EHive.Core.Library.Abstractions.Enrich;
-using EHive.Core.Library.Attributes;
-using EHive.Core.Library.Contracts.Tenants;
-using EHive.Core.Library.Validations.Users;
+﻿using OnHive.Core.Library.Abstractions.Enrich;
+using OnHive.Core.Library.Attributes;
+using OnHive.Core.Library.Contracts.Tenants;
+using OnHive.Core.Library.Validations.Users;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Users
+namespace OnHive.Core.Library.Contracts.Users
 {
     public class UserDto : IEnrichable
     {

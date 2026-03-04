@@ -1,6 +1,6 @@
-using EHive.Core.Library.Enums.Videos;
+using OnHive.Core.Library.Enums.Videos;
 
-namespace EHive.Core.Library.Entities.Videos
+namespace OnHive.Core.Library.Entities.Videos
 {
     public class Video : EntityBase
     {

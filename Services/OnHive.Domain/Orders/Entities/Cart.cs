@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.Orders
+namespace OnHive.Core.Library.Entities.Orders
 {
     public class Cart : EntityBase
     {

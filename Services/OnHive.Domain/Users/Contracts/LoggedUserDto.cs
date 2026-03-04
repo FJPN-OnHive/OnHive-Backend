@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Contracts.Users;
+﻿using OnHive.Core.Library.Contracts.Users;
 
-namespace EHive.Core.Library.Contracts.Login
+namespace OnHive.Core.Library.Contracts.Login
 {
     public class LoggedUserDto
     {

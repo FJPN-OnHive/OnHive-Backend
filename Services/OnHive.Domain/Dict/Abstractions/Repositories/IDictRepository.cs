@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Dict;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Dict;
 
-namespace EHive.Dict.Domain.Abstractions.Repositories
+namespace OnHive.Dict.Domain.Abstractions.Repositories
 {
     public interface IDictRepository : IRepositoryBase<ValueRegistry>
     {

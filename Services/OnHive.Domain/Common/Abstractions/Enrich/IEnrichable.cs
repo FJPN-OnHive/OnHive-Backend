@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Abstractions.Enrich
+﻿namespace OnHive.Core.Library.Abstractions.Enrich
 {
     public interface IEnrichable
     {

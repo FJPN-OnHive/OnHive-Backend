@@ -1,9 +1,9 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Invoices;
-using EHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Invoices;
+using OnHive.Core.Library.Contracts.Login;
 using System.Text.Json;
 
-namespace EHive.Invoices.Domain.Abstractions.Services
+namespace OnHive.Invoices.Domain.Abstractions.Services
 {
     public interface IInvoicesService
     {

@@ -1,4 +1,4 @@
-namespace EHive.Teachers.Domain.Models
+namespace OnHive.Teachers.Domain.Models
 {
     public class TeachersApiSettings
     {

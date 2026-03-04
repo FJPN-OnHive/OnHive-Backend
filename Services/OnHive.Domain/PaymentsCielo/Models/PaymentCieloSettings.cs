@@ -1,4 +1,4 @@
-﻿namespace EHive.PaymentsCielo.Domain.Models
+﻿namespace OnHive.PaymentsCielo.Domain.Models
 {
     public class PaymentCieloSettings
     {

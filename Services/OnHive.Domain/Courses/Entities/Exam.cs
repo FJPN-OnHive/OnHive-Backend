@@ -1,7 +1,7 @@
-using EHive.Core.Library.Enums.Courses;
+using OnHive.Core.Library.Enums.Courses;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace EHive.Core.Library.Entities.Courses
+namespace OnHive.Core.Library.Entities.Courses
 {
     [BsonIgnoreExtraElements]
     public class Exam : EntityBase

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Database.Library.Models
+namespace OnHive.Database.Library.Models
 {
     public class MongoDBSettings
     {

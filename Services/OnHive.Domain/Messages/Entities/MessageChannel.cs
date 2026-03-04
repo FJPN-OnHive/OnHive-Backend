@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Entities.Messages
+﻿namespace OnHive.Core.Library.Entities.Messages
 {
     public class MessageChannel : EntityBase
     {

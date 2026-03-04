@@ -1,4 +1,4 @@
-namespace EHive.Videos.Domain.Models
+namespace OnHive.Videos.Domain.Models
 {
     public class VideosApiSettings
     {

@@ -1,4 +1,4 @@
-﻿namespace EHive.Invoices.Domain.Models
+﻿namespace OnHive.Invoices.Domain.Models
 {
     public static class EventKeys
     {

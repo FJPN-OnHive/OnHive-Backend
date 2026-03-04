@@ -1,4 +1,4 @@
-﻿namespace EHive.Events.Domain.Abstractions.Services
+﻿namespace OnHive.Events.Domain.Abstractions.Services
 {
     public interface IEventRegister
     {

@@ -1,7 +1,7 @@
-﻿using EHive.Core.Library.Enums.Catalog;
+﻿using OnHive.Core.Library.Enums.Catalog;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Catalog
+namespace OnHive.Core.Library.Contracts.Catalog
 {
     public class CouponValidationResponse
     {

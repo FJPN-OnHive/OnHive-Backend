@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Payments.Domain.Models
+namespace OnHive.Payments.Domain.Models
 {
     public class PaymentsApiSettings
     {

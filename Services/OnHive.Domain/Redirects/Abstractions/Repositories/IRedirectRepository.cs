@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Redirects;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Redirects;
 
-namespace EHive.Redirects.Domain.Abstractions.Repositories
+namespace OnHive.Redirects.Domain.Abstractions.Repositories
 {
     public interface IRedirectRepository : IRepositoryBase<Redirect>
     {

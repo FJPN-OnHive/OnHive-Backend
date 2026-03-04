@@ -1,11 +1,11 @@
-﻿using EHive.Core.Library.Entities.Users;
+﻿using OnHive.Core.Library.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Users.Domain.Models
+namespace OnHive.Users.Domain.Models
 {
     public class UserWithProfile : User
     {

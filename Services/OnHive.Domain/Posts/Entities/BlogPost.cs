@@ -1,7 +1,7 @@
-using EHive.Core.Library.Enums.Posts;
+using OnHive.Core.Library.Enums.Posts;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Entities.Posts
+namespace OnHive.Core.Library.Entities.Posts
 {
     public class BlogPost : EntityBase
     {

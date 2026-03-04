@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Exceptions
+﻿namespace OnHive.Core.Library.Exceptions
 {
     public class ProductNotFoundException : Exception
     {

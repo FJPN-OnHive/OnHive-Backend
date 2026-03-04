@@ -1,8 +1,8 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Catalog;
-using EHive.Core.Library.Entities.Catalog;
+using OnHive.Core.Library.Contracts.Catalog;
+using OnHive.Core.Library.Entities.Catalog;
 
-namespace EHive.Catalog.Domain.Mappers
+namespace OnHive.Catalog.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

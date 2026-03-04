@@ -1,4 +1,4 @@
-﻿namespace EHive.Observability.Library.Models
+﻿namespace OnHive.Observability.Library.Models
 {
     public class TracingInfo
     {

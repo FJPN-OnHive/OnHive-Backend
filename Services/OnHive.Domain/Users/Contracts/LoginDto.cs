@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Login
+namespace OnHive.Core.Library.Contracts.Login
 {
     public class LoginDto
     {

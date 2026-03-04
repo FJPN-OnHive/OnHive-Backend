@@ -1,0 +1,257 @@
+﻿@using OnHive.Core.Library.Contracts.Posts
+@using OnHive.Core.Library.Enums.Common
+@using OnHive.Core.Library.Enums.Posts
+@page "/posts"
+@inherits PostsBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudTable Items="@Posts" T="BlogPostDto" Hover="true" Outlined="true" Dense="true" RowClassFunc="RowClassSelectorPost"
+                          SelectedItemChanged="SelectPostAsync" Filter="post => post.Slug.Contains(PostSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || post.Title.Contains(PostSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || post.Description.Contains(PostSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || post.Categories.Any(c => c.Contains(PostSearch, StringComparison.InvariantCultureIgnoreCase))
+                                                                               || string.IsNullOrEmpty(PostSearch)">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">Posts</MudText>
+                        <MudSpacer />
+                        <MudTextField @bind-Value="@PostSearch" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>Slug</MudTh>
+                        <MudTh>Título</MudTh>
+                        <MudTh>Descrição</MudTh>
+                        <MudTh>Categoria</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Slug">@context.Slug</MudTd>
+                        <MudTd DataLabel="Título">@context.Title</MudTd>
+                        <MudTd DataLabel="Description">@context.Description</MudTd>
+                        <MudTd DataLabel="Category">@(string.Join(", ", context.Categories))</MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager />
+                    </PagerContent>
+                </MudTable>
+
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                                                                       SelectedPost = new BlogPostDto{
+                                                                                             Slug = "novo_post",
+                                                                                                 Title = "Novo Post",
+                                                                                                 Description = "Descrição do novo post"
+                                                                                             };
+                                                                                       })" />
+                </MudCardActions>
+            </MudCard>
+
+            @if (SelectedPost != null)
+            {
+
+                <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="true" Label="Id" @bind-Value="@SelectedPost.Id" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Slug" @bind-Value="@SelectedPost.Slug" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Título" @bind-Value="@SelectedPost.Title" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Título no Breadcrumb" @bind-Value="@SelectedPost.BreadcrumbTitle" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Lines="4" Label="Descrição" @bind-Value="@SelectedPost.Description" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Miniatura" @bind-Value="@SelectedPost.Thumbnail" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Imagem de Capa" @bind-Value="@SelectedPost.CoverImage" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="AltText da Imagem de Capa" @bind-Value="@SelectedPost.CoverImageAltText" />
+                        </MudItem>                  
+                        <MudItem xs="12">
+                            <MudSelect T="PostStatus" Label="Status" Value="@SelectedPost.Status" ValueChanged="(t) => ChangePostStatus(t)">
+                                <MudSelectItem Value="PostStatus.Draft">Rascunho</MudSelectItem>
+                                <MudSelectItem Value="PostStatus.Unpublished">Não-Publicado</MudSelectItem>
+                                <MudSelectItem Value="PostStatus.Published">Publicado</MudSelectItem>   
+                                <MudSelectItem Value="PostStatus.Scheduled">Agendado</MudSelectItem>
+                                <MudSelectItem Value="PostStatus.Archived">Arquivado</MudSelectItem>
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudSelect T="PostVisibility" Label="Visibilidade" Value="@SelectedPost.Visibility" ValueChanged="(t) => ChangePostVisibility(t)">
+                                <MudSelectItem Value="PostVisibility.Public">Público</MudSelectItem>
+                                <MudSelectItem Value="PostVisibility.Private">Privado</MudSelectItem>
+                                <MudSelectItem Value="PostVisibility.Protected">Protejido</MudSelectItem>
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudDatePicker Label="Data de Publicação" @bind-Date="@SelectedPost.PublishDate" />                            
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTimePicker Label="Horário de Publicação" @bind-Time="@PublishTime" />
+                        </MudItem>
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Corpo</MudText>
+                            </MudCardHeader>                            
+                            <MudCardContent>
+                                <MudItem xs="12">
+                                    <StandaloneCodeEditor @ref="Editor" Id="PostEditor" ConstructionOptions="EditorConstructionOptions" CssClass="html-editor" />
+                                </MudItem>
+                            </MudCardContent>                            
+                        </MudCard>
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Categorias</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedPost.Categories" T="String" ReadOnly="false" Hover="true" Outlined="true" Dense="true" Height="100px">
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Category">@context</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => SelectedPost.Categories.Remove(context))"></MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudItem xs="12">
+                                        <MudTextField Label="Categoria:" @bind-Value="@NewCategory" />
+                                    </MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                            if(!string.IsNullOrEmpty(NewCategory))
+                                            {
+                                                SelectedPost.Categories.Add(NewCategory);
+                                                NewCategory = string.Empty;
+                                            }
+                                        })">
+                                    </MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Tags</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedPost.Tags" T="String" ReadOnly="false" Hover="true" Outlined="true" Dense="true" Height="100px">
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Tag">@context</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => SelectedPost.Tags.Remove(context))"></MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudItem xs="12">
+                                        <MudTextField Label="Tag:" @bind-Value="@NewTag" />
+                                    </MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                            if(!string.IsNullOrEmpty(NewTag))
+                                            {
+                                                SelectedPost.Tags.Add(NewTag);
+                                                NewTag = string.Empty;
+                                            }
+                                        })">
+                                    </MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Slugs Alternativos</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedPost.AlternativeSlugs" T="String" ReadOnly="false" Hover="true" Outlined="true" Dense="true" Height="100px">
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Slug">@context</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => SelectedPost.AlternativeSlugs.Remove(context))"></MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudItem xs="12">
+                                        <MudTextField Label="Tag:" @bind-Value="@NewSlug" />
+                                    </MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                            if(!string.IsNullOrEmpty(NewSlug))
+                                            {
+                                                SelectedPost.AlternativeSlugs.Add(NewSlug);
+                                                NewSlug = string.Empty;
+                                            }
+                                        })">
+                                    </MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+
+
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Metadata</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudItem xs="12">
+                                    <MudTextField Lines="4" Label="Titulo" @bind-Value="@SelectedPost.MetaData.Title" />
+                                </MudItem>
+                                <MudItem xs="12">
+                                    <MudTextField Lines="4" Label="Descrição" @bind-Value="@SelectedPost.MetaData.Description" />
+                                </MudItem>                               
+                            </MudCardContent>
+                        </MudCard>
+                    </MudCardContent>
+                </MudCard>
+            }
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Color="Color.Primary" Variant="MudBlazor.Variant.Filled" OnClick="@SavePosts">Salvar</MudButton>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@ClearAsync" Class="m-2">Limpar</MudButton>
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+    <MudCard>
+        <MudCardActions>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@ExportAsync" Class="m-2">Exportar</MudButton>
+            <MudSelect T="ExportFormats" Label="Tipo" Value="@ExportType" ValueChanged="(t) => ChangeExportType(t)" Class="export-format">
+                <MudSelectItem Value="ExportFormats.Csv">CSV</MudSelectItem>
+                <MudSelectItem Value="ExportFormats.Json">JSON</MudSelectItem>
+                <MudSelectItem Value="ExportFormats.Xml">XML</MudSelectItem>
+            </MudSelect>
+            <MudSwitch Label="Active Only" @bind-Value="@ExportActiveOnly" />
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@CopyExportLink" Class="m-2">Copiar Link</MudButton>
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}
+
+<script type="text/javascript">
+    downloadFile = (fileName, data) => {
+        const blob = new Blob([data], { type: "text/plain" });
+        const downloadLink = document.createElement("a");
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = fileName;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    };
+</script>
+

@@ -1,9 +1,9 @@
-﻿using EHive.Core.Library.Entities.Enrichments;
-using EHive.Database.Library.Models;
-using EHive.Database.Library.MongoDB;
+﻿using OnHive.Core.Library.Entities.Enrichments;
+using OnHive.Database.Library.Models;
+using OnHive.Database.Library.MongoDB;
 using MongoDB.Driver;
 
-namespace EHive.Enrich.Library.Repository
+namespace OnHive.Enrich.Library.Repository
 {
     public class EnrichRepository : MongoRepositoryBase<Enrichment>
     {

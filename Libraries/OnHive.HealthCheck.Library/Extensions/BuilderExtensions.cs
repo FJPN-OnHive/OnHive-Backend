@@ -1,8 +1,8 @@
-﻿using EHive.HealthCheck.Library.Abstractions;
+﻿using OnHive.HealthCheck.Library.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EHive.HealthCheck.Library.Extensions
+namespace OnHive.HealthCheck.Library.Extensions
 {
     public static class BuilderExtensions
     {

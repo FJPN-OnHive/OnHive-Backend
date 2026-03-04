@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Configuration.Library.Models
+namespace OnHive.Configuration.Library.Models
 {
     public class EnvironmentSettings
     {

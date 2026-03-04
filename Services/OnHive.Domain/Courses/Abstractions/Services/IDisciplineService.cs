@@ -1,9 +1,9 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Courses;
-using EHive.Core.Library.Contracts.Users;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Courses;
+using OnHive.Core.Library.Contracts.Users;
 using System.Text.Json;
 
-namespace EHive.Courses.Domain.Abstractions.Services
+namespace OnHive.Courses.Domain.Abstractions.Services
 {
     public interface IDisciplineService
     {

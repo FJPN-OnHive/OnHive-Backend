@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Entities.Payments
+namespace OnHive.Core.Library.Entities.Payments
 {
     public class BankSlipData
     {

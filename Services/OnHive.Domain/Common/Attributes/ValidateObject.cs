@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Core.Library.Attributes
+namespace OnHive.Core.Library.Attributes
 {
     public class ValidateObject : ValidationAttribute
     {

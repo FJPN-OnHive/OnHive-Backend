@@ -1,9 +1,9 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Users;
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Enums.Users;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Users;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Enums.Users;
 
-namespace EHive.Users.Domain.Abstractions.Services
+namespace OnHive.Users.Domain.Abstractions.Services
 {
     public interface IUserProfilesService
     {

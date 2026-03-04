@@ -1,8 +1,8 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Payments;
-using EHive.Core.Library.Entities.Payments;
+using OnHive.Core.Library.Contracts.Payments;
+using OnHive.Core.Library.Entities.Payments;
 
-namespace EHive.Payments.Domain.Mappers
+namespace OnHive.Payments.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

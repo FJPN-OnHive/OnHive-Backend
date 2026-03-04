@@ -1,9 +1,9 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Contracts.Orders;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Orders;
 using System.Text.Json;
 
-namespace EHive.Orders.Domain.Abstractions.Services
+namespace OnHive.Orders.Domain.Abstractions.Services
 {
     public interface ICartsService
     {

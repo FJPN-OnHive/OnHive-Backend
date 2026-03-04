@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Core.Library.Enums.Videos
+namespace OnHive.Core.Library.Enums.Videos
 {
     public enum VideoStatus
     {

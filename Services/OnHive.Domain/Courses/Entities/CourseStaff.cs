@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Enums.Courses;
+﻿using OnHive.Core.Library.Enums.Courses;
 
-namespace EHive.Core.Library.Entities.Courses
+namespace OnHive.Core.Library.Entities.Courses
 {
     public class CourseStaff
     {

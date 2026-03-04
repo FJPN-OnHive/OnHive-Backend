@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Invoices.Domain.Models
+namespace OnHive.Invoices.Domain.Models
 {
     public class InvoicesApiSettings
     {

@@ -1,7 +1,7 @@
-﻿using EHive.Core.Library.Contracts.Payments;
-using EHive.Core.Library.Contracts.Users;
+﻿using OnHive.Core.Library.Contracts.Payments;
+using OnHive.Core.Library.Contracts.Users;
 
-namespace EHive.PaymentsCielo.Domain.Abstractions.Services
+namespace OnHive.PaymentsCielo.Domain.Abstractions.Services
 {
     public interface IPaymentCieloService
     {

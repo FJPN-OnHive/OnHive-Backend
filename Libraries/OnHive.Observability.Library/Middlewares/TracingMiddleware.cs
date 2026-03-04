@@ -1,11 +1,11 @@
-﻿using EHive.Core.Library.Contracts.Users;
-using EHive.Observability.Library.Models;
+﻿using OnHive.Core.Library.Contracts.Users;
+using OnHive.Observability.Library.Models;
 using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json;
 using Log = Serilog.Log;
 
-namespace EHive.Observability.Library.Middlewares
+namespace OnHive.Observability.Library.Middlewares
 {
     public class TracingMiddleware
     {

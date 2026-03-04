@@ -1,0 +1,162 @@
+﻿@page "/files"
+@using OnHive.Core.Library.Contracts.Storages
+@inherits FilesBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h6">Arquivos</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+
+            <MudCard>
+                <MudCardContent>
+                    <MudTable Items="@Files" T="StorageFileDto" Hover="true" Outlined="true" Dense="true" RowClassFunc="RowClassSelectorImages"
+                              SelectedItemChanged="SelectFile" Filter="image => image.FileId.Contains(FileSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || image.Name.Contains(FileSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || image.Description.Contains(FileSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || string.IsNullOrEmpty(FileSearch)">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Arquivos</MudText>
+                            <MudSpacer />
+                            <MudTextField @bind-Value="@FileSearch" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh>Id</MudTh>
+                            <MudTh>Nome</MudTh>
+                            <MudTh>Descrição</MudTh>
+                            <MudTh>Público</MudTh>
+                            <MudTh>Deletar</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="FileId">@context.FileId</MudTd>
+                            <MudTd DataLabel="Name">@context.Name</MudTd>
+                            <MudTd DataLabel="Description">@context.Description</MudTd>
+                            <MudTd DataLabel="Public">@(context.Public ? "Sim" : "Não")</MudTd>
+                            <MudTd DataLabel="Remove">
+                                <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => DeleteFile(context))">
+                                </MudIconButton>
+                            </MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudFileUpload T="IBrowserFile"
+                                   FilesChanged="UploadFile"
+                                   Accept=".pdf, .zip, .doc, .docx, .rar, .epub, .mobi, .ppt, .pptx"
+                                   MaximumFileCount="1"
+                                   >
+                        <ActivatorContent>
+                            <MudIconButton Icon="@Icons.Material.Filled.Add" Title="Abrir Arquivo" />
+                        </ActivatorContent>
+                    </MudFileUpload>
+                </MudCardActions>
+            </MudCard>
+
+
+            @if (SelectedFile != null)
+            {
+                <MudCard>
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">@SelectedFile.Name</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="@(String.IsNullOrEmpty(SelectedFile.Id) ? false : true)" Label="Id" @bind-Value="@SelectedFile.FileId" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="true" Label="Url" @bind-Value="@SelectedFile.FileUrl" />
+                            <MudIconButton Icon="@Icons.Material.Filled.CopyAll" OnClick="@(() => CopyToClipboard(SelectedFile.FileUrl))"></MudIconButton>
+                        </MudItem>                       
+                        <MudItem xs="12">
+                            <MudTextField Label="Nome" @bind-Value="@SelectedFile.Name" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Descrição" @bind-Value="@SelectedFile.Description" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudSwitch Label="Público" @bind-Value="@SelectedFile.Public" />
+                        </MudItem>
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Categorias</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedFile.Categories" T="String" ReadOnly="false" Hover="true" Outlined="true" Dense="true" Height="100px">
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Category">@context</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => SelectedFile.Categories.Remove(context))"></MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudItem xs="12">
+                                        <MudTextField Label="Categoria:" @bind-Value="@NewCategory" />
+                                    </MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                            if(!string.IsNullOrEmpty(NewCategory))
+                                            {
+                                                SelectedFile.Categories.Add(NewCategory);
+                                                NewCategory = string.Empty;
+                                            }
+                                        })">
+                                    </MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Tags</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedFile.Tags" T="String" ReadOnly="false" Hover="true" Outlined="true" Dense="true" Height="100px">
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Tag">@context</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => SelectedFile.Tags.Remove(context))"></MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudItem xs="12">
+                                        <MudTextField Label="Tag:" @bind-Value="@NewTag" />
+                                    </MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                            if(!string.IsNullOrEmpty(NewTag))
+                                            {
+                                                SelectedFile.Tags.Add(NewTag);
+                                                NewTag = string.Empty;
+                                            }
+                                        })">
+                                    </MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="SaveFile">Salvar</MudButton>
+                        <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" Class="m-2" OnClick="@(() => SelectedFile = null)">Limpar</MudButton>
+                    </MudCardActions>
+
+                </MudCard>
+            }
+        </MudCardContent>
+
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}
+<MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+    <div class="d-flex flex-column">
+        <MudText>@Message</MudText>
+        <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+    </div>
+</MudPopover>
