@@ -7,7 +7,7 @@
       "applicationUrl": "http://localhost:4000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "MongoDbSettings__ConnectionString": "mongodb://onhive:onhive@localhost:27017/?retryWrites=true&loadBalanced=false&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-256",
+        "MongoDbSettings__ConnectionString": "mongodb://root:8YTrStV8uNpO@localhost:27017/?retryWrites=true&loadBalanced=false&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-256",
         "MongoDbSettings__DataBase": "onhive"
       }
     },
