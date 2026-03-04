@@ -1,4 +1,4 @@
-namespace EHive.SystemParameters.Domain.Models
+namespace OnHive.SystemParameters.Domain.Models
 {
     public class SystemParametersApiSettings
     {

@@ -1,10 +1,10 @@
-﻿using EHive.Authorization.Library.Models;
-using EHive.Configuration.Library.Extensions;
-using EHive.Configuration.Library.Models;
+﻿using OnHive.Authorization.Library.Models;
+using OnHive.Configuration.Library.Extensions;
+using OnHive.Configuration.Library.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EHive.Authorization.Library.Extensions
+namespace OnHive.Authorization.Library.Extensions
 {
     public static class BuilderExtensions
     {

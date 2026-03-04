@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.Catalog
+﻿namespace OnHive.Core.Library.Enums.Catalog
 {
     public enum CouponValidationResponseCodes
     {

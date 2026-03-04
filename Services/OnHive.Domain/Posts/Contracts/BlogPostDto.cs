@@ -1,8 +1,8 @@
-using EHive.Core.Library.Enums.Posts;
+using OnHive.Core.Library.Enums.Posts;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Posts
+namespace OnHive.Core.Library.Contracts.Posts
 {
     public class BlogPostDto
     {

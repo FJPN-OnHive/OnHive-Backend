@@ -1,0 +1,190 @@
+﻿@page "/images"
+@using OnHive.Core.Library.Contracts.Storages
+@inherits ImagesBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h6">Imagens</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+
+            <MudCard>
+                <MudCardContent>
+                    <MudTable Items="@Images" T="StorageImageFileDto" Hover="true" Outlined="true" Dense="true" RowClassFunc="RowClassSelectorImages"
+                              SelectedItemChanged="SelectImage" Filter="image => image.ImageId.Contains(ImageSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || image.Name.Contains(ImageSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || image.AltText.Contains(ImageSearch, StringComparison.InvariantCultureIgnoreCase)
+                                                                               || string.IsNullOrEmpty(ImageSearch)">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Imagens</MudText>
+                            <MudSpacer />
+                            <MudTextField @bind-Value="@ImageSearch" Placeholder="Busca" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh>Id</MudTh>
+                            <MudTh>Nome</MudTh>
+                            <MudTh>AltText</MudTh>
+                            <MudTh>Público</MudTh>
+                            <MudTh>Imagem</MudTh>
+                            <MudTh>Deletar</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="ImageId">@context.ImageId</MudTd>
+                            <MudTd DataLabel="Name">@context.Name</MudTd>
+                            <MudTd DataLabel="AltText">@context.AltText</MudTd>
+                            <MudTd DataLabel="Public">@(context.Public ? "Sim" : "Não")</MudTd>
+                            <MudTd DataLabel="Imagem"><img src="@context.LowResImageUrl" width="50px" /></MudTd>
+                            <MudTd DataLabel="Remove">
+                                <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => DeleteImage(context))">
+                                </MudIconButton>
+                            </MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudFileUpload T="IBrowserFile"
+                                   FilesChanged="UploadImage"
+                                   Accept=".bmp, .jpeg, .jpg, .pbm, .png, tTiff, .tga, .webp, .svg, .ico"
+                                   MaximumFileCount="1"
+                                   >
+                        <ActivatorContent>
+                            <MudIconButton Icon="@Icons.Material.Filled.Add" Title="Abrir Imagem" />
+                        </ActivatorContent>
+                    </MudFileUpload>
+                </MudCardActions>
+            </MudCard>
+
+
+            @if (SelectedImage != null)
+            {
+                <MudCard>
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6">@SelectedImage.Name</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="@(String.IsNullOrEmpty(SelectedImage.Id) ? false : true)" Label="Id" @bind-Value="@SelectedImage.ImageId" />
+                        </MudItem>
+
+                        @if(!string.IsNullOrEmpty(SelectedImage.HiResImageUrl))
+                        {
+                            <MudItem xs="12">
+                                <MudTextField ReadOnly="true" Label="Url Hi-Res" @bind-Value="@SelectedImage.HiResImageUrl" />
+                                <MudIconButton Icon="@Icons.Material.Filled.CopyAll" OnClick="@(() => CopyToClipboard(@SelectedImage.HiResImageUrl))"></MudIconButton>
+                            </MudItem>
+
+                            <MudItem xs="12">
+                                <MudTextField ReadOnly="true" Label="Url Mid-Res" @bind-Value="@SelectedImage.MidResImageUrl" />
+                                <MudIconButton Icon="@Icons.Material.Filled.CopyAll" OnClick="@(() => CopyToClipboard(@SelectedImage.MidResImageUrl))"></MudIconButton>
+                            </MudItem>
+
+                            <MudItem xs="12">
+                                <MudTextField ReadOnly="true" Label="Url Low-Res" @bind-Value="@SelectedImage.LowResImageUrl" />
+                                <MudIconButton Icon="@Icons.Material.Filled.CopyAll" OnClick="@(() => CopyToClipboard(@SelectedImage.LowResImageUrl))"></MudIconButton>
+                            </MudItem>
+                        }
+
+                        <MudItem xs="12">
+                            <MudTextField Label="Nome" @bind-Value="@SelectedImage.Name" />
+                        </MudItem>
+
+                        <MudItem xs="12">
+                            <MudTextField Label="Sub-titulo" @bind-Value="@SelectedImage.Subtitle" />
+                        </MudItem>
+
+                        <MudItem xs="12">
+                            <MudTextField Label="AltText" @bind-Value="@SelectedImage.AltText" />
+                        </MudItem>
+
+                        <MudItem xs="12">
+                            <MudSwitch Label="Público" @bind-Value="@SelectedImage.Public" />
+                        </MudItem>
+
+                         <MudItem xs="12">
+                            <MudSwitch Label="Não converter" @bind-Value="@noConvert" />
+                        </MudItem>
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Categorias</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedImage.Categories" T="String" ReadOnly="false" Hover="true" Outlined="true" Dense="true" Height="100px">
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Category">@context</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => SelectedImage.Categories.Remove(context))"></MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudItem xs="12">
+                                        <MudTextField Label="Categoria:" @bind-Value="@NewCategory" />
+                                    </MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                            if(!string.IsNullOrEmpty(NewCategory))
+                                            {
+                                                SelectedImage.Categories.Add(NewCategory);
+                                                NewCategory = string.Empty;
+                                            }
+                                        })">
+                                    </MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+
+                        <MudCard Outlined="true" Class="form-card-body" Style="mt-2">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h6">Tags</MudText>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="@SelectedImage.Tags" T="String" ReadOnly="false" Hover="true" Outlined="true" Dense="true" Height="100px">
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Tag">@context</MudTd>
+                                        <MudTd DataLabel="Remove">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Remove" OnClick="@(() => SelectedImage.Tags.Remove(context))"></MudIconButton>
+                                        </MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                                <MudCardActions>
+                                    <MudItem xs="12">
+                                        <MudTextField Label="Tag:" @bind-Value="@NewTag" />
+                                    </MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => {
+                                            if(!string.IsNullOrEmpty(NewTag))
+                                            {
+                                                SelectedImage.Tags.Add(NewTag);
+                                                NewTag = string.Empty;
+                                            }
+                                        })">
+                                    </MudIconButton>
+                                </MudCardActions>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="SaveImage">Salvar</MudButton>
+                        <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" Class="m-2" OnClick="@(() => SelectedImage = null)">Limpar</MudButton>
+                    </MudCardActions>
+
+                </MudCard>
+            }
+        </MudCardContent>
+
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}
+<MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+    <div class="d-flex flex-column">
+        <MudText>@Message</MudText>
+        <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+    </div>
+</MudPopover>

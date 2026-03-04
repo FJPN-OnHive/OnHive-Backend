@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Events;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Events;
 
-namespace EHive.Events.Domain.Abstractions.Repositories
+namespace OnHive.Events.Domain.Abstractions.Repositories
 {
     public interface IMauticIntegrationRepository : IRepositoryBase<MauticIntegration>
     {

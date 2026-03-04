@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Enums.Orders;
+﻿using OnHive.Core.Library.Enums.Orders;
 
-namespace EHive.Core.Library.Entities.Orders
+namespace OnHive.Core.Library.Entities.Orders
 {
     public class Order : EntityBase
     {

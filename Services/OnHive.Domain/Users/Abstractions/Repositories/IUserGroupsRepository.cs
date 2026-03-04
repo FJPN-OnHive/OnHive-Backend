@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Users;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Users;
 
-namespace EHive.Users.Domain.Abstractions.Repositories
+namespace OnHive.Users.Domain.Abstractions.Repositories
 {
     public interface IUserGroupsRepository : IRepositoryBase<UserGroup>
     {        

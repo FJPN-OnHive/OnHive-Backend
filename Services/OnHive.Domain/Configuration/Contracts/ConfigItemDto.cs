@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Configuration
+namespace OnHive.Core.Library.Contracts.Configuration
 {
     public class ConfigItemDto
     {

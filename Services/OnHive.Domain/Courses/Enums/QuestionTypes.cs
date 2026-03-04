@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.Courses
+﻿namespace OnHive.Core.Library.Enums.Courses
 {
     public enum QuestionTypes
     {

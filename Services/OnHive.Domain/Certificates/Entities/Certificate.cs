@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.Certificates
+namespace OnHive.Core.Library.Entities.Certificates
 {
     public class Certificate : EntityBase
     {

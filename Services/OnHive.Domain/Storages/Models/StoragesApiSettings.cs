@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Storages.Domain.Models
+namespace OnHive.Storages.Domain.Models
 {
     public class StoragesApiSettings
     {

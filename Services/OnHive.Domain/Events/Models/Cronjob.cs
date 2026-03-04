@@ -1,4 +1,4 @@
-﻿namespace EHive.Events.Domain.Models
+﻿namespace OnHive.Events.Domain.Models
 {
     public class Cronjob
     {

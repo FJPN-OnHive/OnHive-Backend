@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.WebHook
+﻿namespace OnHive.Core.Library.Enums.WebHook
 {
     public enum WebHookActionTypes
     {

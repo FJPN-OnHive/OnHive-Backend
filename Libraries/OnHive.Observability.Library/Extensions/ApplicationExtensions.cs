@@ -1,8 +1,8 @@
-﻿using EHive.Observability.Library.Middlewares;
+﻿using OnHive.Observability.Library.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EHive.Configuration.Library.Extensions
+namespace OnHive.Configuration.Library.Extensions
 {
     public static class ApplicationExtensions
     {

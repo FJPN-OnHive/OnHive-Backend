@@ -1,4 +1,4 @@
-﻿namespace EHive.Payments.Domain.Models
+﻿namespace OnHive.Payments.Domain.Models
 {
     public static class EventKeys
     {

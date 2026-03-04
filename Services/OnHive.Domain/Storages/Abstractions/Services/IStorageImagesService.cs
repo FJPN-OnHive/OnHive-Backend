@@ -1,8 +1,8 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Contracts.Storages;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Storages;
 
-namespace EHive.Storages.Domain.Abstractions.Services
+namespace OnHive.Storages.Domain.Abstractions.Services
 {
     public interface IStorageImagesService
     {

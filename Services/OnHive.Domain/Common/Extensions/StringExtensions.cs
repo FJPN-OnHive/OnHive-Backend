@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 
-namespace EHive.Core.Library.Extensions
+namespace OnHive.Core.Library.Extensions
 {
     public static class StringExtensions
     {

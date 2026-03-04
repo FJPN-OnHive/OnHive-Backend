@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.Orders
+﻿namespace OnHive.Core.Library.Enums.Orders
 {
     public enum OrderStatus
     {

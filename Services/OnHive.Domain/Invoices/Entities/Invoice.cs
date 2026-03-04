@@ -1,10 +1,10 @@
-using EHive.Core.Library.Entities.Tenants;
-using EHive.Core.Library.Entities.Users;
-using EHive.Core.Library.Enums.Invoices;
+using OnHive.Core.Library.Entities.Tenants;
+using OnHive.Core.Library.Entities.Users;
+using OnHive.Core.Library.Enums.Invoices;
 using MongoDB.Bson.Serialization.Attributes;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Entities.Invoices
+namespace OnHive.Core.Library.Entities.Invoices
 {
     [BsonIgnoreExtraElements]
     public class Invoice : EntityBase

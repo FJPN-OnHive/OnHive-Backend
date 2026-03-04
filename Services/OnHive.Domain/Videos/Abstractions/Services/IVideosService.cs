@@ -1,8 +1,8 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Videos;
-using EHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Videos;
+using OnHive.Core.Library.Contracts.Login;
 
-namespace EHive.Videos.Domain.Abstractions.Services
+namespace OnHive.Videos.Domain.Abstractions.Services
 {
     public interface IVideosService
     {

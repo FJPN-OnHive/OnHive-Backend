@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace EHive.Core.Library.Extensions
+namespace OnHive.Core.Library.Extensions
 {
     public static class EnumExtensions
     {

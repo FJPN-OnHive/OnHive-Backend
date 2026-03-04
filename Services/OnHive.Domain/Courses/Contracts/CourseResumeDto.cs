@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Courses
+namespace OnHive.Core.Library.Contracts.Courses
 {
     public class CourseResumeDto
     {

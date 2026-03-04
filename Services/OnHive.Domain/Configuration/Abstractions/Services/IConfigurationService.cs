@@ -1,8 +1,8 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Configuration;
-using EHive.Core.Library.Contracts.Users;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Configuration;
+using OnHive.Core.Library.Contracts.Users;
 
-namespace EHive.Configuration.Domain.Abstractions.Services
+namespace OnHive.Configuration.Domain.Abstractions.Services
 {
     public interface IConfigurationService
     {

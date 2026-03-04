@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.Posts
+﻿namespace OnHive.Core.Library.Enums.Posts
 {
     public enum PostVisibility
     {

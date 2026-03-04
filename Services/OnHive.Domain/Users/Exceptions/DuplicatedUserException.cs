@@ -1,4 +1,4 @@
-﻿namespace EHive.Users.Domain.Exceptions
+﻿namespace OnHive.Users.Domain.Exceptions
 {
     public class DuplicatedUserException : Exception
     {

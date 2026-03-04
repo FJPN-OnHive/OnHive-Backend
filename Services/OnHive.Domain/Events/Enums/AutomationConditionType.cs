@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Core.Library.Enums.Events
+namespace OnHive.Core.Library.Enums.Events
 {
     public enum AutomationConditionType
     {

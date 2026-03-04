@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.Messages
+﻿namespace OnHive.Core.Library.Enums.Messages
 {
     public enum MessageStatus
     {

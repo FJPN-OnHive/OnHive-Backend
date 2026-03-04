@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Teachers;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Teachers;
 
-namespace EHive.Teachers.Domain.Abstractions.Repositories
+namespace OnHive.Teachers.Domain.Abstractions.Repositories
 {
     public interface ITeachersRepository : IRepositoryBase<Teacher>
     {        

@@ -1,10 +1,10 @@
-using EHive.Core.Library.Contracts.Catalog;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Enums.Common;
+using OnHive.Core.Library.Contracts.Catalog;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Enums.Common;
 using System.Text.Json;
 
-namespace EHive.Catalog.Domain.Abstractions.Services
+namespace OnHive.Catalog.Domain.Abstractions.Services
 {
     public interface IProductsService
     {

@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.Payments
+﻿namespace OnHive.Core.Library.Enums.Payments
 {
     public enum PaymentTypeStatus
     {

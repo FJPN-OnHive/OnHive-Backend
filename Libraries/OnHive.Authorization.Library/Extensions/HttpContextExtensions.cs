@@ -1,10 +1,10 @@
-﻿using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Contracts.Users;
+﻿using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Users;
 using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json;
 
-namespace EHive.Authorization.Library.Extensions
+namespace OnHive.Authorization.Library.Extensions
 {
     public static class HttpContextExtensions
     {

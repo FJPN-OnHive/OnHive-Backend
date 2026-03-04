@@ -1,0 +1,171 @@
+﻿@page "/EnrollmentsReport"
+@using OnHive.Admin.Models
+@using OnHive.Core.Library.Contracts.Catalog
+@using OnHive.Core.Library.Contracts.Courses
+@using OnHive.Core.Library.Contracts.Students
+@using OnHive.Core.Library.Contracts.Users
+@inherits EnrollmentsReportsBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h5">Relatório de Matriculas</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+
+             <MudCard>
+                <MudCardHeader>
+                    <MudText Typo="Typo.h5">Filtro de Cursos</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTable Items="@Courses"
+                              T="CourseResumeDto"
+                              Hover="true"
+                              Outlined="true"
+                              Dense="true"
+                              @bind-SelectedItems="SelectedCourses"
+                              MultiSelection="true"
+                              Height="200px"
+                              Loading="@CoursesLoading"
+                              Filter="course => course.Name.Contains(SearchCourse, StringComparison.InvariantCultureIgnoreCase)
+                                                                          || string.IsNullOrEmpty(SearchCourse)">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">Cursos</MudText>
+                        <MudSpacer />
+                        <MudTextField @bind-Value="@SearchCourse"
+                                      Placeholder="Busca"
+                                      Adornment="Adornment.Start"
+                                      AdornmentIcon="@Icons.Material.Filled.Search"
+                                      IconSize="Size.Medium"
+                                      Class="mt-0" />
+                    </ToolBarContent>
+
+                        <RowTemplate>
+                            <MudTd DataLabel="Curso">@context.Name</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudCardContent>
+            </MudCard>
+
+            <MudCard>
+                <MudCardContent>
+                    <MudCard Outlined="true" Class="form-card-body">
+                        <MudTable Items="@Enrollments" T="SyntheticEnrollmentDto" Hover="true" Outlined="true" Dense="true">
+                            <ToolBarContent>
+                                <MudStack Row="true" Spacing="3" xs="12">
+                                        <MudDatePicker Label="Data Inicial" @bind-date="@InitialDate" />
+                                        <MudDatePicker Label="Data Final" @bind-date="@FinalDate" />               
+                                </MudStack>
+                                <MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="@(() => LoadEnrollments())" />
+                                </MudItem>
+                            </ToolBarContent>
+                            <HeaderContent>
+                                <MudTh>Data</MudTh>
+                                <MudTh>Curso</MudTh>
+                                <MudTh>Código</MudTh>
+                                <MudTh>Matrículas</MudTh>
+                                <MudTh>Certificados</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Date">@context.Date.ToString("dd/MM/yyyy")</MudTd>
+                                <MudTd DataLabel="Course">@context.ProductName</MudTd>
+                                <MudTd DataLabel="Code">@context.ProductSku</MudTd>
+                                <MudTd DataLabel="Enrollments">@context.Enrollments</MudTd>
+                                <MudTd DataLabel="Certificates">@context.Certificates</MudTd>
+                            </RowTemplate>
+                            <PagerContent>
+                                <MudTablePager />
+                            </PagerContent>
+                        </MudTable>
+                    </MudCard>
+                </MudCardContent>
+            </MudCard>
+
+            
+
+
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@ExportAsync" Class="m-2">Exportar Sintético</MudButton>
+            <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Secondary" OnClick="@AnalyticReportAsync" Class="m-2">Gerar Analítico</MudButton>
+            <label class="mud-text mud-text-body2 mud-text-align-center mud-typography-caption mud-link mud-link-clickable" style="margin-left: 16px;">
+                * O relatório analítico pode demorar alguns minutos para ser gerado dependendo do volume de dados, 
+                o relaório será apresentado na lista abaixo quando estiver pronto.
+            </label>
+            <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                <div class="d-flex flex-column">
+                    <MudText>@Message</MudText>
+                    <MudButton OnClick="@(() => @ShowMessage = false)" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+                </div>
+            </MudPopover>
+        </MudCardActions>
+    </MudCard>
+
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h5">Relatórios Analíticos Gerados</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudCard>
+                <MudCardContent>
+                    <MudCard Outlined="true" Class="form-card-body">
+                        <MudTable Items="@Reports" T="StudentReportDto" Hover="true" Outlined="true" Dense="true">
+                            <ToolBarContent>
+                                <MudItem>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="@(() => LoadEnrollments())" />
+                                </MudItem>
+                            </ToolBarContent>
+                            <HeaderContent>
+                                <MudTh>Data do Relatório</MudTh>
+                                <MudTh>Arquivo</MudTh>
+                                <MudTh>Download</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Date">@context.ReportDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss")</MudTd>
+                                <MudTd DataLabel="Course">@context.ReportName</MudTd>
+                                <MudTd DataLabel="Download">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Download" OnClick="@(() => DownloadReportAsync(context))">
+                                    </MudIconButton>
+                                </MudTd>
+                            </RowTemplate>
+                            <PagerContent>
+                                <MudTablePager />
+                            </PagerContent>
+                        </MudTable>
+                    </MudCard>
+                </MudCardContent>
+            </MudCard>
+        </MudCardContent>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}
+
+<script type="text/javascript">
+    downloadFile = (fileName, data) => {
+        const blob = new Blob([data], { type: "text/plain" });
+        const downloadLink = document.createElement("a");
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = fileName;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    };
+
+    window.downloadFileFromStream = async (fileName, contentStreamReference) => {
+        const arrayBuffer = await contentStreamReference.arrayBuffer();
+        const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+        const blob = new Blob([bom, arrayBuffer], { type: 'text/csv; charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const anchorElement = document.createElement('a');
+        anchorElement.href = url;
+        anchorElement.download = fileName ?? '';
+        anchorElement.click();
+        anchorElement.remove();
+        URL.revokeObjectURL(url);
+    };
+</script>

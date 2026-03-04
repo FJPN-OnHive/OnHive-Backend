@@ -1,8 +1,8 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Invoices;
-using EHive.Core.Library.Entities.Invoices;
+using OnHive.Core.Library.Contracts.Invoices;
+using OnHive.Core.Library.Entities.Invoices;
 
-namespace EHive.Invoices.Domain.Mappers
+namespace OnHive.Invoices.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

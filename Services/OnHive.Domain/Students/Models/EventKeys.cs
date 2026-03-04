@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Students.Domain.Models
+namespace OnHive.Students.Domain.Models
 {
     public static class EventKeys
     {

@@ -1,8 +1,8 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Certificates;
-using EHive.Core.Library.Entities.Certificates;
+using OnHive.Core.Library.Contracts.Certificates;
+using OnHive.Core.Library.Entities.Certificates;
 
-namespace EHive.Certificates.Domain.Mappers
+namespace OnHive.Certificates.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

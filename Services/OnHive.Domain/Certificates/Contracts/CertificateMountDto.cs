@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Certificates
+namespace OnHive.Core.Library.Contracts.Certificates
 {
     public class CertificateMountDto
     {

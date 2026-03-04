@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.Students
+﻿namespace OnHive.Core.Library.Enums.Students
 {
     public enum StudentExamState
     {

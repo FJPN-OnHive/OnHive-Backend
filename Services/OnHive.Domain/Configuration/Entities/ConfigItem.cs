@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 
-namespace EHive.Core.Library.Entities.Configuration
+namespace OnHive.Core.Library.Entities.Configuration
 {
     public class ConfigItem : EntityBase
     {

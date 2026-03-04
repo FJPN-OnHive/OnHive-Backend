@@ -1,8 +1,8 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Entities.Catalog;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Entities.Catalog;
 
-namespace EHive.Catalog.Domain.Abstractions.Repositories
+namespace OnHive.Catalog.Domain.Abstractions.Repositories
 {
     public interface IUserCouponsRepository : IRepositoryBase<UserCoupon>
     {

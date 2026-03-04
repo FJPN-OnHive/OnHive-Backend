@@ -1,15 +1,15 @@
-﻿using EHive.Catalog.Domain.Abstractions.Services;
-using EHive.Certificates.Domain.Abstractions.Services;
-using EHive.Courses.Domain.Abstractions.Services;
-using EHive.Emails.Domain.Abstractions.Services;
-using EHive.Invoices.Domain.Abstractions.Services;
-using EHive.Orders.Domain.Abstractions.Services;
-using EHive.Payments.Domain.Abstractions.Services;
-using EHive.Storages.Domain.Abstractions.Services;
-using EHive.Students.Domain.Abstractions.Services;
-using EHive.Tenants.Domain.Abstractions.Services;
-using EHive.Users.Domain.Abstractions.Services;
-using EHive.Videos.Domain.Abstractions.Services;
+﻿using OnHive.Catalog.Domain.Abstractions.Services;
+using OnHive.Certificates.Domain.Abstractions.Services;
+using OnHive.Courses.Domain.Abstractions.Services;
+using OnHive.Emails.Domain.Abstractions.Services;
+using OnHive.Invoices.Domain.Abstractions.Services;
+using OnHive.Orders.Domain.Abstractions.Services;
+using OnHive.Payments.Domain.Abstractions.Services;
+using OnHive.Storages.Domain.Abstractions.Services;
+using OnHive.Students.Domain.Abstractions.Services;
+using OnHive.Tenants.Domain.Abstractions.Services;
+using OnHive.Users.Domain.Abstractions.Services;
+using OnHive.Videos.Domain.Abstractions.Services;
 
 namespace OnHive.Domains.Common.Abstractions.Services
 {

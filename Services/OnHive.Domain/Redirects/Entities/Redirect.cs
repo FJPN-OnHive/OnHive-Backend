@@ -1,6 +1,6 @@
-using EHive.Core.Library.Enums.Redirects;
+using OnHive.Core.Library.Enums.Redirects;
 
-namespace EHive.Core.Library.Entities.Redirects
+namespace OnHive.Core.Library.Entities.Redirects
 {
     public class Redirect : EntityBase
     {

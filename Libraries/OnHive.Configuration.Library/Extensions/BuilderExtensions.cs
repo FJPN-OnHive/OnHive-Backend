@@ -1,8 +1,8 @@
-﻿using EHive.Configuration.Domain.Abstractions.Services;
-using EHive.Configuration.Library.Exceptions;
-using EHive.Configuration.Library.Models;
-using EHive.Core.Library.Contracts.Configuration;
-using EHive.Core.Library.Entities.Configuration;
+﻿using OnHive.Configuration.Domain.Abstractions.Services;
+using OnHive.Configuration.Library.Exceptions;
+using OnHive.Configuration.Library.Models;
+using OnHive.Core.Library.Contracts.Configuration;
+using OnHive.Core.Library.Entities.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +10,7 @@ using Microsoft.OpenApi;
 using Serilog;
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Configuration.Library.Extensions
+namespace OnHive.Configuration.Library.Extensions
 {
     public static class BuilderExtensions
     {

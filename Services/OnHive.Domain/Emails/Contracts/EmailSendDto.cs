@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Emails
+namespace OnHive.Core.Library.Contracts.Emails
 {
     public class EmailSendDto
     {

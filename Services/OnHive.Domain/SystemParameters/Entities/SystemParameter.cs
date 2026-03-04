@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.SystemParameters
+namespace OnHive.Core.Library.Entities.SystemParameters
 {
     public class SystemParameter : EntityBase
     {

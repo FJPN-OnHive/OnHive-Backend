@@ -1,11 +1,11 @@
-﻿using EHive.Core.Library.Enums.Events;
+﻿using OnHive.Core.Library.Enums.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Core.Library.Entities.Events
+namespace OnHive.Core.Library.Entities.Events
 {
     public class AutomationCondition
     {

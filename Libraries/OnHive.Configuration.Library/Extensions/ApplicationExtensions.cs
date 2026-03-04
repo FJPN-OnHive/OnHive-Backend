@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace EHive.Configuration.Library.Extensions
+namespace OnHive.Configuration.Library.Extensions
 {
     public static class ApplicationExtensions
     {

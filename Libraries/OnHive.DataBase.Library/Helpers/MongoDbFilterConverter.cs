@@ -1,10 +1,10 @@
 ﻿using MongoDB.Driver;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Entities;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Entities;
 using MongoDB.Bson;
 using System.Text.RegularExpressions;
 
-namespace EHive.Core.Library.Helpers
+namespace OnHive.Core.Library.Helpers
 {
     public static class MongoDbFilterConverter
     {

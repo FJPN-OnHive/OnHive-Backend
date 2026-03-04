@@ -1,8 +1,8 @@
-using EHive.Core.Library.Enums.Videos;
+using OnHive.Core.Library.Enums.Videos;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Videos
+namespace OnHive.Core.Library.Contracts.Videos
 {
     public class VideoDto
     {

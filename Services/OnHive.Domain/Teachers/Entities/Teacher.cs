@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.Teachers
+namespace OnHive.Core.Library.Entities.Teachers
 {
     public class Teacher : EntityBase
     {

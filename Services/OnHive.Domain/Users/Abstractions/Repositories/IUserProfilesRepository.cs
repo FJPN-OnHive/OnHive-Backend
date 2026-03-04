@@ -1,9 +1,9 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Entities.Users;
-using EHive.Core.Library.Enums.Users;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Entities.Users;
+using OnHive.Core.Library.Enums.Users;
 
-namespace EHive.Users.Domain.Abstractions.Repositories
+namespace OnHive.Users.Domain.Abstractions.Repositories
 {
     public interface IUserProfilesRepository : IRepositoryBase<UserProfile>
     {

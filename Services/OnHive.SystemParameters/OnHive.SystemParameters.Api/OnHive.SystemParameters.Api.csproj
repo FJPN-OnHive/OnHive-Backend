@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libraries\OnHive.Authorization.Library\OnHive.Authorization.Library.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\OnHive.Observability.Library\OnHive.Observability.Library.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\OnHive.WebExtensions.Library\OnHive.WebExtensions.Library.csproj" />
+    <ProjectReference Include="..\OnHive.SystemParameters.Services\OnHive.SystemParameters.Services.csproj" />
+    <ProjectReference Include="..\OnHive.SystemParameters.Repositories\OnHive.SystemParameters.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Migrations\initialValues.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

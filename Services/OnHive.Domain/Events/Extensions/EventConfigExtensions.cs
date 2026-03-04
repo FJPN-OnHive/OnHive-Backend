@@ -1,11 +1,11 @@
-﻿using EHive.Core.Library.Entities.Events;
+﻿using OnHive.Core.Library.Entities.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Events.Domain.Extensions
+namespace OnHive.Events.Domain.Extensions
 {
     public static class EventConfigExtensions
     {

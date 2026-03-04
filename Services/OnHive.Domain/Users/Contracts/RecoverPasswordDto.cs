@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Users
+namespace OnHive.Core.Library.Contracts.Users
 {
     public class RecoverPasswordDto
     {

@@ -1,10 +1,10 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Contracts.Teachers;
-using EHive.Core.Library.Contracts.Users;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Teachers;
+using OnHive.Core.Library.Contracts.Users;
 using System.Text.Json;
 
-namespace EHive.Teachers.Domain.Abstractions.Services
+namespace OnHive.Teachers.Domain.Abstractions.Services
 {
     public interface ITeachersService
     {

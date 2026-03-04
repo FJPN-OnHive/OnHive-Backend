@@ -1,0 +1,136 @@
+﻿@using OnHive.Core.Library.Contracts.Users
+@page "/roles"
+@inherits RolesBase
+
+@if (!Loading)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudCard Outlined="true" Class="form-card-body">
+                <MudTable Items="@Roles"
+                          T="RoleDto"
+                          Hover="true"
+                          Outlined="true"
+                          Dense="true"
+                          RowClassFunc="RowClassSelector"
+                          SelectedItemChanged="SelectRole"
+                          Filter="role => role.Name.Contains(SearchRole, StringComparison.InvariantCultureIgnoreCase)
+                                   || string.IsNullOrEmpty(SearchRole)">
+
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">Roles</MudText>
+                        <MudSpacer />
+                        <MudTextField @bind-Value="@SearchRole"
+                                      Placeholder="Busca"
+                                      Adornment="Adornment.Start"
+                                      AdornmentIcon="@Icons.Material.Filled.Search"
+                                      IconSize="Size.Medium"
+                                      Class="mt-0" />
+                    </ToolBarContent>
+
+                    <HeaderContent>
+                        <MudTh>Role</MudTh>
+                        <MudTh>Administrador</MudTh>
+                    </HeaderContent>
+
+                    <RowTemplate>
+                        <MudTd DataLabel="Role">@context.Name</MudTd>
+                        <MudTd DataLabel="IsAdmin">@context.IsAdmin</MudTd>
+                    </RowTemplate>
+
+                    <PagerContent>
+                        <MudTablePager />
+                    </PagerContent>
+                </MudTable>
+
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                   OnClick="@(() =>
+                                   {
+                                       SelectedRole = new RoleDto
+                                       {
+                                           Name = "Nova Permissão"
+                                       };
+                                   })">
+                    </MudIconButton>
+                </MudCardActions>
+            </MudCard>
+
+            @if (SelectedRole != null)
+            {
+                <MudCard Outlined="true" Class="form-card-body mt-2">
+                    <MudCardContent>
+                        <MudItem xs="12">
+                            <MudTextField ReadOnly="true" Label="Id" @bind-Value="@SelectedRole.Id" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField Label="Nome" @bind-Value="@SelectedRole.Name" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudSwitch @bind-Value="@SelectedRole.IsAdmin"
+                                       Color="Color.Primary"
+                                       T="bool"
+                                       Label="Administrador" />
+                        </MudItem>
+
+                        <MudTable Items="@AllPermissions"
+                                  T="string"
+                                  Hover="true"
+                                  Outlined="true"
+                                  Dense="true"
+                                  @bind-SelectedItems="SelectedPermissions"
+                                  MultiSelection="true"
+                                  Height="300px"
+                                  Filter="permission => permission.Contains(SearchPermission, StringComparison.InvariantCultureIgnoreCase)
+                                            || string.IsNullOrEmpty(SearchPermission)">
+                            <ToolBarContent>
+                                <MudText Typo="Typo.h6">Permissões</MudText>
+                                <MudSpacer />
+                                <MudTextField @bind-Value="@SearchPermission"
+                                              Placeholder="Busca"
+                                              Adornment="Adornment.Start"
+                                              AdornmentIcon="@Icons.Material.Filled.Search"
+                                              IconSize="Size.Medium"
+                                              Class="mt-0" />
+                            </ToolBarContent>
+
+                            <RowTemplate>
+                                <MudTd DataLabel="Permission">@context</MudTd>
+                            </RowTemplate>
+                        </MudTable>
+                    </MudCardContent>
+
+                    <MudCardActions>
+                        <MudButton Variant="MudBlazor.Variant.Filled"
+                                   Color="Color.Primary"
+                                   OnClick="@SaveRole"
+                                   Class="m-2">
+                            Salvar
+                        </MudButton>
+                        <MudButton Variant="MudBlazor.Variant.Filled"
+                                   Color="Color.Secondary"
+                                   OnClick="@Clear"
+                                   Class="m-2">
+                            Limpar
+                        </MudButton>
+
+                        <MudPopover Open="@ShowMessage" Fixed="true" Class="px-4 pt-4">
+                            <div class="d-flex flex-column">
+                                <MudText>@Message</MudText>
+                                <MudButton OnClick="@(() => @ShowMessage = false)"
+                                           Class="ml-auto mr-n3 mb-1"
+                                           Color="Color.Error">
+                                    Close
+                                </MudButton>
+                            </div>
+                        </MudPopover>
+                    </MudCardActions>
+                </MudCard>
+            }
+        </MudCardContent>
+    </MudCard>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+}

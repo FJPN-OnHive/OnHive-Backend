@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
-using EHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Common;
 
-namespace EHive.WebExtensions.Library
+namespace OnHive.WebExtensions.Library
 {
     public static class RequestQueryExtensions
     {

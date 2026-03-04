@@ -1,7 +1,7 @@
-﻿using EHive.Core.Library.Enums.Payments;
+﻿using OnHive.Core.Library.Enums.Payments;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Payments
+namespace OnHive.Core.Library.Contracts.Payments
 {
     public class PaymentCheckoutDto
     {

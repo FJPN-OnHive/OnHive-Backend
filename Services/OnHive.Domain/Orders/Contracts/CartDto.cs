@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Orders
+namespace OnHive.Core.Library.Contracts.Orders
 {
     public class CartDto
     {

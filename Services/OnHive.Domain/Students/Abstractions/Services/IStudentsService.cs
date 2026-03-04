@@ -1,13 +1,13 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Courses;
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Contracts.Students;
-using EHive.Core.Library.Contracts.Users;
-using EHive.Core.Library.Entities.Students;
-using EHive.Students.Domain.Models;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Courses;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Students;
+using OnHive.Core.Library.Contracts.Users;
+using OnHive.Core.Library.Entities.Students;
+using OnHive.Students.Domain.Models;
 using System.Text.Json;
 
-namespace EHive.Students.Domain.Abstractions.Services
+namespace OnHive.Students.Domain.Abstractions.Services
 {
     public interface IStudentsService
     {

@@ -1,8 +1,8 @@
-﻿using EHive.Authorization.Library.Extensions;
-using EHive.Authorization.Library.Models;
-using EHive.Configuration.Library.Models;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Users;
+﻿using OnHive.Authorization.Library.Extensions;
+using OnHive.Authorization.Library.Models;
+using OnHive.Configuration.Library.Models;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -14,7 +14,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.Json;
 
-namespace EHive.Authorization.Library.Middlewares
+namespace OnHive.Authorization.Library.Middlewares
 {
     public class PermissionsMiddleware
     {

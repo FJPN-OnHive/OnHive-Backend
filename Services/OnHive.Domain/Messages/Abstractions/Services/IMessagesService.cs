@@ -1,9 +1,9 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Messages;
-using EHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Messages;
+using OnHive.Core.Library.Contracts.Login;
 using System.Text.Json;
 
-namespace EHive.Messages.Domain.Abstractions.Services
+namespace OnHive.Messages.Domain.Abstractions.Services
 {
     public interface IMessagesService
     {

@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Entities.Catalog
+﻿namespace OnHive.Core.Library.Entities.Catalog
 {
     public class Coupon : EntityBase
     {

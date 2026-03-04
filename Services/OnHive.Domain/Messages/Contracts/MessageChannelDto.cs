@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Messages
+namespace OnHive.Core.Library.Contracts.Messages
 {
     public class MessageChannelDto
     {

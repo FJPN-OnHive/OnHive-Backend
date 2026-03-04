@@ -1,4 +1,4 @@
-﻿namespace EHive.Authorization.Library.Models
+﻿namespace OnHive.Authorization.Library.Models
 {
     public static class PermissionConsts
     {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Entities.Tenants
+namespace OnHive.Core.Library.Entities.Tenants
 {
     public class SystemFeatures : EntityBase
     {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace EHive.Payments.Domain.Exceptions
+namespace OnHive.Payments.Domain.Exceptions
 {
     [Serializable]
     public class InvalidPaymentProviderException : Exception

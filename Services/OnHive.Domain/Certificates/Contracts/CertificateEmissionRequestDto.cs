@@ -1,7 +1,7 @@
-﻿using EHive.Core.Library.Contracts.Students;
-using EHive.Core.Library.Contracts.Users;
+﻿using OnHive.Core.Library.Contracts.Students;
+using OnHive.Core.Library.Contracts.Users;
 
-namespace EHive.Core.Library.Contracts.Certificates
+namespace OnHive.Core.Library.Contracts.Certificates
 {
     public class CertificateEmissionRequestDto
     {

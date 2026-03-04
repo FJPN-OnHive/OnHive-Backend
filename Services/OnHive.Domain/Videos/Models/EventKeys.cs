@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EHive.Videos.Domain.Models
+namespace OnHive.Videos.Domain.Models
 {
     public static class EventKeys
     {

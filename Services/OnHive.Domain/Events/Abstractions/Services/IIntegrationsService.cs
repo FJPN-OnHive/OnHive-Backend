@@ -1,9 +1,9 @@
-﻿using EHive.Core.Library.Contracts.Events;
-using EHive.Core.Library.Contracts.Login;
+﻿using OnHive.Core.Library.Contracts.Events;
+using OnHive.Core.Library.Contracts.Login;
 using Microsoft.Extensions.Primitives;
 using System.Text.Json;
 
-namespace EHive.Events.Domain.Abstractions.Services
+namespace OnHive.Events.Domain.Abstractions.Services
 {
     public interface IIntegrationsService
     {

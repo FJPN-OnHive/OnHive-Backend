@@ -1,9 +1,9 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Catalog;
-using EHive.Core.Library.Contracts.Courses;
-using EHive.Core.Library.Entities.Courses;
+using OnHive.Core.Library.Contracts.Catalog;
+using OnHive.Core.Library.Contracts.Courses;
+using OnHive.Core.Library.Entities.Courses;
 
-namespace EHive.Courses.Domain.Mappers
+namespace OnHive.Courses.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.Invoices
+namespace OnHive.Core.Library.Entities.Invoices
 {
     public class MockInvoice : EntityBase
     {

@@ -1,8 +1,8 @@
-//TODO: Move to EHive.Core.Library Project
+//TODO: Move to OnHive.Core.Library Project
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Payments
+namespace OnHive.Core.Library.Contracts.Payments
 {
     public class PaymentDto
     {        

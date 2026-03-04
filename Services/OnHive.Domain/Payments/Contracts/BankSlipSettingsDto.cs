@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Payments
+namespace OnHive.Core.Library.Contracts.Payments
 {
     public class BankSlipSettingsDto
     {

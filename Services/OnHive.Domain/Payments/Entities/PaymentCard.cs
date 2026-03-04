@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Entities.Users;
+﻿using OnHive.Core.Library.Entities.Users;
 
-namespace EHive.Core.Library.Entities.Payments
+namespace OnHive.Core.Library.Entities.Payments
 {
     public class PaymentCard : EntityBase
     {

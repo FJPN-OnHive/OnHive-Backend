@@ -1,8 +1,8 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Events;
-using EHive.Core.Library.Entities.Events;
+using OnHive.Core.Library.Contracts.Events;
+using OnHive.Core.Library.Entities.Events;
 
-namespace EHive.Events.Domain.Mappers
+namespace OnHive.Events.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

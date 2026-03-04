@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Nodes;
 
-namespace EHive.Core.Library.Entities.Enrichments
+namespace OnHive.Core.Library.Entities.Enrichments
 {
     public class Enrichment : EntityBase
     {

@@ -1,7 +1,7 @@
-﻿using EHive.Core.Library.Abstractions.Validation;
+﻿using OnHive.Core.Library.Abstractions.Validation;
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Core.Library.Attributes
+namespace OnHive.Core.Library.Attributes
 {
     public class ValidValues : ValidationAttribute
     {

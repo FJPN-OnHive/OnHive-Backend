@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Search
+namespace OnHive.Core.Library.Contracts.Search
 {
     public class SearchResultDto
     {

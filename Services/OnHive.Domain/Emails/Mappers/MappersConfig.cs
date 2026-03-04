@@ -1,8 +1,8 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Emails;
-using EHive.Core.Library.Entities.Emails;
+using OnHive.Core.Library.Contracts.Emails;
+using OnHive.Core.Library.Entities.Emails;
 
-namespace EHive.Emails.Domain.Mappers
+namespace OnHive.Emails.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

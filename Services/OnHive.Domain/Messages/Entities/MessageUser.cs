@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Enums.Messages;
+﻿using OnHive.Core.Library.Enums.Messages;
 
-namespace EHive.Core.Library.Entities.Messages
+namespace OnHive.Core.Library.Entities.Messages
 {
     public class MessageUser : EntityBase
     {

@@ -1,4 +1,4 @@
-namespace EHive.Certificates.Domain.Models
+namespace OnHive.Certificates.Domain.Models
 {
     public class CertificatesApiSettings
     {

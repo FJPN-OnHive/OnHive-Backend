@@ -1,4 +1,4 @@
-namespace EHive.Orders.Domain.Models
+namespace OnHive.Orders.Domain.Models
 {
     public class OrdersApiSettings
     {

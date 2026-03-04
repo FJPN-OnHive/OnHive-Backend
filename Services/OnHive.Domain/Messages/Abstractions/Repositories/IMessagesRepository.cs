@@ -1,7 +1,7 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Entities.Messages;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Entities.Messages;
 
-namespace EHive.Messages.Domain.Abstractions.Repositories
+namespace OnHive.Messages.Domain.Abstractions.Repositories
 {
     public interface IMessagesRepository : IRepositoryBase<Message>
     {

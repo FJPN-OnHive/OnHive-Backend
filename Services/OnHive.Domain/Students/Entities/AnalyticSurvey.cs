@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Entities.Courses;
+﻿using OnHive.Core.Library.Entities.Courses;
 
-namespace EHive.Core.Library.Entities.Students
+namespace OnHive.Core.Library.Entities.Students
 {
     public class AnalyticSurvey
     {

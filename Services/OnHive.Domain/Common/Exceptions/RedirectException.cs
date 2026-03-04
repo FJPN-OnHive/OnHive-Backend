@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Contracts.Common;
+﻿using OnHive.Core.Library.Contracts.Common;
 
-namespace EHive.Core.Library.Exceptions
+namespace OnHive.Core.Library.Exceptions
 {
     public class RedirectException : Exception
     {

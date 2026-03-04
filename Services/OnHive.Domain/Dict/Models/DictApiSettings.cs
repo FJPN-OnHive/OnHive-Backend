@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EHive.Dict.Domain.Models
+namespace OnHive.Dict.Domain.Models
 {
     public class DictApiSettings
     {

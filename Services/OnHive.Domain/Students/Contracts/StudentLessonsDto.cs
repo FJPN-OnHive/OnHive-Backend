@@ -1,11 +1,11 @@
-﻿using EHive.Core.Library.Contracts.Courses;
-using EHive.Core.Library.Entities.Courses;
-using EHive.Core.Library.Entities.Students;
-using EHive.Core.Library.Enums.Courses;
-using EHive.Core.Library.Enums.Students;
+﻿using OnHive.Core.Library.Contracts.Courses;
+using OnHive.Core.Library.Entities.Courses;
+using OnHive.Core.Library.Entities.Students;
+using OnHive.Core.Library.Enums.Courses;
+using OnHive.Core.Library.Enums.Students;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Students
+namespace OnHive.Core.Library.Contracts.Students
 {
     public class StudentLessonsDto
     {

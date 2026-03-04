@@ -1,11 +1,11 @@
-﻿using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Entities;
-using EHive.Core.Library.Helpers;
-using EHive.Database.Library.Models;
+﻿using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Entities;
+using OnHive.Core.Library.Helpers;
+using OnHive.Database.Library.Models;
 using MongoDB.Driver;
 
-namespace EHive.Database.Library.MongoDB
+namespace OnHive.Database.Library.MongoDB
 {
     public abstract class MongoRepositoryBase<Entity> : IRepositoryBase<Entity> where Entity : EntityBase
     {

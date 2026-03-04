@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EHive.Configuration.Library.Extensions
+namespace OnHive.Configuration.Library.Extensions
 {
     internal sealed class BearerSecuritySchemeTransformer : IOpenApiDocumentTransformer
     {

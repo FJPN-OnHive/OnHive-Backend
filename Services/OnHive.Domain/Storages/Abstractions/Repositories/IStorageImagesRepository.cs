@@ -1,8 +1,8 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Entities.Storages;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Entities.Storages;
 
-namespace EHive.Storages.Domain.Abstractions.Repositories
+namespace OnHive.Storages.Domain.Abstractions.Repositories
 {
     public interface IStorageImagesRepository : IRepositoryBase<StorageImageFile>
     {

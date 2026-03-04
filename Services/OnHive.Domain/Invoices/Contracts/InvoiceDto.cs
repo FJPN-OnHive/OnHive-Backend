@@ -1,9 +1,9 @@
-using EHive.Core.Library.Entities.Users;
-using EHive.Core.Library.Enums.Invoices;
+using OnHive.Core.Library.Entities.Users;
+using OnHive.Core.Library.Enums.Invoices;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Invoices
+namespace OnHive.Core.Library.Contracts.Invoices
 {
     public class InvoiceDto
     {

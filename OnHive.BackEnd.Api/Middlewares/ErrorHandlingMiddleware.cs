@@ -1,14 +1,14 @@
-﻿using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Students;
-using EHive.Core.Library.Contracts.Users;
-using EHive.Core.Library.Exceptions;
-using EHive.Tenants.Domain.Exceptions;
-using EHive.Users.Domain.Exceptions;
+﻿using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Students;
+using OnHive.Core.Library.Contracts.Users;
+using OnHive.Core.Library.Exceptions;
+using OnHive.Tenants.Domain.Exceptions;
+using OnHive.Users.Domain.Exceptions;
 using Serilog;
 using System.ComponentModel;
 using System.Text.Json;
 
-namespace EHive.Backend.Api.Middlewaress
+namespace OnHive.Backend.Api.Middlewaress
 {
     public class ErrorHandlingMiddleware
     {

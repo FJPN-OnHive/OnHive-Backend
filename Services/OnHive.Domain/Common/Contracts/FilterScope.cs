@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Contracts.Common
+﻿namespace OnHive.Core.Library.Contracts.Common
 {
     public class FilterScope
     {

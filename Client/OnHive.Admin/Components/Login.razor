@@ -1,0 +1,35 @@
+﻿@using OnHive.Core.Library.Contracts.Tenants
+@inherits LoginBase
+
+<MudCard Class="login-card">
+    <MudCardHeader>
+        <MudText Typo="Typo.h4">Login</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudText Typo="Typo.body2">Informe o Tenant, Email e a senha de administrador</MudText>
+        @if (!TenantPreselected)
+        {
+            <MudSelect FullWidth="true" @bind-Value="CurrentTenantResumeDto" T="TenantResumeDto" Label="Tenant"  >
+                @foreach (var tenant in TenantResumes)
+                {
+                    <MudSelectItem T="TenantResumeDto" Value="@tenant">@tenant.Name</MudSelectItem>
+                }
+            </MudSelect>
+        }
+        else
+        {
+            <MudTextField ReadOnly="true" Label="Tenant" @bind-Value="CurrentTenantResumeDto.Name" />
+        }
+        <MudTextField Label="E-Mail" @bind-Value="LoginData.Login" />
+        <MudTextField Label="Senha" @bind-Value="LoginData.PasswordHash" InputType="@PasswordInput" />
+    </MudCardContent>   
+    <MudCardActions>
+        <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Primary" OnClick="@((e) => Login())">Login</MudButton>
+        <MudCheckBox T="bool" Label="Lembrar Tenant" @bind-value="SaveTenant"></MudCheckBox>
+    </MudCardActions>
+    @if (LoginFailed)
+    {
+        <MudText Typo="Typo.body2" Color="Color.Error">Dados inválidos</MudText>
+    }
+   
+</MudCard>

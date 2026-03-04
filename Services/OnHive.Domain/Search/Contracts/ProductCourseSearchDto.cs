@@ -1,7 +1,7 @@
-﻿using EHive.Core.Library.Contracts.Catalog;
+﻿using OnHive.Core.Library.Contracts.Catalog;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Search
+namespace OnHive.Core.Library.Contracts.Search
 {
     public class ProductCourseSearchDto
     {

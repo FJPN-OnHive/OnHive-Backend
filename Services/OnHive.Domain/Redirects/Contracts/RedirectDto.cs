@@ -1,8 +1,8 @@
-using EHive.Core.Library.Enums.Redirects;
+using OnHive.Core.Library.Enums.Redirects;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Redirects
+namespace OnHive.Core.Library.Contracts.Redirects
 {
     public class RedirectDto
     {

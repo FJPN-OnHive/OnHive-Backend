@@ -1,8 +1,8 @@
 using AutoMapper;
-using EHive.Core.Library.Contracts.Videos;
-using EHive.Core.Library.Entities.Videos;
+using OnHive.Core.Library.Contracts.Videos;
+using OnHive.Core.Library.Entities.Videos;
 
-namespace EHive.Videos.Domain.Mappers
+namespace OnHive.Videos.Domain.Mappers
 {
     public class MappersConfig : Profile
     {

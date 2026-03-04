@@ -1,8 +1,8 @@
-using EHive.Core.Library.Enums.Users;
+using OnHive.Core.Library.Enums.Users;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Users
+namespace OnHive.Core.Library.Contracts.Users
 {
     public class UserProfileDto
     {

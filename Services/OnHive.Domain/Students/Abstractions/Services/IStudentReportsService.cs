@@ -1,9 +1,9 @@
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Contracts.Login;
-using EHive.Core.Library.Contracts.Students;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Contracts.Login;
+using OnHive.Core.Library.Contracts.Students;
 using System.Text.Json;
 
-namespace EHive.Students.Domain.Abstractions.Services
+namespace OnHive.Students.Domain.Abstractions.Services
 {
     public interface IStudentReportsService
     {

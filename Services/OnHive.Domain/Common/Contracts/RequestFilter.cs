@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Common
+namespace OnHive.Core.Library.Contracts.Common
 {
     public class RequestFilter
     {

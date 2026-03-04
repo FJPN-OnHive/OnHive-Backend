@@ -1,10 +1,10 @@
-using EHive.Core.Library.Abstractions.Repositories;
-using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Entities.Catalog;
-using EHive.Core.Library.Entities.Courses;
-using EHive.Core.Library.Entities.Search;
+using OnHive.Core.Library.Abstractions.Repositories;
+using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Entities.Catalog;
+using OnHive.Core.Library.Entities.Courses;
+using OnHive.Core.Library.Entities.Search;
 
-namespace EHive.Search.Domain.Abstractions.Repositories
+namespace OnHive.Search.Domain.Abstractions.Repositories
 {
     public interface IProductCourseSearchRepository : IRepositoryBase<ProductCourseSearch>
     {

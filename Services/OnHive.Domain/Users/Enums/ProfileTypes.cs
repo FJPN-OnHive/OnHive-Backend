@@ -1,4 +1,4 @@
-﻿namespace EHive.Core.Library.Enums.Users
+﻿namespace OnHive.Core.Library.Enums.Users
 {
     public enum ProfileTypes
     {

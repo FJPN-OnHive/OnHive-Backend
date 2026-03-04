@@ -1,6 +1,6 @@
-using EHive.Core.Library.Enums.Events;
+using OnHive.Core.Library.Enums.Events;
 
-namespace EHive.Core.Library.Entities.Events
+namespace OnHive.Core.Library.Entities.Events
 {
     public class Automation : EntityBase
     {

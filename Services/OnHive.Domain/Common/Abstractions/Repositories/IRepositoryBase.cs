@@ -1,7 +1,7 @@
-﻿using EHive.Core.Library.Contracts.Common;
-using EHive.Core.Library.Entities;
+﻿using OnHive.Core.Library.Contracts.Common;
+using OnHive.Core.Library.Entities;
 
-namespace EHive.Core.Library.Abstractions.Repositories
+namespace OnHive.Core.Library.Abstractions.Repositories
 {
     public interface IRepositoryBase<Entity> where Entity : EntityBase
     {

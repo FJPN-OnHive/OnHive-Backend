@@ -1,4 +1,4 @@
-namespace EHive.Tenants.Domain.Models
+namespace OnHive.Tenants.Domain.Models
 {
     public class TenantsApiSettings
     {

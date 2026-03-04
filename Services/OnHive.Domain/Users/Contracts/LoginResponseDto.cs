@@ -1,8 +1,8 @@
-﻿using EHive.Core.Library.Contracts.Users;
+﻿using OnHive.Core.Library.Contracts.Users;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace EHive.Core.Library.Contracts.Login
+namespace OnHive.Core.Library.Contracts.Login
 {
     public class LoginResponseDto
     {

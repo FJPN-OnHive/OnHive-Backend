@@ -1,4 +1,4 @@
-namespace EHive.Core.Library.Entities.Events
+namespace OnHive.Core.Library.Entities.Events
 {
     public class EventRegister : EntityBase
     {

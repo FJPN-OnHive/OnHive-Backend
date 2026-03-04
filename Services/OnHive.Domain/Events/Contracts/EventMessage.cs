@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace EHive.Core.Library.Contracts.Events
+namespace OnHive.Core.Library.Contracts.Events
 {
     public class EventMessage
     {

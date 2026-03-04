@@ -1,10 +1,10 @@
-﻿using EHive.Observability.Library.Models;
+﻿using OnHive.Observability.Library.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Sinks.OpenTelemetry;
 
-namespace EHive.Configuration.Library.Extensions
+namespace OnHive.Configuration.Library.Extensions
 {
     public static class BuilderExtensions
     {
@@ -20,7 +20,7 @@ namespace EHive.Configuration.Library.Extensions
             var logSettings = services.BuildServiceProvider().GetRequiredService<LoggingSettings>();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
-                .MinimumLevel.Override("EHive", logSettings.LogLevel)
+                .MinimumLevel.Override("OnHive", logSettings.LogLevel)
                 .Enrich.FromLogContext()
                 .Enrich.WithProperty("service", serviceName)
                 .Enrich.WithProperty("environment", logSettings.LogGroup)
@@ -33,7 +33,7 @@ namespace EHive.Configuration.Library.Extensions
                     options.Protocol = OtlpProtocol.Grpc;
                     options.ResourceAttributes = new Dictionary<string, object>
                     {
-                        { "service.name", serviceName ?? "EHiveService" },
+                        { "service.name", serviceName ?? "OnHiveService" },
                         { "deployment.environment", logSettings.LogGroup }
                     };
                 })

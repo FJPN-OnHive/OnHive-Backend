@@ -1,4 +1,4 @@
-﻿namespace EHive.Configuration.Library.Models
+﻿namespace OnHive.Configuration.Library.Models
 {
     public class ProjectInfo
     {

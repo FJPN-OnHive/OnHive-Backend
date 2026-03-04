@@ -1,11 +1,11 @@
-﻿using EHive.Configuration.Library.Models;
+﻿using OnHive.Configuration.Library.Models;
 using Microsoft.OpenApi;
 
 using Microsoft.OpenApi;
 
 using Microsoft.AspNetCore.OpenApi;
 
-namespace EHive.Configuration.Library.Extensions
+namespace OnHive.Configuration.Library.Extensions
 {
     public class PermissionsOperationFilter : IOpenApiOperationTransformer
     {

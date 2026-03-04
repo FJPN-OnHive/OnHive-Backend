@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Contracts.Payments;
+﻿using OnHive.Core.Library.Contracts.Payments;
 
-namespace EHive.Core.Library.Entities.Payments
+namespace OnHive.Core.Library.Entities.Payments
 {
     public class MockPaymentTransaction : EntityBase
     {

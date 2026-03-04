@@ -1,9 +1,9 @@
-﻿using EHive.Authorization.Library.Middlewares;
-using EHive.Configuration.Library.Models;
+﻿using OnHive.Authorization.Library.Middlewares;
+using OnHive.Configuration.Library.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EHive.Authorization.Library.Extensions
+namespace OnHive.Authorization.Library.Extensions
 {
     public static class ApplicationExtensions
     {

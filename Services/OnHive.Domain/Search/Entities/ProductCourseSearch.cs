@@ -1,6 +1,6 @@
-﻿using EHive.Core.Library.Entities.Catalog;
+﻿using OnHive.Core.Library.Entities.Catalog;
 
-namespace EHive.Core.Library.Entities.Search
+namespace OnHive.Core.Library.Entities.Search
 {
     public class ProductCourseSearch : EntityBase
     {

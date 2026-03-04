@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace EHive.Core.Library.Entities.Students
+namespace OnHive.Core.Library.Entities.Students
 {
     [BsonIgnoreExtraElements]
     public class StudentDiscipline
