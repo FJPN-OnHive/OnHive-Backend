@@ -1,3 +1,0 @@
-﻿# EHive_Teachers_Api
-
-Api de Professores

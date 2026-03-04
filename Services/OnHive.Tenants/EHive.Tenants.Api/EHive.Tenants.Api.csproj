@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
@@ -7,17 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="docs.txt" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<_ContentIncludedByDefault Remove="Migrations\defaultTenant.prod.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="docs.txt">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
 	</ItemGroup>
 
 	<ItemGroup>

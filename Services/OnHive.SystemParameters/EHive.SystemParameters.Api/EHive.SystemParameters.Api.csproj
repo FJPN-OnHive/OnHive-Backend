@@ -1,14 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <ItemGroup>
-    <None Remove="docs.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="docs.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Libraries\OnHive.Authorization.Library\EHive.Authorization.Library.csproj" />

@@ -1,16 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <None Remove="docs.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="docs.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
 	  <ProjectReference Include="..\..\..\Libraries\OnHive.Authorization.Library\EHive.Authorization.Library.csproj" />
 	  <ProjectReference Include="..\..\..\Libraries\OnHive.Observability.Library\EHive.Observability.Library.csproj" />
 	  <ProjectReference Include="..\..\..\Libraries\OnHive.WebExtensions.Library\EHive.WebExtensions.Library.csproj" />

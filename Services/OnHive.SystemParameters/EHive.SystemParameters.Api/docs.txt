@@ -1,8 +1,0 @@
-﻿EHive.SystemParameters.Api
-
-Api de parâmetros globais do sistema
-            
-
-
-
-

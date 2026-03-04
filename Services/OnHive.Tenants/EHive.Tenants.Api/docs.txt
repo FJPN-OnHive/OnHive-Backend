@@ -1,8 +1,0 @@
-﻿EHive.Tenants.Api
-
-Api de Tenants
-            
-
-
-
-
