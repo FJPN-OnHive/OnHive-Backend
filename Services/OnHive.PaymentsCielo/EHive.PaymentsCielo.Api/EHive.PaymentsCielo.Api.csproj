@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
@@ -18,9 +18,4 @@
     <ProjectReference Include="..\EHive.PaymentsCielo.Services\EHive.PaymentsCielo.Services.csproj" />
   </ItemGroup>
 
-    <ItemGroup>
-        <None Update="docs.txt">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
 </Project>
