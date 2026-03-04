@@ -5,10 +5,29 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch and Debug Standalone Blazor WebAssembly App",
+            "name": "Launch BackEnd.Api (Hosted Blazor)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/OnHive.BackEnd.Api/bin/Debug/net10.0/OnHive.BackEnd.Api.dll",
+            "cwd": "${workspaceFolder}/OnHive.BackEnd.Api",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:4000",
+                "MongoDbSettings__ConnectionString": "mongodb://root:8YTrStV8uNpO@localhost:27017/?retryWrites=true&loadBalanced=false&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-256",
+                "MongoDbSettings__DataBase": "onhive"
+            },
+            "serverReadyAction": {
+                "action": "openExternally",
+                "uriFormat": "http://localhost:4000",
+                "pattern": "(?:Now listening on:|Application started)"
+            }
+        },
+        {
+            "name": "Launch OnHive.Admin (Standalone Blazor)",
             "type": "blazorwasm",
             "request": "launch",
-            "cwd": "${workspaceFolder}/OnHive.BackEnd.Api",
+            "cwd": "${workspaceFolder}/Client/OnHive.Admin",
             "browser": "chrome"
         }
     ]

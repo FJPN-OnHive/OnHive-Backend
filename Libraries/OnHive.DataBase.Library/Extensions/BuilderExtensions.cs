@@ -14,7 +14,7 @@ namespace OnHive.Database.Library.Extensions
         public static WebApplicationBuilder ConfigureMongoDb(this WebApplicationBuilder builder)
         {
             builder.AddConfiguration<MongoDBSettings>();
-            var mongoSettings = builder.Services.BuildServiceProvider().GetService<MongoDBSettings>();
+            var mongoSettings = builder.Services.BuildServiceProvider().GetRequiredService<MongoDBSettings>();
 
             BsonSerializer.RegisterIdGenerator(typeof(string), new StringObjectIdGenerator());
 
