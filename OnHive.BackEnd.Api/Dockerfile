@@ -6,7 +6,7 @@ USER $APP_UID
 WORKDIR /app
 EXPOSE 4000
 EXPOSE 4001
-ENV ASPNETCORE_URLS=http://+:4000;https://+:4001
+ENV ASPNETCORE_URLS=http://+:4000
 
 
 # This stage is used to build the service project
