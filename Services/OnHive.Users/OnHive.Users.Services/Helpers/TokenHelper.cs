@@ -1,5 +1,4 @@
-﻿using OnHive.Authorization.Library.Models;
-using OnHive.Core.Library.Contracts.Payments;
+﻿using OnHive.Core.Library.Contracts.Payments;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using OnHive.Domains.Common.Helpers;
@@ -9,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OnHive.Domains.Authorization.Models;
 
 namespace OnHive.Users.Services.Helpers
 {

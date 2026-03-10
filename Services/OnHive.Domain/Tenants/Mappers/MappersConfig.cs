@@ -31,6 +31,21 @@ namespace OnHive.Tenants.Domain.Mappers
 
         private void MapTenantThemeToTenantThemeDto()
         {
+            CreateMap<ColorToken, ColorTokenDto>()
+                .ReverseMap();
+
+            CreateMap<StatusToken, StatusTokenDto>()
+                .ReverseMap();
+
+            CreateMap<FontToken, FontTokenDto>()
+                .ReverseMap();
+
+            CreateMap<FontFamilyToken, FontFamilyTokenDto>()
+                .ReverseMap();
+
+            CreateMap<TenantTokens, TenantTokensDto>()
+                .ReverseMap();
+            
             CreateMap<TenantTheme, TenantThemeDto>()
                 .ReverseMap();
         }
@@ -44,6 +59,7 @@ namespace OnHive.Tenants.Domain.Mappers
         private void MapTenantToTenantResumeDto()
         {
             CreateMap<Tenant, TenantResumeDto>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => $"{src.Address}, {src.District} - {src.City} - {src.State}"))
                 .ReverseMap();
         }
     }

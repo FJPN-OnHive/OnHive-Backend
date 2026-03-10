@@ -9,7 +9,6 @@ namespace OnHive.Core.Library.Contracts.Users
     {
         [JsonPropertyName("tenantId")]
         [MaxLength(256)]
-        [MinLength(14)]
         [Required]
         public string TenantId { get; set; } = string.Empty;
 
@@ -31,7 +30,6 @@ namespace OnHive.Core.Library.Contracts.Users
 
         [JsonPropertyName("surname")]
         [MaxLength(256)]
-        [MinLength(2)]
         public string Surname { get; set; } = string.Empty;
 
         [JsonPropertyName("birthDate")]

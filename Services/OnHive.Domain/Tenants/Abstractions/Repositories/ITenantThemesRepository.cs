@@ -5,8 +5,6 @@ namespace OnHive.Tenants.Domain.Abstractions.Repositories
 {
     public interface ITenantThemesRepository : IRepositoryBase<TenantTheme>
     {
-        Task<List<TenantTheme>> GetByDomain(string domain, string tenantId);
-
-        Task<TenantTheme> GetCurrentByDomain(string domain, string tenantId);
+        Task<TenantTheme> GetByTenant(string tenantId);
     }
 }

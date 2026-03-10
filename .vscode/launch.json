@@ -5,21 +5,49 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch BackEnd.Api (Hosted Blazor)",
+            "name": "Launch BackEnd.Api (netcoredbg)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/OnHive.BackEnd.Api/bin/Debug/net10.0/OnHive.BackEnd.Api.dll",
             "cwd": "${workspaceFolder}/OnHive.BackEnd.Api",
+            "console": "internalConsole",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "bash",
+                "pipeArgs": ["-c"],
+                "debuggerPath": "${env:HOME}/.cursor/extensions/anysphere.csharp-1.0.1-linux-x64/.debugger/netcoredbg",
+                "debuggerArgs": ["--interpreter=vscode"],
+                "quoteArgs": true
+            },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:4000",
+                "ASPNETCORE_URLS": "http://localhost:4100",
                 "MongoDbSettings__ConnectionString": "mongodb://root:8YTrStV8uNpO@localhost:27017/?retryWrites=true&loadBalanced=false&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-256",
                 "MongoDbSettings__DataBase": "onhive"
             },
             "serverReadyAction": {
                 "action": "openExternally",
-                "uriFormat": "http://localhost:4000",
+                "uriFormat": "http://localhost:4100",
+                "pattern": "(?:Now listening on:|Application started)"
+            }
+        },
+        {
+            "name": "Launch BackEnd.Api (Hosted Blazor)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "kill-port-and-build",
+            "program": "${workspaceFolder}/OnHive.BackEnd.Api/bin/Debug/net10.0/OnHive.BackEnd.Api.dll",
+            "cwd": "${workspaceFolder}/OnHive.BackEnd.Api",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:4100",
+                "MongoDbSettings__ConnectionString": "mongodb://root:8YTrStV8uNpO@localhost:27017/?retryWrites=true&loadBalanced=false&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-256",
+                "MongoDbSettings__DataBase": "onhive"
+            },
+            "serverReadyAction": {
+                "action": "openExternally",
+                "uriFormat": "http://localhost:4100",
                 "pattern": "(?:Now listening on:|Application started)"
             }
         },

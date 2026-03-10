@@ -4,6 +4,7 @@
     <ProjectReference Include="..\..\..\Libraries\OnHive.Authorization.Library\OnHive.Authorization.Library.csproj" />
     <ProjectReference Include="..\..\..\Libraries\OnHive.Observability.Library\OnHive.Observability.Library.csproj" />
     <ProjectReference Include="..\..\..\Libraries\OnHive.WebExtensions.Library\OnHive.WebExtensions.Library.csproj" />
+    <ProjectReference Include="..\..\OnHive.Domain\OnHive.Domains.csproj" />
     <ProjectReference Include="..\..\OnHive.Events\OnHive.Events.Api\OnHive.Events.Api.csproj" />
     <ProjectReference Include="..\OnHive.Payments.Services\OnHive.Payments.Services.csproj" />
     <ProjectReference Include="..\OnHive.Payments.Repositories\OnHive.Payments.Repositories.csproj" />

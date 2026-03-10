@@ -13,14 +13,14 @@ namespace OnHive.Tenants.Api.Endpoints
     {
         internal static WebApplication MapTenantThemesEndpoints(this WebApplication app)
         {
-            app.MapGet("v1/Theme/{tenantId}/{domain}", async (HttpContext context, [FromServices] ITenantThemesService service, [FromRoute] string tenantId, [FromRoute] string domain) =>
+            app.MapGet("v1/Theme/Tenant/{tenantId}", async (HttpContext context, [FromServices] ITenantThemesService service, [FromRoute] string tenantId) =>
             {
-                var result = await service.GetCurrentByDomain(domain, tenantId);
+                var result = await service.GetByTenantId(tenantId);
                 if (result == null) return Results.Ok(Response<TenantThemeDto>.Empty());
                 return Results.Ok(Response<TenantThemeDto>.Ok(result));
             })
-           .WithName("GetTenantThemeByDomain")
-           .WithDescription("Get Tenant Theme By Domain")
+           .WithName("GetTenantThemeByTenantId")
+           .WithDescription("Get Tenant Theme By Tenant Id")
            .WithTags("TenantThemes")
            .AllowAnonymous()
            .Produces<Response<TenantThemeDto>>();

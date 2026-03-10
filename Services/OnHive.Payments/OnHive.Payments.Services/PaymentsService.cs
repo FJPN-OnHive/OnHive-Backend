@@ -9,14 +9,14 @@ using OnHive.Core.Library.Entities.Payments;
 using OnHive.Core.Library.Enums.Orders;
 using OnHive.Core.Library.Enums.Payments;
 using OnHive.Core.Library.Exceptions;
+using OnHive.Core.Library.Entities.Orders;
 using OnHive.Events.Domain.Abstractions.Services;
-using OnHive.Orders.Domain.Abstractions.Services;
+using OnHive.Orders.Domain.Abstractions.Repositories;
 using OnHive.Payments.Domain.Abstractions.Repositories;
 using OnHive.Payments.Domain.Abstractions.Services;
 using OnHive.Payments.Domain.Exceptions;
 using OnHive.Payments.Domain.Models;
 using OnHive.Users.Domain.Abstractions.Services;
-using OnHive.Domains.Common.Abstractions.Services;
 using Serilog;
 using System.Data;
 using System.Net.Http.Headers;
@@ -30,7 +30,7 @@ namespace OnHive.Payments.Services
         private readonly IPaymentsRepository paymentsRepository;
         private readonly IBankSlipNumberControlRepository bankSlipNumberControlRepository;
         private readonly IBankSlipSettingsRepository bankSlipSettingsRepository;
-        private readonly IOrdersService ordersService;
+        private readonly IOrdersRepository ordersRepository;
         private readonly IUsersService usersService;
         private readonly PaymentsApiSettings paymentsApiSettings;
         private readonly IMapper mapper;
@@ -45,14 +45,15 @@ namespace OnHive.Payments.Services
                                IMapper mapper,
                                HttpClient httpClient,
                                IEventRegister eventRegister,
-                               IServicesHub servicesHub)
+                               IOrdersRepository ordersRepository,
+                               IUsersService usersService)
         {
             this.paymentsRepository = paymentsRepository;
             this.bankSlipNumberControlRepository = bankSlipNumberControlRepository;
             this.bankSlipSettingsRepository = bankSlipSettingsRepository;
             this.paymentsApiSettings = paymentsApiSettings;
-            this.ordersService = servicesHub.OrdersService;
-            this.usersService = servicesHub.UsersService;
+            this.ordersRepository = ordersRepository;
+            this.usersService = usersService;
             this.mapper = mapper;
             this.httpClient = httpClient;
             this.eventRegister = eventRegister;
@@ -148,6 +149,7 @@ namespace OnHive.Payments.Services
         private async Task UpdateOrder(Payment? payment, LoggedUserDto loggedUser)
         {
             if (payment?.LastReceipt == null) return;
+            var order = await ordersRepository.GetByIdAsync(payment.OrderId) ?? throw new NotFoundException($"Order not found: {payment.OrderId}");
             var status = OrderStatus.PaymentProcessing;
             switch (payment.LastReceipt.Status)
             {
@@ -167,8 +169,21 @@ namespace OnHive.Payments.Services
                     status = OrderStatus.PaymentRefused;
                     break;
             }
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(loggedUser.Token);
-            await ordersService.SetPaymentStatus(payment.OrderId, payment.Id, status, loggedUser);
+            order.Status = status;
+            order.PaymentId = payment.Id;
+            switch (status)
+            {
+                case OrderStatus.Closed:
+                    order.ClosingDate = DateTime.UtcNow;
+                    break;
+                case OrderStatus.Cancelled:
+                    order.CancellationDate = DateTime.UtcNow;
+                    break;
+                case OrderStatus.Refounded:
+                    order.RefoundDate = DateTime.UtcNow;
+                    break;
+            }
+            await ordersRepository.SaveAsync(order);
         }
 
         private async Task<PaymentCheckoutDto> ValidateOrder(PaymentCheckoutDto paymentCheckout, LoggedUserDto loggedUser)
@@ -272,7 +287,8 @@ namespace OnHive.Payments.Services
 
         private async Task<OrderDto?> GetOrder(string orderId, LoggedUserDto loggedUser)
         {
-            return await ordersService.GetByIdAsync(orderId, loggedUser) ?? throw new NotFoundException($"Order not found: {orderId}");
+            var order = await ordersRepository.GetByIdAsync(orderId) ?? throw new NotFoundException($"Order not found: {orderId}");
+            return mapper.Map<OrderDto>(order);
         }
 
         private async Task<UserDto?> GetClient(string userId, LoggedUserDto loggedUser)

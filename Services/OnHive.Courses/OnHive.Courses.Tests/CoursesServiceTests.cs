@@ -11,10 +11,9 @@ using OnHive.Courses.Domain.Mappers;
 using OnHive.Courses.Domain.Models;
 using OnHive.Courses.Services;
 using OnHive.Events.Domain.Abstractions.Services;
-using OnHive.Students.Domain.Abstractions.Services;
+using OnHive.Students.Domain.Abstractions.Repositories;
 using FluentAssertions;
 using Moq;
-using OnHive.Domains.Common.Abstractions.Services;
 using System.Text.Json;
 
 namespace OnHive.Courses.Tests
@@ -24,9 +23,8 @@ namespace OnHive.Courses.Tests
         private readonly MockRepository mockRepository;
         private readonly Mock<ICoursesRepository> mockCoursesRepository;
         private readonly Mock<IDisciplineService> mockDisciplinesService;
-        private readonly Mock<IStudentsService> mockStudentsService;
+        private readonly Mock<IStudentsRepository> mockStudentsRepository;
         private readonly Mock<IProductsService> mockProductsService;
-        private readonly Mock<IServicesHub> mockServicesHub;
         private readonly Mock<IEventRegister> mockEventRegister;
         private readonly CoursesApiSettings coursesApiSettings;
         private readonly IMapper mapper;
@@ -37,12 +35,9 @@ namespace OnHive.Courses.Tests
 
             mockCoursesRepository = mockRepository.Create<ICoursesRepository>();
             mockDisciplinesService = mockRepository.Create<IDisciplineService>();
-            mockStudentsService = mockRepository.Create<IStudentsService>();
+            mockStudentsRepository = mockRepository.Create<IStudentsRepository>();
             mockProductsService = mockRepository.Create<IProductsService>();
             mockEventRegister = mockRepository.Create<IEventRegister>();
-            mockServicesHub = mockRepository.Create<IServicesHub>();
-            mockServicesHub.SetupGet(h => h.ProductsService).Returns(mockProductsService.Object);
-            mockServicesHub.SetupGet(h => h.StudentsService).Returns(mockStudentsService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             coursesApiSettings = new CoursesApiSettings();
             coursesApiSettings.CoursesAdminPermission = "courses_admin";
@@ -360,7 +355,8 @@ namespace OnHive.Courses.Tests
                 coursesApiSettings,
                 mapper,
                 mockEventRegister.Object,
-                mockServicesHub.Object);
+                mockStudentsRepository.Object,
+                mockProductsService.Object);
         }
 
         private UserDto GetTestUser()

@@ -26,5 +26,7 @@ namespace OnHive.Tenants.Domain.Abstractions.Services
         Task<List<TenantResumeDto>> GetAllOpenAsync();
 
         Task<TenantResumeDto> GetBySlugAsync(string slug);
+
+        Task<TenantDto> SetupTenantAsync(TenantSetupDto tenantDto);
     }
 }

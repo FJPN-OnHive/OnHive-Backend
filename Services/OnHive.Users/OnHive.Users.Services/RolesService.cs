@@ -90,6 +90,13 @@ namespace OnHive.Users.Services
             return mapper.Map<RoleDto>(response);
         }
 
+        public async Task<List<RoleDto>> CreateAsync(List<RoleDto> roleDtos)
+        {
+            var roles = mapper.Map<List<Role>>(roleDtos);
+            await rolesRepository.SaveManyAsync(roles);
+            return mapper.Map<List<RoleDto>>(roles);
+        }
+
         public async Task<RoleDto?> UpdateAsync(RoleDto roleDto, LoggedUserDto loggedUser)
         {
             var role = mapper.Map<Role>(roleDto);

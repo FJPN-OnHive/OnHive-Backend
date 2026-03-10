@@ -8,7 +8,6 @@ using OnHive.Core.Library.Contracts.Users;
 using OnHive.Core.Library.Entities.Catalog;
 using OnHive.Core.Library.Enums.Catalog;
 using OnHive.Core.Library.Validations.Common;
-using OnHive.Domains.Common.Abstractions.Services;
 using Serilog;
 
 namespace OnHive.Catalog.Services
@@ -23,12 +22,12 @@ namespace OnHive.Catalog.Services
 
         public CouponsService(ICouponsRepository couponsRepository,
                               IUserCouponsRepository userCouponsRepository,
-                              IServicesHub servicesHub,
+                              IProductsService productsService,
                               IMapper mapper)
         {
             this.couponsRepository = couponsRepository;
             this.userCouponsRepository = userCouponsRepository;
-            this.productsService = servicesHub.ProductsService;
+            this.productsService = productsService;
             this.mapper = mapper;
             logger = Log.Logger;
         }

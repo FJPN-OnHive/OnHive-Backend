@@ -24,7 +24,6 @@ using OnHive.Orders.Domain.Abstractions.Services;
 using OnHive.Orders.Domain.Models;
 using OnHive.Payments.Domain.Abstractions.Services;
 using OnHive.Students.Domain.Abstractions.Services;
-using OnHive.Domains.Common.Abstractions.Services;
 using Serilog;
 using System.Text.Json;
 
@@ -49,18 +48,22 @@ namespace OnHive.Orders.Services
                              ICartsRepository cartsRepository,
                              IMapper mapper,
                              IEventRegister eventRegister,
-                             IServicesHub servicesHub)
+                             IStudentsService studentsService,
+                             IEmailsService emailsService,
+                             IInvoicesService invoicesService,
+                             IProductsService productsService,
+                             IPaymentsService paymentsService)
         {
             this.ordersRepository = ordersRepository;
             this.cartsRepository = cartsRepository;
             this.ordersApiSettings = ordersApiSettings;
             this.mapper = mapper;
             this.eventRegister = eventRegister;
-            this.studentsService = servicesHub.StudentsService;
-            this.emailsService = servicesHub.EmailsService;
-            this.invoicesService = servicesHub.InvoicesService;
-            this.productsService = servicesHub.ProductsService;
-            this.paymentsService = servicesHub.PaymentsService;
+            this.studentsService = studentsService;
+            this.emailsService = emailsService;
+            this.invoicesService = invoicesService;
+            this.productsService = productsService;
+            this.paymentsService = paymentsService;
             logger = Log.Logger;
         }
 

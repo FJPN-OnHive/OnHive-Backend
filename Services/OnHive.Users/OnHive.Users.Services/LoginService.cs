@@ -1,5 +1,4 @@
 using AutoMapper;
-using OnHive.Authorization.Library.Models;
 using OnHive.Configuration.Domain.Abstractions.Services;
 using OnHive.Core.Library.Contracts.Configuration;
 using OnHive.Core.Library.Contracts.Emails;
@@ -26,6 +25,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OnHive.Domains.Authorization.Models;
 
 namespace OnHive.Users.Services
 {

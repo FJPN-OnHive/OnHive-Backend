@@ -15,7 +15,6 @@ using OnHive.Orders.Domain.Models;
 using OnHive.Orders.Services;
 using FluentAssertions;
 using Moq;
-using OnHive.Domains.Common.Abstractions.Services;
 using System.Text.Json;
 
 namespace OnHive.Orders.Tests
@@ -27,7 +26,6 @@ namespace OnHive.Orders.Tests
         private readonly Mock<IEventRegister> mockEventRegister;
         private readonly Mock<IOrdersService> mockOrdersService;
         private readonly Mock<IProductsService> mockProductsService;
-        private readonly Mock<IServicesHub> mockServicesHub;
         private readonly OrdersApiSettings ordersApiSettings;
         private readonly IMapper mapper;
 
@@ -39,9 +37,6 @@ namespace OnHive.Orders.Tests
             mockEventRegister = mockRepository.Create<IEventRegister>();
             mockOrdersService = mockRepository.Create<IOrdersService>();
             mockProductsService = mockRepository.Create<IProductsService>();
-            mockServicesHub = mockRepository.Create<IServicesHub>();
-            mockServicesHub.SetupGet(s => s.ProductsService).Returns(mockProductsService.Object);
-            mockServicesHub.SetupGet(s => s.OrdersService).Returns(mockOrdersService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             ordersApiSettings = new OrdersApiSettings();
             ordersApiSettings.OrdersAdminPermission = "orders_admin";
@@ -776,7 +771,7 @@ namespace OnHive.Orders.Tests
                 ordersApiSettings,
                 mapper,
                 mockEventRegister.Object,
-                mockServicesHub.Object);
+                mockProductsService.Object);
         }
 
         private LoggedUserDto GetTestUser()

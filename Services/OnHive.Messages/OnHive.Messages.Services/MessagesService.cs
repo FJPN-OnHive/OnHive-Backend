@@ -16,8 +16,6 @@ using System.Text.Json;
 using OnHive.Core.Library.Contracts.Emails;
 using OnHive.Users.Domain.Abstractions.Services;
 using OnHive.Emails.Domain.Abstractions.Services;
-using OnHive.Domains.Common.Abstractions.Services;
-
 namespace OnHive.Messages.Services
 {
     public class MessagesService : IMessagesService
@@ -37,15 +35,17 @@ namespace OnHive.Messages.Services
                                IMessageUsersRepository messageUsersRepository,
                                MessagesApiSettings messagesApiSettings,
                                IMapper mapper,
-                               IServicesHub servicesHub)
+                               IUsersService usersService,
+                               IUserGroupsService userGroupsService,
+                               IEmailsService emailsService)
         {
             this.messagesRepository = messagesRepository;
             this.messageChannelsRepository = messageChannelsRepository;
             this.messageUsersRepository = messageUsersRepository;
             this.messagesApiSettings = messagesApiSettings;
-            this.usersService = servicesHub.UsersService;
-            this.userGroupsService = servicesHub.UserGroupsService;
-            this.emailsService = servicesHub.EmailsService;
+            this.usersService = usersService;
+            this.userGroupsService = userGroupsService;
+            this.emailsService = emailsService;
             this.mapper = mapper;
             logger = Log.Logger;
         }

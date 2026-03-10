@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnHive.Authorization.Library.Models
+namespace OnHive.Domains.Authorization.Models
 {
     public class AuthSettings
     {

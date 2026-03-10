@@ -13,9 +13,8 @@ using OnHive.Core.Library.Validations.Common;
 using OnHive.Core.Library.Domain.Exceptions;
 using OnHive.Core.Library.Contracts.Courses;
 using OnHive.Core.Library.Contracts.Tenants;
-using OnHive.Tenants.Domain.Abstractions.Services;
-using OnHive.Courses.Domain.Abstractions.Services;
-using OnHive.Domains.Common.Abstractions.Services;
+using OnHive.Tenants.Domain.Abstractions.Repositories;
+using OnHive.Courses.Domain.Abstractions.Repositories;
 
 namespace OnHive.Certificates.Services
 {
@@ -23,8 +22,8 @@ namespace OnHive.Certificates.Services
     {
         private readonly ICertificatesRepository certificatesRepository;
         private readonly ICertificateMountsRepository certificateMountsRepository;
-        private readonly ITenantsService tenantsService;
-        private readonly ICoursesService coursesService;
+        private readonly ITenantsRepository tenantsRepository;
+        private readonly ICoursesRepository coursesRepository;
         private readonly CertificatesApiSettings certificatesApiSettings;
         private readonly IMapper mapper;
         private readonly ILogger logger;
@@ -33,14 +32,15 @@ namespace OnHive.Certificates.Services
                                    ICertificateMountsRepository certificateMountsRepository,
                                    CertificatesApiSettings certificatesApiSettings,
                                    IMapper mapper,
-                                   IServicesHub servicesHub)
+                                   ITenantsRepository tenantsRepository,
+                                   ICoursesRepository coursesRepository)
         {
             this.certificatesRepository = certificatesRepository;
             this.certificateMountsRepository = certificateMountsRepository;
             this.certificatesApiSettings = certificatesApiSettings;
             this.mapper = mapper;
-            this.tenantsService = servicesHub.TenantsService;
-            this.coursesService = servicesHub.CoursesService;
+            this.tenantsRepository = tenantsRepository;
+            this.coursesRepository = coursesRepository;
             logger = Log.Logger;
         }
 
@@ -157,12 +157,14 @@ namespace OnHive.Certificates.Services
 
         private async Task<TenantDto> GetTenant(string tenantId)
         {
-            return await tenantsService.GetByIdAsync(tenantId) ?? throw new ArgumentException("Tenant not found");
+            var tenant = await tenantsRepository.GetByIdAsync(tenantId) ?? throw new ArgumentException("Tenant not found");
+            return mapper.Map<TenantDto>(tenant);
         }
 
         private async Task<CourseDto> GetCourse(string courseId)
         {
-            return await coursesService.GetByIdAsync(courseId) ?? throw new ArgumentException("Course not found");
+            var course = await coursesRepository.GetByIdAsync(courseId) ?? throw new ArgumentException("Course not found");
+            return mapper.Map<CourseDto>(course);
         }
 
         private Dictionary<string, string> GetFieldsDict(CertificateEmissionRequestDto certificateRequest, CourseDto course, TenantDto tenant)

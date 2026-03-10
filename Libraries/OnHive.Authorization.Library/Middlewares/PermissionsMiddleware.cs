@@ -1,5 +1,4 @@
 ﻿using OnHive.Authorization.Library.Extensions;
-using OnHive.Authorization.Library.Models;
 using OnHive.Configuration.Library.Models;
 using OnHive.Core.Library.Contracts.Common;
 using OnHive.Core.Library.Contracts.Users;
@@ -13,6 +12,7 @@ using Serilog;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.Json;
+using OnHive.Domains.Authorization.Models;
 
 namespace OnHive.Authorization.Library.Middlewares
 {
