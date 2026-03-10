@@ -17,13 +17,12 @@ using OnHive.Emails.Domain.Abstractions.Services;
 using OnHive.Enrich.Library.Extensions;
 using OnHive.Events.Domain.Abstractions.Services;
 using OnHive.Students.Domain.Abstractions.Services;
-using OnHive.Tenants.Domain.Abstractions.Services;
+using OnHive.Tenants.Domain.Abstractions.Repositories;
 using OnHive.Users.Domain.Abstractions.Repositories;
 using OnHive.Users.Domain.Abstractions.Services;
 using OnHive.Users.Domain.Exceptions;
 using OnHive.Users.Domain.Models;
 using OnHive.Users.Services.Helpers;
-using OnHive.Domains.Common.Abstractions.Services;
 using Serilog;
 using System.Text.Json;
 
@@ -38,22 +37,24 @@ namespace OnHive.Users.Services
         private readonly ILogger logger;
         private readonly IEmailsService emailService;
         private readonly IEventRegister eventRegister;
-        private readonly ITenantsService tenantsService;
+        private readonly ITenantsRepository tenantsRepository;
         private readonly IStudentsService studentsService;
 
         public UsersService(IUsersRepository usersRepository,
                             IRolesRepository rolesRepository,
                             UsersApiSettings usersApiSettings,
-                            IServicesHub servicesHub,
+                            IEmailsService emailsService,
+                            IStudentsService studentsService,
+                            ITenantsRepository tenantsRepository,
                             IMapper mapper,
                             IEventRegister eventRegister)
         {
             this.usersRepository = usersRepository;
             this.rolesRepository = rolesRepository;
             this.usersApiSettings = usersApiSettings;
-            this.emailService = servicesHub.EmailsService;
-            this.studentsService = servicesHub.StudentsService;
-            this.tenantsService = servicesHub.TenantsService;
+            this.emailService = emailsService;
+            this.studentsService = studentsService;
+            this.tenantsRepository = tenantsRepository;
             this.eventRegister = eventRegister;
             this.mapper = mapper;
             logger = Log.Logger;
@@ -296,6 +297,16 @@ namespace OnHive.Users.Services
             logger.Information("User {userId} created by Register", user.Id);
             await SendEmail(user, usersApiSettings.UserEmailValidationUrl);
             return mapper.Map<UserDto>(response);
+        }
+
+
+        public async Task<UserDto> CreateWithRolesAsync(SignInUserDto newUser, List<string> roles)
+        {
+            var user = await CreateAsync(newUser);
+            user.Roles = roles;
+            var currentUser = mapper.Map<User>(user);
+            var response = await usersRepository.SaveAsync(currentUser, currentUser.Id);
+            return mapper.Map<UserDto>(response); 
         }
 
         public async Task<UserDto?> UpdateAsync(UserDto userDto, LoggedUserDto loggedUser)
@@ -621,8 +632,8 @@ namespace OnHive.Users.Services
 
         private async Task ValidateTenant(SignInUserDto user)
         {
-            var result = await tenantsService.GetByIdAsync(user.TenantId);
-            if (result == null)
+            var tenant = await tenantsRepository.GetByIdAsync(user.TenantId);
+            if (tenant == null)
             {
                 logger.Warning("Invalid tenant {tenantId} for user: {user}", user.TenantId, user.Email);
                 throw new InvalidUserException(new List<string> { "TenantId" });
@@ -669,7 +680,8 @@ namespace OnHive.Users.Services
 
         private async Task<TenantDto?> GetTenantAsync(string tenantId)
         {
-            return await tenantsService.GetByIdAsync(tenantId);
+            var tenant = await tenantsRepository.GetByIdAsync(tenantId);
+            return mapper.Map<TenantDto?>(tenant);
         }
 
         private async Task SendValidationEmail(string email, User? currentUser)

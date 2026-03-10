@@ -14,7 +14,6 @@ using OnHive.Events.Domain.Abstractions.Services;
 using OnHive.Orders.Domain.Abstractions.Repositories;
 using OnHive.Orders.Domain.Abstractions.Services;
 using OnHive.Orders.Domain.Models;
-using OnHive.Domains.Common.Abstractions.Services;
 using Serilog;
 using System.Text.Json;
 using System.Xml.Schema;
@@ -34,12 +33,12 @@ namespace OnHive.Orders.Services
                             OrdersApiSettings ordersApiSettings,
                             IMapper mapper,
                             IEventRegister eventRegister,
-                            IServicesHub servicesHub)
+                            IProductsService productsService)
         {
             this.cartsRepository = cartsRepository;
             this.ordersApiSettings = ordersApiSettings;
             this.mapper = mapper;
-            this.productsService = servicesHub.ProductsService;
+            this.productsService = productsService;
             this.eventRegister = eventRegister;
             logger = Log.Logger;
         }

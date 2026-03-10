@@ -13,7 +13,6 @@ using OnHive.Messages.Services;
 using OnHive.Users.Domain.Abstractions.Services;
 using FluentAssertions;
 using Moq;
-using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 
 namespace OnHive.Messages.Tests
@@ -27,7 +26,6 @@ namespace OnHive.Messages.Tests
         private readonly Mock<IEmailsService> mockEmailsService;
         private readonly Mock<IUsersService> mockUsersService;
         private readonly Mock<IUserGroupsService> mockUserGroupsService;
-        private readonly Mock<IServicesHub> mockServicesHub;
         private readonly MessagesApiSettings messagesApiSettings;
         private readonly IMapper mapper;
 
@@ -41,10 +39,6 @@ namespace OnHive.Messages.Tests
             mockEmailsService = mockRepository.Create<IEmailsService>();
             mockUsersService = mockRepository.Create<IUsersService>();
             mockUserGroupsService = mockRepository.Create<IUserGroupsService>();
-            mockServicesHub = mockRepository.Create<IServicesHub>();
-            mockServicesHub.SetupGet(s => s.UsersService).Returns(mockUsersService.Object);
-            mockServicesHub.SetupGet(s => s.UserGroupsService).Returns(mockUserGroupsService.Object);
-            mockServicesHub.SetupGet(s => s.EmailsService).Returns(mockEmailsService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             messagesApiSettings = new MessagesApiSettings();
             messagesApiSettings.MessagesAdminPermission = "messages_admin";
@@ -349,7 +343,9 @@ namespace OnHive.Messages.Tests
                 mockMessageUsersRepository.Object,
                 messagesApiSettings,
                 mapper,
-                mockServicesHub.Object);
+                mockUsersService.Object,
+                mockUserGroupsService.Object,
+                mockEmailsService.Object);
         }
 
         private LoggedUserDto GetTestUser()

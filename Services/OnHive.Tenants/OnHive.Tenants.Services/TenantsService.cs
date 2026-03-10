@@ -1,5 +1,6 @@
 using AutoMapper;
 using OnHive.Configuration.Library.Exceptions;
+using OnHive.Configuration.Library.Models;
 using OnHive.Core.Library.Contracts.Common;
 using OnHive.Core.Library.Contracts.Tenants;
 using OnHive.Core.Library.Contracts.Users;
@@ -7,9 +8,11 @@ using OnHive.Core.Library.Domain.Exceptions;
 using OnHive.Core.Library.Entities.Tenants;
 using OnHive.Core.Library.Helpers;
 using OnHive.Core.Library.Validations.Common;
+using OnHive.Domains.Authorization.Models;
 using OnHive.Tenants.Domain.Abstractions.Repositories;
 using OnHive.Tenants.Domain.Abstractions.Services;
 using OnHive.Tenants.Domain.Models;
+using OnHive.Users.Domain.Abstractions.Services;
 using Serilog;
 using System.Text.Json;
 
@@ -20,19 +23,75 @@ namespace OnHive.Tenants.Services
         private readonly ITenantsRepository tenantsRepository;
         private readonly TenantsApiSettings tenantsApiSettings;
         private readonly IFeaturesRepository featuresRepository;
+        private readonly IUsersService usersService;
+        private readonly IRolesService rolesService;
         private readonly IMapper mapper;
         private readonly ILogger logger;
 
         public TenantsService(ITenantsRepository tenantsRepository,
                               TenantsApiSettings tenantsApiSettings,
                               IFeaturesRepository featuresRepository,
+                              IUsersService usersService,
+                              IRolesService rolesService,
                               IMapper mapper)
         {
             this.tenantsRepository = tenantsRepository;
             this.tenantsApiSettings = tenantsApiSettings;
             this.featuresRepository = featuresRepository;
+            this.usersService = usersService;
+            this.rolesService = rolesService;
             this.mapper = mapper;
             logger = Log.Logger;
+        }
+
+        public async Task<TenantDto> SetupTenantAsync(TenantSetupDto tenantDto)
+        {
+            if (!tenantDto.Validate(out var validationResult))
+            {
+                throw new InvalidPayloadException(validationResult);
+            }
+            var currentTenants = await tenantsRepository.GetAllAsync();
+            if (currentTenants.Any())
+            {
+                throw new UnauthorizedAccessException();
+            }
+            
+            var tenant = new Tenant
+            {
+                Id = tenantDto.Id,
+                TenantId = tenantDto.Id,
+                Name = tenantDto.Name ?? string.Empty,
+                Domain = tenantDto.Domain ?? string.Empty,
+                Email = tenantDto.Email ?? string.Empty,
+                CNPJ = tenantDto.CNPJ ?? string.Empty,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = "System",
+                UpdatedAt = DateTime.UtcNow,
+                UpdatedBy = "System",
+                Version = "1",
+                VersionNumber = 1
+            };
+
+            var user = new SignInUserDto
+            {
+                TenantId = tenantDto.Id,
+                Name = tenantDto.AdminUserName!,
+                Email = tenantDto.AdminUserEmail!,
+                Password = tenantDto.AdminUserPassword!,
+                Login = tenantDto.AdminUserName!,
+                IsForeigner = false,
+                Occupation = "admin",
+                Gender = "NONE"
+            };
+
+            var roles = GetInitialRoles(tenant);
+
+            await tenantsRepository.SaveAsync(tenant);
+            await rolesService.CreateAsync(roles.Select(r => mapper.Map<RoleDto>(r)).ToList());
+            await usersService.CreateWithRolesAsync(user, ["admin"]);
+
+            return mapper.Map<TenantDto>(tenant);
         }
 
         public async Task<TenantDto?> GetByIdAsync(string tenantId)
@@ -171,5 +230,100 @@ namespace OnHive.Tenants.Services
             }
             return file;
         }
+
+        private List<RoleDto> GetInitialRoles(Tenant tenant)
+        {
+            var permissions = PermissionsStore.Permissions.Select(p => p.Permission).ToList();
+            var adminPermissions = permissions;
+            adminPermissions.Add(PermissionConsts.SystemAdmin);
+            adminPermissions.Add(PermissionConsts.Admin);
+            adminPermissions.Add(PermissionConsts.Staff);
+            var staffPermissions = permissions;
+            staffPermissions.Add(PermissionConsts.Staff);
+            var studentPermissions = new List<string> { "lms_access",
+                                                        "account_access",
+                                                        "users_read",
+                                                        "users_update",
+                                                        "payments_read",
+                                                        "payments_create",
+                                                        "teachers_read",
+                                                        "students_update",
+                                                        "students_read",
+                                                        "students_create",
+                                                        "classes_read",
+                                                        "courses_read",
+                                                        "carts_update",
+                                                        "carts_read",
+                                                        "carts_create",
+                                                        "carts_delete",
+                                                        "orders_read",
+                                                        "orders_create",
+                                                        "orders_status",
+                                                        "products_read",
+                                                        "addresses_read",
+                                                        "addresses_create",
+                                                        "addresses_update",
+                                                        "addresses_delete"};
+            var teacherPermissions = new List<string> { "lms_access",
+                                                        "account_access",
+                                                        "users_read",
+                                                        "users_update",
+                                                        "payments_read",
+                                                        "payments_create",
+                                                        "teachers_update",
+                                                        "teachers_read",
+                                                        "students_read",
+                                                        "classes_update",
+                                                        "classes_read",
+                                                        "courses_update",
+                                                        "courses_read",
+                                                        "carts_update",
+                                                        "carts_read",
+                                                        "carts_create",
+                                                        "carts_delete",
+                                                        "orders_read",
+                                                        "orders_create",
+                                                        "orders_status",
+                                                        "products_read",
+                                                        "addresses_read",
+                                                        "addresses_create",
+                                                        "addresses_update",
+                                                        "addresses_delete"};
+            return new List<RoleDto>
+            {
+                new RoleDto
+                {
+                    TenantId = tenant.Id,
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "admin",
+                    Permissions = adminPermissions,
+                    IsAdmin = true
+                },
+                new RoleDto
+                {
+                    TenantId = tenant.Id,
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "staff",
+                    Permissions = staffPermissions
+                },
+                new RoleDto
+                {
+                    TenantId = tenant.Id,
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "student",
+                    Permissions = studentPermissions
+                },
+                new RoleDto
+                {
+                    TenantId = tenant.Id,
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "teacher",
+                    Permissions = teacherPermissions
+                }
+            };
+        }
+
+
+        
     }
 }

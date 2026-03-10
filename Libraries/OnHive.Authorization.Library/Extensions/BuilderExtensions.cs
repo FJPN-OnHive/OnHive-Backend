@@ -1,8 +1,8 @@
-﻿using OnHive.Authorization.Library.Models;
-using OnHive.Configuration.Library.Extensions;
+﻿using OnHive.Configuration.Library.Extensions;
 using OnHive.Configuration.Library.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using OnHive.Domains.Authorization.Models;
 
 namespace OnHive.Authorization.Library.Extensions
 {

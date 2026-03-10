@@ -8,11 +8,10 @@ using OnHive.Core.Library.Contracts.Common;
 using OnHive.Core.Library.Contracts.Tenants;
 using OnHive.Core.Library.Contracts.Users;
 using OnHive.Core.Library.Entities.Certificates;
-using OnHive.Courses.Domain.Abstractions.Services;
-using OnHive.Tenants.Domain.Abstractions.Services;
+using OnHive.Courses.Domain.Abstractions.Repositories;
+using OnHive.Tenants.Domain.Abstractions.Repositories;
 using FluentAssertions;
 using Moq;
-using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 using System.Text.Json;
 
@@ -23,9 +22,8 @@ namespace OnHive.Certificates.Tests
         private readonly MockRepository mockRepository;
         private readonly Mock<ICertificatesRepository> mockCertificatesRepository;
         private readonly Mock<ICertificateMountsRepository> mockCertificateMountsRepository;
-        private readonly Mock<ITenantsService> mockTenantsService;
-        private readonly Mock<ICoursesService> mockCoursesService;
-        private readonly Mock<IServicesHub> mockServicesHub;
+        private readonly Mock<ITenantsRepository> mockTenantsRepository;
+        private readonly Mock<ICoursesRepository> mockCoursesRepository;
 
         private readonly CertificatesApiSettings certificatesApiSettings;
         private readonly IMapper mapper;
@@ -36,11 +34,8 @@ namespace OnHive.Certificates.Tests
 
             mockCertificatesRepository = mockRepository.Create<ICertificatesRepository>();
             mockCertificateMountsRepository = mockRepository.Create<ICertificateMountsRepository>();
-            mockCoursesService = mockRepository.Create<ICoursesService>();
-            mockTenantsService = mockRepository.Create<ITenantsService>();
-            mockServicesHub = mockRepository.Create<IServicesHub>();
-            mockServicesHub.SetupGet(s => s.CoursesService).Returns(mockCoursesService.Object);
-            mockServicesHub.SetupGet(s => s.TenantsService).Returns(mockTenantsService.Object);
+            mockCoursesRepository = mockRepository.Create<ICoursesRepository>();
+            mockTenantsRepository = mockRepository.Create<ITenantsRepository>();
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             certificatesApiSettings = new CertificatesApiSettings();
             certificatesApiSettings.CertificatesAdminPermission = "certificates_admin";
@@ -384,7 +379,8 @@ namespace OnHive.Certificates.Tests
                 mockCertificateMountsRepository.Object,
                 certificatesApiSettings,
                 mapper,
-                mockServicesHub.Object);
+                mockTenantsRepository.Object,
+                mockCoursesRepository.Object);
         }
 
         private UserDto GetTestUser()

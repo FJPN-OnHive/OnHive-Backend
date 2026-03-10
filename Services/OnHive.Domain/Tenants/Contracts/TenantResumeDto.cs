@@ -15,5 +15,11 @@ namespace OnHive.Core.Library.Contracts.Tenants
 
         [JsonPropertyName("name")]
         public string? Name { get; set; }
+
+        [JsonPropertyName("cnpj")]
+        public string? CNPJ { get; set; }
+
+        [JsonPropertyName("address")]
+        public string? Address { get; set; }
     }
 }

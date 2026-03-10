@@ -15,8 +15,7 @@ using OnHive.Courses.Domain.Abstractions.Services;
 using OnHive.Courses.Domain.Models;
 using OnHive.Enrich.Library.Extensions;
 using OnHive.Events.Domain.Abstractions.Services;
-using OnHive.Students.Domain.Abstractions.Services;
-using OnHive.Domains.Common.Abstractions.Services;
+using OnHive.Students.Domain.Abstractions.Repositories;
 using Serilog;
 using System.Text;
 using System.Text.Json;
@@ -28,7 +27,7 @@ namespace OnHive.Courses.Services
         private readonly ICoursesRepository coursesRepository;
         private readonly IDisciplineService disciplineService;
         private readonly CoursesApiSettings coursesApiSettings;
-        private readonly IStudentsService studentsService;
+        private readonly IStudentsRepository studentsRepository;
         private readonly IProductsService productsService;
         private readonly IMapper mapper;
         private readonly ILogger logger;
@@ -39,13 +38,14 @@ namespace OnHive.Courses.Services
                               CoursesApiSettings coursesApiSettings,
                               IMapper mapper,
                               IEventRegister eventRegister,
-                              IServicesHub servicesHub)
+                              IStudentsRepository studentsRepository,
+                              IProductsService productsService)
         {
             this.coursesRepository = coursesRepository;
             this.disciplineService = disciplineService;
             this.coursesApiSettings = coursesApiSettings;
-            this.studentsService = servicesHub.StudentsService;
-            this.productsService = servicesHub.ProductsService;
+            this.studentsRepository = studentsRepository;
+            this.productsService = productsService;
             this.mapper = mapper;
             this.eventRegister = eventRegister;
             logger = Log.Logger;
@@ -206,7 +206,9 @@ namespace OnHive.Courses.Services
 
         private async Task<List<string>> GetUserCourses(string userId)
         {
-            return await studentsService.GetEnrollments(userId);
+            var student = await studentsRepository.GetByUserIdAsync(userId);
+            if (student == null || student.Courses == null || student.Courses.Count == 0) return [];
+            return student.Courses.Where(c => c.IsActive).Select(c => c.Id).ToList();
         }
 
         private Stream ToXmlStream(List<Course> courses)

@@ -13,10 +13,9 @@ using OnHive.Core.Library.Validations.Common;
 using OnHive.Invoices.Domain.Abstractions.Repositories;
 using OnHive.Invoices.Domain.Abstractions.Services;
 using OnHive.Invoices.Domain.Models;
-using OnHive.Orders.Domain.Abstractions.Services;
+using OnHive.Orders.Domain.Abstractions.Repositories;
 using OnHive.Tenants.Domain.Abstractions.Services;
 using OnHive.Users.Domain.Abstractions.Services;
-using OnHive.Domains.Common.Abstractions.Services;
 using Serilog;
 using System.Text;
 using System.Text.Json;
@@ -27,7 +26,7 @@ namespace OnHive.Invoices.Services
     {
         private readonly IInvoicesRepository invoicesRepository;
         private readonly IUsersService usersService;
-        private readonly IOrdersService ordersService;
+        private readonly IOrdersRepository ordersRepository;
         private readonly ITenantsService tenantsService;
         private readonly ITenantParametersService tenantParametersService;
         private readonly InvoicesApiSettings invoicesApiSettings;
@@ -40,12 +39,15 @@ namespace OnHive.Invoices.Services
                                InvoicesApiSettings invoicesApiSettings,
                                IMapper mapper,
                                HttpClient httpClient,
-                               IServicesHub servicesHub)
+                               IUsersService usersService,
+                               IOrdersRepository ordersRepository,
+                               ITenantsService tenantsService,
+                               ITenantParametersService tenantParametersService)
         {
-            this.usersService = servicesHub.UsersService;
-            this.ordersService = servicesHub.OrdersService;
-            this.tenantsService = servicesHub.TenantsService;
-            this.tenantParametersService = servicesHub.TenantParametersService;
+            this.usersService = usersService;
+            this.ordersRepository = ordersRepository;
+            this.tenantsService = tenantsService;
+            this.tenantParametersService = tenantParametersService;
             this.invoicesRepository = invoicesRepository;
             this.invoicesApiSettings = invoicesApiSettings;
             this.httpClient = httpClient;
@@ -286,7 +288,8 @@ namespace OnHive.Invoices.Services
 
         private async Task<OrderDto> GetOrder(InvoiceMessage invoiceMessage)
         {
-            return await ordersService.GetByIdAsync(invoiceMessage.OrderId, null) ?? throw new ArgumentException("Order not found");
+            var order = await ordersRepository.GetByIdAsync(invoiceMessage.OrderId) ?? throw new ArgumentException("Order not found");
+            return mapper.Map<OrderDto>(order);
         }
 
         private InvoiceProvider GetProvider(InvoiceMessage invoiceMessage)

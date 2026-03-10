@@ -23,9 +23,8 @@ using OnHive.Storages.Domain.Abstractions.Services;
 using OnHive.Students.Domain.Abstractions.Repositories;
 using OnHive.Students.Domain.Abstractions.Services;
 using OnHive.Students.Domain.Models;
-using OnHive.Users.Domain.Abstractions.Services;
+using OnHive.Users.Domain.Abstractions.Repositories;
 using OnHive.Videos.Domain.Abstractions.Services;
-using OnHive.Domains.Common.Abstractions.Services;
 using Serilog;
 using System.ComponentModel;
 using System.Text;
@@ -37,7 +36,7 @@ namespace OnHive.Students.Services
     {
         private readonly IStudentsRepository studentsRepository;
         private readonly IStudentReportsRepository studentReportsRepository;
-        private readonly IUsersService usersService;
+        private readonly IUsersRepository usersRepository;
         private readonly ICoursesService coursesService;
         private readonly ICertificatesService certificatesService;
         private readonly IProductsService productsService;
@@ -56,21 +55,28 @@ namespace OnHive.Students.Services
                                StudentsApiSettings studentsApiSettings,
                                IMapper mapper,
                                IEventRegister eventRegister,
-                               IServicesHub servicesHub)
+                               IStudentActivitiesService activitiesService,
+                               IUsersRepository usersRepository,
+                               IProductsService productsService,
+                               ICoursesService coursesService,
+                               ICertificatesService certificatesService,
+                               IExamsService examsService,
+                               IVideosService videosService,
+                               IStorageFilesService storageFilesService)
         {
             this.studentsRepository = studentsRepository;
             this.studentReportsRepository = studentReportsRepository;
             this.studentsApiSettings = studentsApiSettings;
             this.mapper = mapper;
             this.eventRegister = eventRegister;
-            this.activitiesService = servicesHub.StudentActivitiesService;
-            this.usersService = servicesHub.UsersService;
-            this.productsService = servicesHub.ProductsService;
-            this.coursesService = servicesHub.CoursesService;
-            this.certificatesService = servicesHub.CertificatesService;
-            this.examsService = servicesHub.ExamsService;
-            this.videosService = servicesHub.VideosService;
-            this.storageFilesService = servicesHub.StorageFilesService;
+            this.activitiesService = activitiesService;
+            this.usersRepository = usersRepository;
+            this.productsService = productsService;
+            this.coursesService = coursesService;
+            this.certificatesService = certificatesService;
+            this.examsService = examsService;
+            this.videosService = videosService;
+            this.storageFilesService = storageFilesService;
             logger = Log.Logger;
         }
 
@@ -136,7 +142,7 @@ namespace OnHive.Students.Services
             var reportName = "SurveyReportAsync-Initial";
             if (isSatisfaction)
             {
-                queryType = "Satisfação$";
+                queryType = "Satisfaï¿½ï¿½o$";
                 fileType = "satisfaction";
                 reportName = "SurveyReportAsync-Final";
             }
@@ -662,7 +668,7 @@ namespace OnHive.Students.Services
             currentStudent = ProcessEnrollment(enrollment, currentStudent, product, course);
             currentStudent = await studentsRepository.SaveAsync(currentStudent, enrollment.UserId);
             RegisterEventEnrollment(EventKeys.EnrollmentCreated, "Enrollment created", user, currentStudent, course, product);
-            await activitiesService.RegisterActivity(mapper.Map<StudentDto>(currentStudent), mapper.Map<StudentCourseDto>(course), null, StudentEventTypes.Enroll, "Matrícula Realizada", $"Matrícula Realizada {course.Id}");
+            await activitiesService.RegisterActivity(mapper.Map<StudentDto>(currentStudent), mapper.Map<StudentCourseDto>(course), null, StudentEventTypes.Enroll, "Matrï¿½cula Realizada", $"Matrï¿½cula Realizada {course.Id}");
             return GetStudentResume(currentStudent);
         }
 
@@ -699,7 +705,7 @@ namespace OnHive.Students.Services
             currentStudent = ProcessEnrollment(enrollment, currentStudent, product, course);
             currentStudent = await studentsRepository.SaveAsync(currentStudent, enrollment.UserId);
             RegisterEventEnrollment(EventKeys.EnrollmentCreated, "Enrollment created", user, currentStudent, course, product);
-            await activitiesService.RegisterActivity(mapper.Map<StudentDto>(currentStudent), mapper.Map<StudentCourseDto>(currentStudent.Courses.Find(c => c.Id == course.Id)), null, StudentEventTypes.Enroll, "Matrícula Realizada", $"Matrícula Realizada {course.Id}");
+            await activitiesService.RegisterActivity(mapper.Map<StudentDto>(currentStudent), mapper.Map<StudentCourseDto>(currentStudent.Courses.Find(c => c.Id == course.Id)), null, StudentEventTypes.Enroll, "Matrï¿½cula Realizada", $"Matrï¿½cula Realizada {course.Id}");
             return GetStudentResume(currentStudent);
         }
 
@@ -741,7 +747,7 @@ namespace OnHive.Students.Services
             currentStudent = await studentsRepository.SaveAsync(currentStudent, enrollment.UserId);
             RegisterEventEnrollment(EventKeys.EnrollmentCreated, "Enrollment created", user, currentStudent, course, product);
             var estudentCourse = currentStudent.Courses.Find(c => c.Id == course.Id);
-            await activitiesService.RegisterActivity(mapper.Map<StudentDto>(currentStudent), mapper.Map<StudentCourseDto>(estudentCourse), null, StudentEventTypes.Enroll, "Matrícula Gratuita Realizada", $"Matrícula Gratuita Realizada {course.Id}");
+            await activitiesService.RegisterActivity(mapper.Map<StudentDto>(currentStudent), mapper.Map<StudentCourseDto>(estudentCourse), null, StudentEventTypes.Enroll, "Matrï¿½cula Gratuita Realizada", $"Matrï¿½cula Gratuita Realizada {course.Id}");
             return GetStudentResume(currentStudent);
         }
 
@@ -752,7 +758,7 @@ namespace OnHive.Students.Services
             {
                 throw new NotFoundException($"Student {studentId} not found");
             }
-            await activitiesService.RegisterActivity(mapper.Map<StudentDto>(currentStudent), mapper.Map<StudentCourseDto>(currentStudent.Courses.Find(c => c.Id == courseId)), null, StudentEventTypes.UnEnroll, "Matrícula Cancelada", $"Matrícula Cancelada {courseId} Por {loggedUser.User.MainEmail} - {loggedUser.User.Id}");
+            await activitiesService.RegisterActivity(mapper.Map<StudentDto>(currentStudent), mapper.Map<StudentCourseDto>(currentStudent.Courses.Find(c => c.Id == courseId)), null, StudentEventTypes.UnEnroll, "Matrï¿½cula Cancelada", $"Matrï¿½cula Cancelada {courseId} Por {loggedUser.User.MainEmail} - {loggedUser.User.Id}");
             currentStudent.Courses.Where(c => c.Id == courseId).ToList().ForEach(course => course.IsActive = false);
             var result = await studentsRepository.SaveAsync(currentStudent);
             if (result != null)
@@ -858,9 +864,9 @@ namespace OnHive.Students.Services
                 {
                     "MALE" => "Masculino",
                     "FEMALE" => "Feminino",
-                    "OPTOUT" => "Não Informado",
+                    "OPTOUT" => "Nï¿½o Informado",
                     "OTHER" => "Outro",
-                    _ => "Não Informado"
+                    _ => "Nï¿½o Informado"
                 };
                 result += $"\n{enrollment.EnrollmentDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss")};{enrollment.PhoneNumber};{enrollment.CPF};{enrollment.Email};{enrollment.Name};{gender};{lastAccessDate};{enrollment.State};{enrollment.ProductName};{enrollment.ProductDescription};{endTime};{certificateDate};{progress}";
             }
@@ -899,9 +905,9 @@ namespace OnHive.Students.Services
                 {
                     "MALE" => "Masculino",
                     "FEMALE" => "Feminino",
-                    "OPTOUT" => "Não Informado",
+                    "OPTOUT" => "Nï¿½o Informado",
                     "OTHER" => "Outro",
-                    _ => "Não Informado"
+                    _ => "Nï¿½o Informado"
                 };
 
                 worksheet.Cell($"A{row}").Value = enrollment.EnrollmentDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss");
@@ -949,9 +955,9 @@ namespace OnHive.Students.Services
                 {
                     "MALE" => "Masculino",
                     "FEMALE" => "Feminino",
-                    "OPTOUT" => "Não Informado",
+                    "OPTOUT" => "Nï¿½o Informado",
                     "OTHER" => "Outro",
-                    _ => "Não Informado"
+                    _ => "Nï¿½o Informado"
                 };
 
                 worksheet.Cell($"A{row}").Value = survey.StudentExam.SubmitDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss");
@@ -1029,9 +1035,9 @@ namespace OnHive.Students.Services
                     {
                         "MALE" => "Masculino",
                         "FEMALE" => "Feminino",
-                        "OPTOUT" => "Não Informado",
+                        "OPTOUT" => "Nï¿½o Informado",
                         "OTHER" => "Outro",
-                        _ => "Não Informado"
+                        _ => "Nï¿½o Informado"
                     };
                     resultFile += $"\n{enrollment.UserId};{enrollment.Course.Id};{enrollment.Course.ProductId};{enrollment.EnrollmentDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss")};{enrollment.PhoneNumber};{enrollment.CPF};{enrollment.Email};{enrollment.Name};{gender};{lastAccessDate};{enrollment.State};{enrollment.ProductName};{enrollment.ProductDescription};{endTime};{certificateDate};{progress}";
                 }
@@ -1285,7 +1291,7 @@ namespace OnHive.Students.Services
                     }).ToList()
                 });
             }
-            await activitiesService.RegisterActivity(loggedUser, studentCourse, mapper.Map<StudentLessonsDto>(lesson), StudentEventTypes.SurveyResponse, "Avaliação respondida", $"Avaliação respondida {lesson.Id} do curso {course.Id}");
+            await activitiesService.RegisterActivity(loggedUser, studentCourse, mapper.Map<StudentLessonsDto>(lesson), StudentEventTypes.SurveyResponse, "Avaliaï¿½ï¿½o respondida", $"Avaliaï¿½ï¿½o respondida {lesson.Id} do curso {course.Id}");
             return result;
         }
 
@@ -1648,7 +1654,8 @@ namespace OnHive.Students.Services
 
         private async Task<UserDto> GetUser(string userId)
         {
-            return await usersService.GetByIdAsync(userId) ?? throw new ArgumentException("User not found");
+            var user = await usersRepository.GetByIdAsync(userId) ?? throw new ArgumentException("User not found");
+            return mapper.Map<UserDto>(user);
         }
 
         private async Task<ProductDto> GetProduct(string productId)

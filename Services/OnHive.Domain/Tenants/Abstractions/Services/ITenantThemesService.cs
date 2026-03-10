@@ -9,9 +9,7 @@ namespace OnHive.Tenants.Domain.Abstractions.Services
     {
         Task<TenantThemeDto?> GetByIdAsync(string tenantParameterId);
 
-        Task<IEnumerable<TenantThemeDto>> GetByDomain(string domain, string tenantId);
-
-        Task<TenantThemeDto> GetCurrentByDomain(string domain, string tenantId);
+        Task<TenantThemeDto> GetByTenantId(string tenantId);
 
         Task<PaginatedResult<TenantThemeDto>> GetByFilterAsync(RequestFilter filter, UserDto? loggedUser);
 

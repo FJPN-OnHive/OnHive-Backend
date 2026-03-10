@@ -12,14 +12,23 @@ using FluentAssertions;
 using Moq;
 using RichardSzalay.MockHttp;
 using System.Text.Json;
+using OnHive.Users.Domain.Abstractions.Services;
 
 namespace OnHive.Tenants.Tests
 {
     public class TenantsServiceTests
     {
         private readonly MockRepository mockRepository;
+        
         private readonly Mock<ITenantsRepository> mockTenantsRepository;
+        
         private readonly Mock<IFeaturesRepository> mockFeaturesRepository;
+
+        private readonly Mock<IUsersService> mockUsersService;
+
+        private readonly Mock<IRolesService> mockRolesService;
+
+
         private readonly TenantsApiSettings tenantsApiSettings;
         private readonly IMapper mapper;
         private readonly MockHttpMessageHandler mockHttpHandler;
@@ -30,6 +39,8 @@ namespace OnHive.Tenants.Tests
 
             mockTenantsRepository = mockRepository.Create<ITenantsRepository>();
             mockFeaturesRepository = mockRepository.Create<IFeaturesRepository>();
+            mockUsersService = mockRepository.Create<IUsersService>();
+            mockRolesService = mockRepository.Create<IRolesService>();
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             mockHttpHandler = new MockHttpMessageHandler();
             tenantsApiSettings = new TenantsApiSettings();
@@ -368,6 +379,8 @@ namespace OnHive.Tenants.Tests
                 mockTenantsRepository.Object,
                 tenantsApiSettings,
                 mockFeaturesRepository.Object,
+                mockUsersService.Object,
+                mockRolesService.Object,
                 mapper);
         }
 

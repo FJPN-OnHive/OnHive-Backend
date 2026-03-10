@@ -19,13 +19,13 @@ using OnHive.Students.Domain.Abstractions.Services;
 using OnHive.Students.Domain.Mappers;
 using OnHive.Students.Domain.Models;
 using OnHive.Students.Services;
-using OnHive.Users.Domain.Abstractions.Services;
+using OnHive.Users.Domain.Abstractions.Repositories;
 using OnHive.Videos.Domain.Abstractions.Services;
 using FluentAssertions;
 using Moq;
-using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 using System.Text.Json;
+using OnHive.Core.Library.Entities.Users;
 
 namespace OnHive.Students.Tests
 {
@@ -37,13 +37,12 @@ namespace OnHive.Students.Tests
         private readonly Mock<IEventRegister> mockEventRegister;
         private readonly Mock<IProductsService> mockProductsService;
         private readonly Mock<ICoursesService> mockCoursesService;
-        private readonly Mock<IUsersService> mockUsersService;
+        private readonly Mock<IUsersRepository> mockUsersRepository;
         private readonly Mock<ICertificatesService> mockCertificatesService;
         private readonly Mock<IStudentActivitiesService> mockStudentActivitiesService;
         private readonly Mock<IExamsService> mockExamsService;
         private readonly Mock<IVideosService> mockVideosService;
         private readonly Mock<IStorageFilesService> mockStorageFilesService;
-        private readonly Mock<IServicesHub> mockServicesHub;
         private readonly StudentsApiSettings studentsApiSettings;
         private readonly IMapper mapper;
 
@@ -58,20 +57,11 @@ namespace OnHive.Students.Tests
             mockStudentActivitiesService = mockRepository.Create<IStudentActivitiesService>();
             mockCertificatesService = mockRepository.Create<ICertificatesService>();
             mockCoursesService = mockRepository.Create<ICoursesService>();
-            mockUsersService = mockRepository.Create<IUsersService>();
+            mockUsersRepository = mockRepository.Create<IUsersRepository>();
             mockProductsService = mockRepository.Create<IProductsService>();
             mockExamsService = mockRepository.Create<IExamsService>();
             mockVideosService = mockRepository.Create<IVideosService>();
             mockStorageFilesService = mockRepository.Create<IStorageFilesService>();
-            mockServicesHub = mockRepository.Create<IServicesHub>();
-            mockServicesHub.SetupGet(s => s.StudentActivitiesService).Returns(mockStudentActivitiesService.Object);
-            mockServicesHub.SetupGet(s => s.CertificatesService).Returns(mockCertificatesService.Object);
-            mockServicesHub.SetupGet(s => s.CoursesService).Returns(mockCoursesService.Object);
-            mockServicesHub.SetupGet(s => s.UsersService).Returns(mockUsersService.Object);
-            mockServicesHub.SetupGet(s => s.ProductsService).Returns(mockProductsService.Object);
-            mockServicesHub.SetupGet(s => s.ExamsService).Returns(mockExamsService.Object);
-            mockServicesHub.SetupGet(s => s.VideosService).Returns(mockVideosService.Object);
-            mockServicesHub.SetupGet(s => s.StorageFilesService).Returns(mockStorageFilesService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             studentsApiSettings = new StudentsApiSettings();
             studentsApiSettings.StudentsAdminPermission = "students_admin";
@@ -387,7 +377,7 @@ namespace OnHive.Students.Tests
 
             mockCoursesService.Setup(s => s.GetByIdAsync(expectedCourse.Id)).ReturnsAsync(expectedCourse);
 
-            mockUsersService.Setup(s => s.GetByIdAsync(user.User.Id)).ReturnsAsync(user.User);
+            mockUsersRepository.Setup(s => s.GetByIdAsync(user.User.Id)).ReturnsAsync( new User { Id = user.User.Id, TenantId = user.User.TenantId });
 
             // Act
             var result = await service.GetCourse(user, expected.Courses[0].Id);
@@ -490,7 +480,7 @@ namespace OnHive.Students.Tests
 
             mockCoursesService.Setup(s => s.GetByIdAsync(expectedCourse.Id)).ReturnsAsync(expectedCourse);
 
-            mockUsersService.Setup(s => s.GetByIdAsync(user.User.Id)).ReturnsAsync(user.User);
+            mockUsersRepository.Setup(s => s.GetByIdAsync(user.User.Id)).ReturnsAsync( new User { Id = user.User.Id, TenantId = user.User.TenantId });
 
             // Act
             var result = await service.GetCourses(new RequestFilter(), user);
@@ -554,7 +544,7 @@ namespace OnHive.Students.Tests
 
             mockCoursesService.Setup(s => s.GetByIdAsync(expectedCourse.Id)).ReturnsAsync(expectedCourse);
 
-            mockUsersService.Setup(s => s.GetByIdAsync(user.User.Id)).ReturnsAsync(user.User);
+            mockUsersRepository.Setup(s => s.GetByIdAsync(user.User.Id)).ReturnsAsync( new User { Id = user.User.Id, TenantId = user.User.TenantId });
 
             // Act
             var result = await service.Enroll(message, user);
@@ -656,7 +646,7 @@ namespace OnHive.Students.Tests
                 TenantId = testUser.User.TenantId
             };
 
-            mockUsersService.Setup(s => s.GetByIdAsync(testUser.User.Id)).ReturnsAsync(testUser.User);
+            mockUsersRepository.Setup(s => s.GetByIdAsync(testUser.User.Id)).ReturnsAsync( new User { Id = testUser.User.Id, TenantId = testUser.User.TenantId });
 
             mockStudentsRepository.Setup(r => r.GetByIdAsync(input.Id))
                .ReturnsAsync(expected);
@@ -766,7 +756,14 @@ namespace OnHive.Students.Tests
                 studentsApiSettings,
                 mapper,
                 mockEventRegister.Object,
-                mockServicesHub.Object);
+                mockStudentActivitiesService.Object,
+                mockUsersRepository.Object,
+                mockProductsService.Object,
+                mockCoursesService.Object,
+                mockCertificatesService.Object,
+                mockExamsService.Object,
+                mockVideosService.Object,
+                mockStorageFilesService.Object);
         }
 
         private LoggedUserDto GetTestUser()

@@ -1,6 +1,9 @@
 using OnHive.Authorization.Library.Extensions;
 using OnHive.Core.Library.Contracts.Common;
 using OnHive.Core.Library.Contracts.Payments;
+using OnHive.Core.Library.Enums.Orders;
+using OnHive.Core.Library.Enums.Payments;
+using OnHive.Orders.Domain.Abstractions.Services;
 using OnHive.Payments.Domain.Abstractions.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,12 +25,14 @@ namespace OnHive.Payments.Api.Endpoints
            .Produces<Response<List<ProviderInfoDto>>>()
            .WithOpenApi();
 
-            app.MapPost("v1/Payment/Checkout", async (HttpContext context, [FromServices] IPaymentsService service, [FromBody] PaymentCheckoutDto paymentCheckout) =>
+            app.MapPost("v1/Payment/Checkout", async (HttpContext context, [FromServices] IPaymentsService service, [FromServices] IOrdersService ordersService, [FromBody] PaymentCheckoutDto paymentCheckout) =>
             {
                 var loggedUser = context.GetLoggedUser();
                 if (loggedUser?.User == null) return Results.Unauthorized();
                 var result = await service.Checkout(paymentCheckout, loggedUser);
                 if (result == null) return Results.Ok(Response<PaymentReceiptDto>.Empty());
+                var orderStatus = MapPaymentStatusToOrderStatus(result.Status);
+                await ordersService.SetPaymentStatus(result.OrderId, result.PaymentId, orderStatus, loggedUser);
                 return Results.Ok(Response<PaymentReceiptDto>.Ok(result));
             })
             .WithName("Checkout")
@@ -36,12 +41,14 @@ namespace OnHive.Payments.Api.Endpoints
             .Produces<Response<PaymentReceiptDto>>()
             .WithOpenApi();
 
-            app.MapGet("v1/Payment/Cancel/{paymentId}", async (HttpContext context, [FromServices] IPaymentsService service, [FromRoute] string paymentId) =>
+            app.MapGet("v1/Payment/Cancel/{paymentId}", async (HttpContext context, [FromServices] IPaymentsService service, [FromServices] IOrdersService ordersService, [FromRoute] string paymentId) =>
             {
                 var loggedUser = context.GetLoggedUser();
                 if (loggedUser?.User == null) return Results.Unauthorized();
                 var result = await service.Cancel(paymentId, loggedUser);
                 if (result == null) return Results.Ok(Response<PaymentReceiptDto>.Empty());
+                var orderStatus = MapPaymentStatusToOrderStatus(result.Status);
+                await ordersService.SetPaymentStatus(result.OrderId, result.PaymentId, orderStatus, loggedUser);
                 return Results.Ok(Response<PaymentReceiptDto>.Ok(result));
             })
            .WithName("CancelPayment")
@@ -93,6 +100,18 @@ namespace OnHive.Payments.Api.Endpoints
               .WithOpenApi();
 
             return app;
+        }
+
+        private static OrderStatus MapPaymentStatusToOrderStatus(PaymentStatus paymentStatus)
+        {
+            return paymentStatus switch
+            {
+                PaymentStatus.Confirmed => OrderStatus.Closed,
+                PaymentStatus.Cancelled => OrderStatus.Cancelled,
+                PaymentStatus.Refounded => OrderStatus.Refounded,
+                PaymentStatus.Refused => OrderStatus.PaymentRefused,
+                _ => OrderStatus.PaymentProcessing
+            };
         }
     }
 }

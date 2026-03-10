@@ -9,7 +9,7 @@ using OnHive.Core.Library.Extensions;
 using OnHive.Emails.Domain.Abstractions.Services;
 using OnHive.Events.Domain.Abstractions.Services;
 using OnHive.Students.Domain.Abstractions.Services;
-using OnHive.Tenants.Domain.Abstractions.Services;
+using OnHive.Tenants.Domain.Abstractions.Repositories;
 using OnHive.Users.Domain.Abstractions.Repositories;
 using OnHive.Users.Domain.Exceptions;
 using OnHive.Users.Domain.Mappers;
@@ -17,8 +17,8 @@ using OnHive.Users.Domain.Models;
 using OnHive.Users.Services;
 using FluentAssertions;
 using Moq;
-using OnHive.Domains.Common.Abstractions.Services;
 using System.Text.Json;
+using OnHive.Core.Library.Entities.Tenants;
 
 namespace OnHive.Users.Tests
 {
@@ -31,8 +31,7 @@ namespace OnHive.Users.Tests
         private readonly Mock<IUsersRepository> mockUsersRepository;
         private readonly Mock<IStudentsService> mockStudentsService;
         private readonly Mock<IEventRegister> mockEventRegister;
-        private readonly Mock<ITenantsService> mockTenantsService;
-        private readonly Mock<IServicesHub> mockServiceHub;
+        private readonly Mock<ITenantsRepository> mockTenantsRepository;
         private readonly UsersApiSettings usersApiSettings;
 
         public UsersServiceTests()
@@ -41,13 +40,9 @@ namespace OnHive.Users.Tests
             mockUsersRepository = mockRepository.Create<IUsersRepository>();
             mockRolesRepository = mockRepository.Create<IRolesRepository>();
             mockEventRegister = mockRepository.Create<IEventRegister>();
-            mockTenantsService = mockRepository.Create<ITenantsService>();
+            mockTenantsRepository = mockRepository.Create<ITenantsRepository>();
             mockEmailService = mockRepository.Create<IEmailsService>();
             mockStudentsService = mockRepository.Create<IStudentsService>();
-            mockServiceHub = mockRepository.Create<IServicesHub>();
-            mockServiceHub.SetupGet(s => s.TenantsService).Returns(mockTenantsService.Object);
-            mockServiceHub.SetupGet(s => s.EmailsService).Returns(mockEmailService.Object);
-            mockServiceHub.SetupGet(s => s.StudentsService).Returns(mockStudentsService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             usersApiSettings = new UsersApiSettings();
         }
@@ -195,9 +190,11 @@ namespace OnHive.Users.Tests
                     DocumentNumber = "11111111111"
                 }
             };
-            var tenant = new TenantDto
+            var tenant = new Tenant
             {
-                Id = newUser.TenantId
+                Id = newUser.TenantId,
+                Name = "Test",
+                Email = "test@test.com"
             };
 
             mockUsersRepository.Setup(r => r.GetByLoginAsync(newUser.Login, newUser.TenantId)).ReturnsAsync((User)null);
@@ -207,7 +204,7 @@ namespace OnHive.Users.Tests
                 savedUser.Id = Guid.NewGuid().ToString();
                 return savedUser;
             });
-            mockTenantsService.Setup(t => t.GetByIdAsync(newUser.TenantId)).ReturnsAsync(tenant);
+            mockTenantsRepository.Setup(t => t.GetByIdAsync(newUser.TenantId)).ReturnsAsync(tenant);
 
             // Act
             var result = await service.CreateAsync(newUser);
@@ -242,14 +239,14 @@ namespace OnHive.Users.Tests
                     DocumentNumber = "111111"
                 }
             };
-            var tenant = new TenantDto
+            var tenant = new Tenant
             {
                 Id = newUser.TenantId
             };
 
             mockUsersRepository.Setup(r => r.GetByLoginAsync(newUser.Login, newUser.TenantId)).ReturnsAsync((User)null);
             mockUsersRepository.Setup(r => r.GetByMainEmailAsync(newUser.Email, newUser.TenantId)).ReturnsAsync((User)null);
-            mockTenantsService.Setup(t => t.GetByIdAsync(newUser.TenantId)).ReturnsAsync(tenant);
+            mockTenantsRepository.Setup(t => t.GetByIdAsync(newUser.TenantId)).ReturnsAsync(tenant);
 
             mockUsersRepository.Setup(r => r.SaveAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync((User savedUser, string createdBy) =>
             {
@@ -294,14 +291,16 @@ namespace OnHive.Users.Tests
                     DocumentNumber = "111111"
                 }
             };
-            var tenant = new TenantDto
+            var tenant = new Tenant
             {
-                Id = newUser.TenantId
+                Id = newUser.TenantId,
+                Name = "Test",
+                Email = "test@test.com"
             };
 
             mockUsersRepository.Setup(r => r.GetByLoginAsync(newUser.Login, newUser.TenantId)).ReturnsAsync((User)null);
             mockUsersRepository.Setup(r => r.GetByMainEmailAsync(newUser.Email, newUser.TenantId)).ReturnsAsync((User)null);
-            mockTenantsService.Setup(t => t.GetByIdAsync(newUser.TenantId)).ReturnsAsync(tenant);
+            mockTenantsRepository.Setup(t => t.GetByIdAsync(newUser.TenantId)).ReturnsAsync(tenant);
 
             mockUsersRepository.Setup(r => r.SaveAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync((User savedUser, string createdBy) =>
             {
@@ -505,12 +504,14 @@ namespace OnHive.Users.Tests
             mockUsersRepository.Setup(r => r.SaveAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(expected);
             mockEmailService.Setup(e => e.ComposeEmail(It.IsAny<EmailSendDto>()));
 
-            var tenant = new TenantDto
+            var tenant = new Tenant
             {
-                Id = expected.TenantId
+                Id = expected.TenantId,
+                Name = "Test",
+                Email = "test@test.com"
             };
 
-            mockTenantsService.Setup(t => t.GetByIdAsync(expected.TenantId)).ReturnsAsync(tenant);
+            mockTenantsRepository.Setup(t => t.GetByIdAsync(expected.TenantId)).ReturnsAsync(tenant);
 
             // Act
             await service.ResendMainEmailValidationAsync(expected.MainEmail, expected.TenantId);
@@ -541,12 +542,14 @@ namespace OnHive.Users.Tests
             mockUsersRepository.Setup(r => r.SaveAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(expected);
             mockEmailService.Setup(e => e.ComposeEmail(It.IsAny<EmailSendDto>()));
 
-            var tenant = new TenantDto
+            var tenant = new Tenant
             {
-                Id = expected.TenantId
+                Id = expected.TenantId,
+                Name = "Test",
+                Email = "test@test.com"
             };
 
-            mockTenantsService.Setup(t => t.GetByIdAsync(expected.TenantId)).ReturnsAsync(tenant);
+            mockTenantsRepository.Setup(t => t.GetByIdAsync(expected.TenantId)).ReturnsAsync(tenant);
 
             // Act
             await service.ResendEmailValidationAsync(expected.Id, secondaryEmail, expected.TenantId);
@@ -713,12 +716,14 @@ namespace OnHive.Users.Tests
             mockUsersRepository.Setup(r => r.GetByIdAsync(user.Id)).ReturnsAsync(user);
             mockUsersRepository.Setup(r => r.SaveAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync((User u, string t) => u);
 
-            var tenant = new TenantDto
+            var tenant = new Tenant
             {
-                Id = user.TenantId
+                Id = user.TenantId,
+                Name = "Test",
+                Email = "test@test.com"
             };
 
-            mockTenantsService.Setup(t => t.GetByIdAsync(user.TenantId)).ReturnsAsync(tenant);
+            mockTenantsRepository.Setup(t => t.GetByIdAsync(user.TenantId)).ReturnsAsync(tenant);
             mockEmailService.Setup(e => e.ComposeEmail(It.IsAny<EmailSendDto>()));
 
             // Act
@@ -1189,7 +1194,9 @@ namespace OnHive.Users.Tests
                 mockUsersRepository.Object,
                 mockRolesRepository.Object,
                 usersApiSettings,
-                mockServiceHub.Object,
+                mockEmailService.Object,
+                mockStudentsService.Object,
+                mockTenantsRepository.Object,
                 mapper,
                 mockEventRegister.Object);
         }

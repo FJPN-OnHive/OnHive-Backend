@@ -4,11 +4,11 @@ using OnHive.Core.Library.Contracts.Tenants;
 using OnHive.Core.Library.Contracts.Users;
 using OnHive.Core.Library.Domain.Exceptions;
 using OnHive.Core.Library.Entities.Tenants;
+using OnHive.Core.Library.Exceptions;
 using OnHive.Core.Library.Helpers;
 using OnHive.Core.Library.Validations.Common;
 using OnHive.Tenants.Domain.Abstractions.Repositories;
 using OnHive.Tenants.Domain.Abstractions.Services;
-using OnHive.Tenants.Domain.Exceptions;
 using OnHive.Tenants.Domain.Models;
 using Serilog;
 using System.Text.Json;
@@ -30,21 +30,21 @@ namespace OnHive.Tenants.Services
             logger = Log.Logger;
         }
 
-        public async Task<IEnumerable<TenantThemeDto>> GetByDomain(string domain, string tenantId)
+        public async Task<TenantThemeDto> GetByTenantId(string tenantId)
         {
-            var themes = await tenantThemesRepository.GetByDomain(domain, tenantId);
-            themes.RemoveAll(themes => !themes.IsActive);
-            return mapper.Map<IEnumerable<TenantThemeDto>>(themes);
-        }
-
-        public async Task<TenantThemeDto> GetCurrentByDomain(string domain, string tenantId)
-        {
-            var themes = await tenantThemesRepository.GetByDomain(domain, tenantId);
-            var baseTheme = themes.Find(t => t.IsBaseStyle && t.IsActive);
-            var currentTheme = themes.Find(t => t.StartDate <= DateTime.UtcNow && t.EndDate >= DateTime.UtcNow && t.IsActive);
+            var currentTheme = await tenantThemesRepository.GetByTenant(tenantId);
             if (currentTheme == null)
             {
-                return mapper.Map<TenantThemeDto>(baseTheme);
+                currentTheme = new TenantTheme
+                {
+                    TenantId = tenantId,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = string.Empty,
+                    UpdatedAt = DateTime.UtcNow,
+                    UpdatedBy = string.Empty
+                };
+                await tenantThemesRepository.SaveAsync(currentTheme);
             }
             return mapper.Map<TenantThemeDto>(currentTheme);
         }
@@ -140,10 +140,10 @@ namespace OnHive.Tenants.Services
 
         private async Task VerifyDuplicated(TenantTheme tenantTheme)
         {
-            var current = await tenantThemesRepository.GetByDomain(tenantTheme.Domain, tenantTheme.TenantId);
-            if (current != null && current.Exists(c => c.IsActive && c.IsBaseStyle && tenantTheme.IsBaseStyle && c.Id != tenantTheme.Id))
+            var current = await tenantThemesRepository.GetByTenant(tenantTheme.TenantId);
+            if (current != null && current.Id != tenantTheme.Id)
             {
-                throw new DuplicatedParameterException();
+                throw new DuplicatedException("Tenant Theme already exists");
             }
         }
 

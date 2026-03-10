@@ -1,0 +1,4 @@
+{
+  "omnisharp.defaultLaunchSolution": "OnHive.BackEnd.Api.sln",
+  "dotnet.defaultSolution": "OnHive.BackEnd.Api.sln"
+}

@@ -12,28 +12,16 @@ namespace OnHive.Tenants.Repositories
         {
         }
 
-        public async Task<List<TenantTheme>> GetByDomain(string domain, string tenantId)
-        {
-            var filter = Builders<TenantTheme>.Filter.Eq(e => e.TenantId, tenantId)
-                & Builders<TenantTheme>.Filter.Eq(e => e.Domain, domain);
-            return await collection.Find(filter).ToListAsync();
-        }
 
-        public async Task<TenantTheme> GetCurrentByDomain(string domain, string tenantId)
+        public async Task<TenantTheme> GetByTenant(string tenantId)
         {
-            var filter = Builders<TenantTheme>.Filter.Eq(e => e.TenantId, tenantId)
-               & Builders<TenantTheme>.Filter.Eq(e => e.Domain, domain)
-               & Builders<TenantTheme>.Filter.Lte(e => e.StartDate, DateTime.UtcNow)
-               & Builders<TenantTheme>.Filter.Gte(e => e.EndDate, DateTime.UtcNow);
+            var filter = Builders<TenantTheme>.Filter.Eq(e => e.TenantId, tenantId);
             return await collection.Find(filter).FirstOrDefaultAsync();
         }
 
         protected override void CreateIndexes()
         {
             collection.Indexes.CreateOne(new CreateIndexModel<TenantTheme>(Builders<TenantTheme>.IndexKeys.Ascending(i => i.TenantId)));
-            collection.Indexes.CreateOne(new CreateIndexModel<TenantTheme>(Builders<TenantTheme>.IndexKeys.Ascending(i => i.Domain)));
-            collection.Indexes.CreateOne(new CreateIndexModel<TenantTheme>(Builders<TenantTheme>.IndexKeys.Ascending(i => i.StartDate)));
-            collection.Indexes.CreateOne(new CreateIndexModel<TenantTheme>(Builders<TenantTheme>.IndexKeys.Ascending(i => i.EndDate)));
         }
     }
 }

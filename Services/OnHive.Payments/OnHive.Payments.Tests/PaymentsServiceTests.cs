@@ -9,8 +9,9 @@ using OnHive.Core.Library.Entities.Payments;
 using OnHive.Core.Library.Entities.Users;
 using OnHive.Core.Library.Enums.Orders;
 using OnHive.Core.Library.Enums.Payments;
+using OnHive.Core.Library.Entities.Orders;
 using OnHive.Events.Domain.Abstractions.Services;
-using OnHive.Orders.Domain.Abstractions.Services;
+using OnHive.Orders.Domain.Abstractions.Repositories;
 using OnHive.Payments.Domain.Abstractions.Repositories;
 using OnHive.Payments.Domain.Exceptions;
 using OnHive.Payments.Domain.Mappers;
@@ -19,7 +20,6 @@ using OnHive.Payments.Services;
 using OnHive.Users.Domain.Abstractions.Services;
 using FluentAssertions;
 using Moq;
-using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 using System.Net;
 using System.Text.Json;
@@ -33,9 +33,8 @@ namespace OnHive.Payments.Tests
         private readonly Mock<IEventRegister> mockEventRegister;
         private readonly Mock<IBankSlipNumberControlRepository> mockBankSlipNumberControlRepository;
         private readonly Mock<IBankSlipSettingsRepository> mockBankSlipSettingsRepository;
-        private readonly Mock<IOrdersService> mockOrdersService;
+        private readonly Mock<IOrdersRepository> mockOrdersRepository;
         private readonly Mock<IUsersService> mockUsersService;
-        private readonly Mock<IServicesHub> mockServicesHub;
 
         private readonly PaymentsApiSettings paymentApiSettings;
         private readonly IMapper mapper;
@@ -50,12 +49,13 @@ namespace OnHive.Payments.Tests
             mockEventRegister = mockRepository.Create<IEventRegister>();
             mockBankSlipNumberControlRepository = mockRepository.Create<IBankSlipNumberControlRepository>();
             mockBankSlipSettingsRepository = mockRepository.Create<IBankSlipSettingsRepository>();
-            mockOrdersService = mockRepository.Create<IOrdersService>();
+            mockOrdersRepository = mockRepository.Create<IOrdersRepository>();
             mockUsersService = mockRepository.Create<IUsersService>();
-            mockServicesHub = mockRepository.Create<IServicesHub>();
-            mockServicesHub.SetupGet(s => s.UsersService).Returns(mockUsersService.Object);
-            mockServicesHub.SetupGet(s => s.OrdersService).Returns(mockOrdersService.Object);
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
+            mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<OnHive.Payments.Domain.Mappers.MappersConfig>();
+                cfg.AddProfile<OnHive.Orders.Domain.Mappers.MappersConfig>();
+            }).CreateMapper();
             mockHttpHandler = new MockHttpMessageHandler();
             httpClient = new HttpClient(mockHttpHandler);
             paymentApiSettings = new PaymentsApiSettings
@@ -108,9 +108,8 @@ namespace OnHive.Payments.Tests
 
             mockPaymentRepository.Setup(r => r.GetByIdAsync(paymentId)).ReturnsAsync(payment);
 
-            mockOrdersService.Setup(r => r.SetPaymentStatus(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<OrderStatus>(), It.IsAny<LoggedUserDto>()));
-
-            mockOrdersService.Setup(r => r.GetByIdAsync(It.IsAny<string>(), It.IsAny<LoggedUserDto>())).ReturnsAsync(new OrderDto { Id = Guid.NewGuid().ToString() });
+            mockOrdersRepository.Setup(r => r.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(new Order { Id = payment.OrderId, Code = "ORD1", TotalValue = 100, Status = OrderStatus.Pending });
+            mockOrdersRepository.Setup(r => r.SaveAsync(It.IsAny<Order>(), It.IsAny<string>())).Returns<Order, string>((o, _) => Task.FromResult(o));
 
             mockUsersService.Setup(s => s.GetByIdAsync(It.IsAny<string>(), It.IsAny<LoggedUserDto>())).ReturnsAsync(user);
 
@@ -156,11 +155,13 @@ namespace OnHive.Payments.Tests
             string paymentId = Guid.NewGuid().ToString();
             string token = "TEST_TOKEN";
 
+            string orderId = "123456";
             var paymentCheckout = new PaymentCheckoutDto
             {
                 PaymentId = paymentId,
                 ExternalId = "111111",
                 ProviderKey = "MOCKPAY",
+                OrderId = orderId,
                 UserId = "1",
                 TenantId = "111111",
                 PaymentType = PaymentType.PIX,
@@ -199,9 +200,8 @@ namespace OnHive.Payments.Tests
             mockHttpHandler.When($"{paymentApiSettings?.Processors?[0].Host}/{paymentApiSettings?.Processors?[0].Version}/Payment/Checkout")
                 .Respond("application/json", JsonSerializer.Serialize(expected));
 
-            mockOrdersService.Setup(r => r.SetPaymentStatus(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<OrderStatus>(), It.IsAny<LoggedUserDto>()));
-
-            mockOrdersService.Setup(r => r.GetByIdAsync(It.IsAny<string>(), It.IsAny<LoggedUserDto>())).ReturnsAsync(new OrderDto { Id = Guid.NewGuid().ToString() });
+            mockOrdersRepository.Setup(r => r.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(new Order { Id = orderId, Code = "ORD1", TotalValue = 100, Status = OrderStatus.Pending });
+            mockOrdersRepository.Setup(r => r.SaveAsync(It.IsAny<Order>(), It.IsAny<string>())).Returns<Order, string>((o, _) => Task.FromResult(o));
 
             mockUsersService.Setup(s => s.GetByIdAsync(It.IsAny<string>(), It.IsAny<LoggedUserDto>())).ReturnsAsync(paymentClient);
 
@@ -552,7 +552,8 @@ namespace OnHive.Payments.Tests
                 mapper,
                 httpClient,
                 mockEventRegister.Object,
-                mockServicesHub.Object);
+                mockOrdersRepository.Object,
+                mockUsersService.Object);
         }
 
         private UserDto GetTestUser()

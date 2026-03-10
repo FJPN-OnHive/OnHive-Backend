@@ -62,7 +62,6 @@ builder.ConfigureTeachersApi();
 builder.ConfigureInvoicesApi();
 
 builder.Services.SetServiceProviderHelper();
-builder.Services.SetServicesHub();
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {

@@ -11,7 +11,19 @@
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": {
+                "owner": "csharp-build",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^\\s*(.*)\\((\\d+),(\\d+)\\): (error|warning) ([^:]+): (.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "code": 5,
+                    "message": 6
+                }
+            }
         },
         {
             "label": "publish",

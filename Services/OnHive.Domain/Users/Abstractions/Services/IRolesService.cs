@@ -17,6 +17,8 @@ namespace OnHive.Users.Domain.Abstractions.Services
 
         Task<RoleDto> CreateAsync(RoleDto roleDto, LoggedUserDto loggedUser);
 
+        Task<List<RoleDto>> CreateAsync(List<RoleDto> roleDtos);
+
         Task<RoleDto?> UpdateAsync(RoleDto roleDto, LoggedUserDto loggedUser);
 
         Task<RoleDto?> PatchAsync(JsonDocument patchDto, LoggedUserDto loggedUser);

@@ -89,6 +89,18 @@ namespace OnHive.Tenants.Api.Endpoints
             .WithMetadata(PermissionConfig.Create("tenants_read"))
             .Produces<Response<PaginatedResult<TenantDto>>>();
 
+            app.MapPost("v1/Tenant/Setup", async (HttpContext context, [FromServices] ITenantsService service, [FromBody] TenantSetupDto tenantDto) =>
+            {
+                var result = await service.SetupTenantAsync(tenantDto);
+                if (result == null) return Results.Ok(Response<TenantDto>.Empty());
+                return Results.Ok(Response<TenantDto>.Ok(result));
+            })
+            .WithName("SetupTenant")
+            .WithDescription("Initial tenant setup")
+            .WithTags("Tenants")
+            .AllowAnonymous()
+            .Produces<Response<TenantDto>>();
+
             app.MapPost("v1/Tenant", async (HttpContext context, [FromServices] ITenantsService service, [FromBody] TenantDto tenantDto) =>
             {
                 var loggedUser = context.GetUser();

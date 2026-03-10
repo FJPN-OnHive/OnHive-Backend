@@ -68,97 +68,24 @@ namespace OnHive.Tenants.Tests
             var service = CreateService();
 
             var testUser = GetTestUser();
-            var expectedDomain = "domain";
-            var expected = new List<TenantTheme>
-            {
-                new()
+            var expected =  new TenantTheme()
                 {
                    Id = Guid.NewGuid().ToString(),
                    TenantId = testUser.TenantId,
-                   Domain = expectedDomain,
                    IsActive = true
-                },
-                new()
-                {
-                   Id = Guid.NewGuid().ToString(),
-                   TenantId = testUser.TenantId,
-                   Domain = expectedDomain,
-                   IsActive = true
-                },
-                new()
-                {
-                   Id = Guid.NewGuid().ToString(),
-                   TenantId = testUser.TenantId,
-                   Domain = expectedDomain,
-                   IsActive = true
-                }
-            };
+                };
 
-            mockTenantThemesRepository.Setup(r => r.GetByDomain(expectedDomain, testUser.TenantId))
+            mockTenantThemesRepository.Setup(r => r.GetByTenant(testUser.TenantId))
                 .ReturnsAsync(expected);
 
             // Act
-            var result = await service.GetByDomain(expectedDomain, testUser.TenantId);
-
-            // Assert
-            result?.Should().NotBeNull();
-            result?.Should().BeOfType<List<TenantThemeDto>>();
-            result?.Should().NotBeNull();
-            result?.Should().HaveCount(3);
-            mockTenantThemesRepository.Verify(r => r.GetByDomain(expectedDomain, testUser.TenantId), Times.Once);
-        }
-
-        [Fact]
-        public async Task GetTenantCurrentThemeByDomain_Test()
-        {
-            // Arrange
-            var service = CreateService();
-
-            var testUser = GetTestUser();
-            var expectedDomain = "domain";
-            var expected = new List<TenantTheme>
-            {
-                new()
-                {
-                   Id = Guid.NewGuid().ToString(),
-                   TenantId = testUser.TenantId,
-                   Domain = expectedDomain,
-                   StartDate = DateTime.UtcNow.AddDays(-1),
-                   EndDate = DateTime.UtcNow.AddDays(1),
-                   IsActive = true
-                },
-                new()
-                {
-                   Id = Guid.NewGuid().ToString(),
-                   TenantId = testUser.TenantId,
-                   Domain = expectedDomain,
-                   StartDate = DateTime.UtcNow.AddDays(-10),
-                   EndDate = DateTime.UtcNow.AddDays(-5),
-                   IsActive = true
-                },
-                new()
-                {
-                   Id = Guid.NewGuid().ToString(),
-                   TenantId = testUser.TenantId,
-                   Domain = expectedDomain,
-                   StartDate = DateTime.UtcNow.AddDays(10),
-                   EndDate = DateTime.UtcNow.AddDays(15),
-                   IsActive = true
-                }
-            };
-
-            mockTenantThemesRepository.Setup(r => r.GetByDomain(expectedDomain, testUser.TenantId))
-                .ReturnsAsync(expected);
-
-            // Act
-            var result = await service.GetCurrentByDomain(expectedDomain, testUser.TenantId);
+            var result = await service.GetByTenantId(testUser.TenantId);
 
             // Assert
             result?.Should().NotBeNull();
             result?.Should().BeOfType<TenantThemeDto>();
             result?.Should().NotBeNull();
-            result?.Id.Should().Be(expected[0].Id);
-            mockTenantThemesRepository.Verify(r => r.GetByDomain(expectedDomain, testUser.TenantId), Times.Once);
+            mockTenantThemesRepository.Verify(r => r.GetByTenant(testUser.TenantId), Times.Once);
         }
 
         [Fact]
@@ -441,8 +368,7 @@ namespace OnHive.Tenants.Tests
             var input = new TenantThemeDto
             {
                 Id = expected.Id,
-                TenantId = testUser.TenantId,
-                Name = "Test"
+                TenantId = testUser.TenantId
             };
 
             var inputJson = JsonDocument.Parse(JsonSerializer.Serialize(input));

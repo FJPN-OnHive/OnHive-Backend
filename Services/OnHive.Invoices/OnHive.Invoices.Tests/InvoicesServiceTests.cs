@@ -11,15 +11,16 @@ using OnHive.Invoices.Domain.Abstractions.Repositories;
 using OnHive.Invoices.Domain.Mappers;
 using OnHive.Invoices.Domain.Models;
 using OnHive.Invoices.Services;
-using OnHive.Orders.Domain.Abstractions.Services;
+using OnHive.Orders.Domain.Abstractions.Repositories;
 using OnHive.Tenants.Domain.Abstractions.Services;
 using OnHive.Users.Domain.Abstractions.Services;
 using FluentAssertions;
 using Moq;
-using OnHive.Domains.Common.Abstractions.Services;
 using RichardSzalay.MockHttp;
 using System.Net;
 using System.Text.Json;
+using OnHive.Core.Library.Entities.Orders;
+using OnHive.Core.Library.Entities.Users;
 
 namespace OnHive.Invoices.Tests
 {
@@ -29,9 +30,8 @@ namespace OnHive.Invoices.Tests
         private readonly Mock<IInvoicesRepository> mockInvoicesRepository;
         private readonly Mock<IUsersService> mockUsersService;
         private readonly Mock<ITenantsService> mockTenantsService;
-        private readonly Mock<IOrdersService> mockOrdersService;
+        private readonly Mock<IOrdersRepository> mockOrdersRepository;
         private readonly Mock<ITenantParametersService> mockTenantParametersService;
-        private readonly Mock<IServicesHub> mockServicesHub;
         private readonly InvoicesApiSettings invoicesApiSettings;
         private readonly IMapper mapper;
         private readonly MockHttpMessageHandler mockHttpHandler;
@@ -44,13 +44,8 @@ namespace OnHive.Invoices.Tests
             mockInvoicesRepository = mockRepository.Create<IInvoicesRepository>();
             mockUsersService = mockRepository.Create<IUsersService>();
             mockTenantsService = mockRepository.Create<ITenantsService>();
-            mockOrdersService = mockRepository.Create<IOrdersService>();
+            mockOrdersRepository = mockRepository.Create<IOrdersRepository>();
             mockTenantParametersService = mockRepository.Create<ITenantParametersService>();
-            mockServicesHub = mockRepository.Create<IServicesHub>();
-            mockServicesHub.SetupGet(h => h.TenantsService).Returns(mockTenantsService.Object);
-            mockServicesHub.SetupGet(h => h.TenantParametersService).Returns(mockTenantParametersService.Object);
-            mockServicesHub.SetupGet(h => h.OrdersService).Returns(mockOrdersService.Object);
-            mockServicesHub.SetupGet(h => h.UsersService).Returns(mockUsersService.Object);
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappersConfig>()).CreateMapper();
             mockHttpHandler = new MockHttpMessageHandler();
             httpClient = new HttpClient(mockHttpHandler);
@@ -137,7 +132,7 @@ namespace OnHive.Invoices.Tests
                 }
             };
 
-            mockInvoicesRepository.Setup(r => r.GetByFilterAsync(filter, loggedUser!.User!.TenantId))
+            mockInvoicesRepository.Setup(r => r.GetByFilterAsync(filter, loggedUser!.User!.TenantId, false))
                 .ReturnsAsync(new PaginatedResult<Invoice> { Page = 1, PageCount = 1, Itens = expected });
 
             // Act
@@ -149,7 +144,7 @@ namespace OnHive.Invoices.Tests
             result?.Itens.Should().NotBeNull();
             result?.Itens.Should().HaveCount(3);
             result?.Itens.TrueForAll(p => expected.Select(e => e.Id).Contains(p.Id));
-            mockInvoicesRepository.Verify(r => r.GetByFilterAsync(filter, loggedUser!.User!.TenantId), Times.Once);
+            mockInvoicesRepository.Verify(r => r.GetByFilterAsync(filter, loggedUser!.User!.TenantId, false), Times.Once);
         }
 
         [Fact]
@@ -183,7 +178,7 @@ namespace OnHive.Invoices.Tests
             result?.Should().BeOfType<PaginatedResult<InvoiceDto>>();
             result?.Itens.Should().NotBeNull();
             result?.Itens.Should().HaveCount(0);
-            mockInvoicesRepository.Verify(r => r.GetByFilterAsync(filter, loggedUser!.User!.TenantId), Times.Once);
+            mockInvoicesRepository.Verify(r => r.GetByFilterAsync(filter, loggedUser!.User!.TenantId, false), Times.Once);
         }
 
         [Fact]
@@ -382,11 +377,11 @@ namespace OnHive.Invoices.Tests
 
             mockInvoicesRepository.Setup(s => s.SaveAsync(It.IsAny<Invoice>(), It.IsAny<string>())).ReturnsAsync((Invoice i, string s) => i);
 
-            mockOrdersService.Setup(s => s.GetByIdAsync(order.Id, null)).ReturnsAsync(order);
+            mockOrdersRepository.Setup(s => s.GetByIdAsync(order.Id)).ReturnsAsync( new Order { Id = order.Id, TenantId = order.TenantId, UserId = client.Id });
 
-            mockUsersService.Setup(s => s.GetByIdAsync(client.Id)).ReturnsAsync(client);
+            mockUsersService.Setup(s => s.GetByIdAsync(client.Id)).ReturnsAsync( new UserDto { Id = client.Id, TenantId = client.TenantId });
 
-            mockTenantsService.Setup(s => s.GetByIdAsync(emitter.Id)).ReturnsAsync(emitter);
+            mockTenantsService.Setup(s => s.GetByIdAsync(emitter.Id)).ReturnsAsync( new TenantDto { Id = emitter.Id, Name = emitter.Name, Email = emitter.Email });
 
             mockTenantParametersService.Setup(s => s.GetByKey(emitter.Id, "INVOICE", "SERIE")).ReturnsAsync(new TenantParameterDto { Value = "1" });
 
@@ -446,7 +441,10 @@ namespace OnHive.Invoices.Tests
                 invoicesApiSettings,
                 mapper,
                 httpClient,
-                mockServicesHub.Object);
+                mockUsersService.Object,
+                mockOrdersRepository.Object,
+                mockTenantsService.Object,
+                mockTenantParametersService.Object);
         }
 
         private LoggedUserDto GetTestUser()
