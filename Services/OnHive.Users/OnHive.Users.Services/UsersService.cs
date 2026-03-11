@@ -303,8 +303,8 @@ namespace OnHive.Users.Services
         public async Task<UserDto> CreateWithRolesAsync(SignInUserDto newUser, List<string> roles)
         {
             var user = await CreateAsync(newUser);
-            user.Roles = roles;
-            var currentUser = mapper.Map<User>(user);
+            var currentUser = await usersRepository.GetByIdAsync(user.Id);
+            currentUser.Roles = roles;
             var response = await usersRepository.SaveAsync(currentUser, currentUser.Id);
             return mapper.Map<UserDto>(response); 
         }

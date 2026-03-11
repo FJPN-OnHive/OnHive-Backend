@@ -89,7 +89,8 @@ namespace OnHive.Tenants.Services
 
             await tenantsRepository.SaveAsync(tenant);
             await rolesService.CreateAsync(roles.Select(r => mapper.Map<RoleDto>(r)).ToList());
-            await usersService.CreateWithRolesAsync(user, ["admin"]);
+            var newUser = await usersService.CreateWithRolesAsync(user, ["admin"]);
+            await usersService.ValidateEmailAsync(newUser.MainEmail, newUser.Id, newUser.Id);
 
             return mapper.Map<TenantDto>(tenant);
         }
