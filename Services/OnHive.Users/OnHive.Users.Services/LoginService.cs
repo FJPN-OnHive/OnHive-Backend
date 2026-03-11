@@ -62,7 +62,6 @@ namespace OnHive.Users.Services
         {
             var user = await GetUser(login);
             ValidateLogin(login, user);
-            await ValidateAppPermission(login, user);
             return await GetLoginResponseAsync(user, login.RemindMe, true);
         }
 
@@ -70,7 +69,6 @@ namespace OnHive.Users.Services
         {
             var user = await GetUser(login);
             ValidateLogin(login, user);
-            await ValidateAppPermission(login, user);
             return await GetLoginResponseAsync(user, login.RemindMe);
         }
 
@@ -164,6 +162,10 @@ namespace OnHive.Users.Services
 
         private async Task<LoginResponseDto> GetLoginResponseAsync(User user, bool remind, bool expired = false)
         {
+            if (string.IsNullOrEmpty(usersApiSettings.JwtAuth?.SecretKey))
+            {
+                await SaveNewJwtConfig();
+            }
             var response = new LoginResponseDto
             {
                 User = OpenClearUser(user)
@@ -277,18 +279,6 @@ namespace OnHive.Users.Services
             return result;
         }
 
-        private async Task ValidateAppPermission(LoginDto login, User user)
-        {
-            var roles = await GetRoles(user);
-            var permissions = roles.SelectMany(r => r.Permissions);
-            var appSettings = usersApiSettings.AppsAccessSettings.Find(a => a.AppName.Equals(login.AppName, StringComparison.InvariantCultureIgnoreCase));
-            if (appSettings == null || !appSettings.AppPermissions.Split(',').All(a => permissions.Any(p => p.Equals(a, StringComparison.InvariantCultureIgnoreCase))))
-            {
-                logger.Warning("Invalid app permissions for user {user}, Tenantid: {Tenantid}, app: {app}, permissions: {settings}, user permissions: {userPermissions}", user.Login, user.TenantId, login.AppName, appSettings?.AppPermissions, string.Join(",", permissions));
-                throw new UnauthorizedAccessException("Invalid app permissions");
-            }
-        }
-
         private async Task<User> GetUser(LoginDto login)
         {
             var user = await usersRepository.GetByMainEmailAsync(login.Login, login.TenantId);
@@ -343,8 +333,8 @@ namespace OnHive.Users.Services
 
         private async Task SaveNewJwtConfig()
         {
-            usersApiSettings.JwtAuth?.SecretKey = CodeHelper.GenerateAlphanumericCode(30).HashMd5();
-            usersApiSettings.JwtAuth?.ClientKey = CodeHelper.GenerateAlphanumericCode(30).HashMd5();
+            usersApiSettings.JwtAuth.SecretKey = CodeHelper.GenerateAlphanumericCode(30).HashMd5();
+            usersApiSettings.JwtAuth.ClientKey = CodeHelper.GenerateAlphanumericCode(30).HashMd5();
             if (string.IsNullOrEmpty(usersApiSettings?.JwtAuth?.Issuer))
             {
                 usersApiSettings!.JwtAuth!.Issuer = "onhive.com.br";
@@ -365,7 +355,6 @@ namespace OnHive.Users.Services
             currentUserSettings.Value = usersApiSettings;
 
             await configurationService.SaveAsync(currentAuthSettings, null);
-            await configurationService.SaveAsync(currentUserSettings, null);
         }
     }
 }
